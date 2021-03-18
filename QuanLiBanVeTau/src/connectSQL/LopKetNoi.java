@@ -14,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.ArrayList;
+import module.*;
 
 
 /**
@@ -53,6 +55,94 @@ public class LopKetNoi {
         }
         return null;
     }
+    public ArrayList<LoaiTaiKhoan> getDSLoaiTK()
+    {
+        ArrayList<LoaiTaiKhoan> listLoaiTK =new ArrayList<LoaiTaiKhoan>();
+        String sql = "select * from LoaiTaiKhoan";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (true)
+            {
+                if (rs.next())
+                {
+                    LoaiTaiKhoan s=new LoaiTaiKhoan();
+                    s.setMaLoaiTaiKhoan(rs.getString("MaLoaiTaiKhoan"));
+                    s.setTenLoaiTaiKhoan(rs.getString("TenLoaiTaiKhoan"));
+                    listLoaiTK.add(s);
+                }
+                else
+                {
+                    break;
+                }
+            }
+            
+        } catch (Exception e) {
+        }
+        return listLoaiTK;
+    }
     
+    public TaiKhoan getTTTK(String TKCanTim, String MKCanTim){   //Lấy thông tin tài khoản sẵn dùng để check xem tài khoản có trong CSDL không?
+    String sql="select * from TaiKhoan where TenTaiKhoan=? and MatKhau=?";
+    TaiKhoan tk=null;
+    try {
+        PreparedStatement ps=connection.prepareStatement(sql);
+        ps.setString(1,TKCanTim);
+        ps.setString(2, MKCanTim);
+        ResultSet rs=ps.executeQuery();
+        while (true)
+        {
+            if (rs.next())
+            {
+                tk=new TaiKhoan();
+                tk.setTenTaiKhoan(rs.getString("TenTaiKhoan"));
+                tk.setMatKhau(rs.getString("MatKhau"));
+                tk.setMaLoaiTaiKhoan(rs.getString("MaLoaiTaiKhoan"));
+                tk.setCMND(rs.getString("CMND"));
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return tk;
+}
+    public boolean addNguoiDung(NguoiDung s)
+{
+    String sql="insert into NguoiDung(CMND,SDT,Ten,Email,TenTaiKhoan) values(?,?,?,?,?)";
+    try {
+        PreparedStatement ps=connection.prepareStatement(sql);
+        ps.setString(1,s.getCMND());
+        ps.setString(2, s.getSDT());
+        ps.setString(3, s.getTen());
+        ps.setString(4, s.getEmail());
+        ps.setString(5, s.getTenTaiKhoan());
+        
+        return ps.executeUpdate()>0;
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return false;
+}
+    public boolean addTaiKhoan(TaiKhoan s)
+{
+    String sql="insert into TaiKhoan(TenTaiKhoan,MatKhau,MaLoaiTaiKhoan,CMND) values(?,?,?,?)";
+    try {
+        PreparedStatement ps=connection.prepareStatement(sql);
+        ps.setString(1,s.getTenTaiKhoan());
+        ps.setString(2, s.getMatKhau());
+        ps.setString(3, s.getMaLoaiTaiKhoan());
+        ps.setString(4, s.getCMND());
+        
+        return ps.executeUpdate()>0;
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return false;
+}
   
 }
