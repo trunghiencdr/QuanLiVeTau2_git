@@ -412,9 +412,9 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        if(jtaCacTramDiQua.equals("")){
+      
             JOptionPane.showMessageDialog(this, "sua that bai tram khong dc trong");
-        }
+        
     }//GEN-LAST:event_btnSuaActionPerformed
 
 
