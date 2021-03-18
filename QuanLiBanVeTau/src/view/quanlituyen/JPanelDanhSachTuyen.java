@@ -161,6 +161,11 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         });
 
         btnSua.setText("SỬA");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
 
         btnXoa.setText("XÓA");
 
@@ -404,6 +409,13 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jtaCacTramDiQuaKeyReleased
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+        if(jtaCacTramDiQua.equals("")){
+            JOptionPane.showMessageDialog(this, "sua that bai tram khong dc trong");
+        }
+    }//GEN-LAST:event_btnSuaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
