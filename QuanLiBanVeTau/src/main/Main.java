@@ -5,15 +5,13 @@
  */
 
 package main;
-
-
-import view.MainFrame;
+import view.LoginFrame;
 /**
  * 
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
 public class Main {
     public static void main(String[] args) {
-        new MainFrame().setVisible(true);
+        new LoginFrame().setVisible(true);
     }
 }
