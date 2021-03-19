@@ -103,6 +103,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         cbbGoiYTram = new javax.swing.JComboBox<>();
+        btnXoaTram = new javax.swing.JButton();
 
         jLabel1.setText("Thông tin chi tiết");
 
@@ -142,13 +143,9 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
 
         jLabel3.setText("Các trạm đi qua:");
 
+        jtaCacTramDiQua.setEditable(false);
         jtaCacTramDiQua.setColumns(20);
         jtaCacTramDiQua.setRows(5);
-        jtaCacTramDiQua.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jtaCacTramDiQuaKeyReleased(evt);
-            }
-        });
         jScrollPane2.setViewportView(jtaCacTramDiQua);
 
         jLabel5.setText("Chức năng");
@@ -181,11 +178,18 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
 
         jLabel10.setText("Gồm cả trạm BĐ và KT theo dạng trạm-trạm-trạm");
 
-        jLabel11.setText("Gợi ý trạm");
+        jLabel11.setText("Chọn trạm:");
 
         cbbGoiYTram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbbGoiYTramActionPerformed(evt);
+            }
+        });
+
+        btnXoaTram.setText("Xóa 1 trạm");
+        btnXoaTram.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaTramActionPerformed(evt);
             }
         });
 
@@ -220,7 +224,8 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addComponent(jLabel11)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(cbbGoiYTram, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                            .addComponent(cbbGoiYTram, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnXoaTram)))))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(jLabel5)))
@@ -262,7 +267,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(jtfTenTuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -270,10 +275,12 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
-                            .addComponent(cbbGoiYTram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cbbGoiYTram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnXoaTram)))
                 .addGap(4, 4, 4)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(cbbTiemKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -337,15 +344,15 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                 return;
             }
         }
-        
+
         try {
             PreparedStatement ps = connection.prepareStatement("insert into tuyen values(?,?)");
             ps.setString(1, jtfMaTuyen.getText().toUpperCase());
             ps.setString(2, jtfTenTuyen.getText().toUpperCase());
             ps.executeUpdate();
             /// cap nhat bang cac tram di qua trong tuyen
-            int i=1;
-            for(String s:cacTramDiQua){
+            int i = 1;
+            for (String s : cacTramDiQua) {
                 PreparedStatement ps1 = connection.prepareStatement("insert into tuyenDiQuaTram values(?,?,?)");
                 ps1.setString(1, jtfMaTuyen.getText().toUpperCase());
                 ps1.setString(2, s.toUpperCase());
@@ -355,7 +362,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
             }
             JOptionPane.showMessageDialog(this, "Thêm tuyến thành công!");
             tbmBangTuyen.addRow(new Object[]{jtfMaTuyen.getText().toUpperCase(), jtfTenTuyen.getText().toUpperCase(),
-            jtaCacTramDiQua.getText().toUpperCase()});
+                jtaCacTramDiQua.getText().toUpperCase()});
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Mã tuyến đã có trong danh sách! Vui lòng chọn mã khác");
         }
@@ -365,28 +372,33 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
 
     private void cbbGoiYTramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbGoiYTramActionPerformed
         // TODO add your handling code here:
+        // vì mỗi lần cbb đc thực thi nó sẽ vào hàm này nên phải để biến count để loại bỏ trường hợp không mong muôn vào 
+        // vì không kiểm soát được :))
         if (count <= 0) {
             count++;
             return;
         } else {
-            jtaCacTramDiQua.append(cbbGoiYTram.getSelectedItem().toString());
-            jtaCacTramDiQua.requestFocus();
-        }
-    }//GEN-LAST:event_cbbGoiYTramActionPerformed
+            if (jtaCacTramDiQua.getText().equals("")) {// 
+                jtaCacTramDiQua.append(cbbGoiYTram.getSelectedItem().toString());
+            } else {
+                jtaCacTramDiQua.append("-" + cbbGoiYTram.getSelectedItem().toString());
+            }
 
-    private void jtaCacTramDiQuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtaCacTramDiQuaKeyReleased
-        // TODO add your handling code here:
-        String tramDiQua = jtaCacTramDiQua.getText().toString();
-        if(tramDiQua.equals("")){
-            count=-1;
-            cbbGoiYTram.removeAllItems();
-            loadDSTramVaoCBB();
-        }
-        if (evt.getKeyChar() == '-') {
-            String[] tam = tramDiQua.split("\\s*-\\s*");
-            if (tam.length != 0) {
-                String tramVuaChon = tam[tam.length - 1];
-                count = -1;
+            // sau mỗi lần chọn sẽ reset cbb lại 
+            String tramDiQua = jtaCacTramDiQua.getText().toString();
+            if (tramDiQua.equals("")) {
+
+                cbbGoiYTram.removeAllItems();
+                loadDSTramVaoCBB();
+            } else {// nếu khác rỗng
+                String tramVuaChon = "";
+                String[] tam = tramDiQua.split("\\s*-\\s*");
+                if (tam.length == 0) {// mới có trạm đầu tiên thôi
+                    tramVuaChon = tramDiQua;
+                } else {
+                    tramVuaChon = tam[tam.length - 1];
+                }
+
                 cbbGoiYTram.removeAllItems();
                 try {
                     PreparedStatement ps = connection.prepareStatement("select tenTramBD, tenTramKT from khoangCachTram where "
@@ -406,22 +418,80 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
             }
         }
-    }//GEN-LAST:event_jtaCacTramDiQuaKeyReleased
+
+
+    }//GEN-LAST:event_cbbGoiYTramActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-      
-            JOptionPane.showMessageDialog(this, "sua that bai tram khong dc trong");
-        
+
+        JOptionPane.showMessageDialog(this, "sua that bai tram khong dc trong");
+
     }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnXoaTramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaTramActionPerformed
+        // TODO add your handling code here:
+        String tramDiQua = jtaCacTramDiQua.getText().toString();
+        if (tramDiQua.equals("")) {
+            return;
+        } else {
+            if (tramDiQua.indexOf("-") < 0) {// chi con 1 tram cuoi ma bi xoa
+                jtaCacTramDiQua.setText("");
+                count=-1;
+                cbbGoiYTram.removeAllItems();
+                loadDSTramVaoCBB();
+            } else {
+           
+                String[] tam = tramDiQua.split("-");
+                jtaCacTramDiQua.replaceRange("", tramDiQua.lastIndexOf("-"), tramDiQua.length());
+                // sau mỗi lần chọn sẽ reset cbb lại 
+                tramDiQua = jtaCacTramDiQua.getText().toString();
+                if (tramDiQua.equals("")) {
+                    cbbGoiYTram.removeAllItems();
+                    loadDSTramVaoCBB();
+                } else {// nếu khác rỗng
+                    String tramVuaChon = "";
+                    tam = tramDiQua.split("\\s*-\\s*");
+                    if (tam.length == 0) {// mới có trạm đầu tiên thôi
+                        tramVuaChon = tramDiQua;
+                    } else {
+                        tramVuaChon = tam[tam.length - 1];
+                    }
+                    count = -1;
+                    cbbGoiYTram.removeAllItems();
+                    try {
+                        PreparedStatement ps = connection.prepareStatement("select tenTramBD, tenTramKT from khoangCachTram where "
+                                + "tenTramBD = ?  or tenTramKT = ?");
+                        ps.setString(1, tramVuaChon);
+                        ps.setString(2, tramVuaChon);
+                        ResultSet rs = ps.executeQuery();
+                        while (rs.next()) {
+                            String tramBD = rs.getString(1);
+                            String tramKT = rs.getString(2);
+                            if (tramVuaChon.equals(tramBD)) {
+                                cbbGoiYTram.addItem(tramKT);
+                            } else if (tramVuaChon.equals(tramKT)) {
+                                cbbGoiYTram.addItem(tramBD);
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        }
+    }//GEN-LAST:event_btnXoaTramActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
+    private javax.swing.JButton btnXoaTram;
     private javax.swing.JComboBox<String> cbbGoiYTram;
     private javax.swing.JComboBox<String> cbbSapXep;
     private javax.swing.JComboBox<String> cbbTiemKiem;
