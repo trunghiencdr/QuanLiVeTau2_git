@@ -4,20 +4,78 @@
  * and open the template in the editor.
  */
 package view;
-
+import connectSQL.LopKetNoi;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+import view.quanlitau.JFrameThemTau;
 /**
  *
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
 public class JPanelQuanLiTau extends javax.swing.JPanel {
 
+    private Connection connection;
+    private DefaultTableModel tbmLoaiToa, tbmToa, tbmTau;
     /**
      * Creates new form JPanelQuanLiTau
      */
     public JPanelQuanLiTau() {
         initComponents();
+        setChiChon1();
+        connection = new LopKetNoi().getConnection();
+        tbmLoaiToa = (DefaultTableModel) jtbLoaiToa.getModel();
+        tbmToa = (DefaultTableModel) jtbToa.getModel();
+        tbmTau = (DefaultTableModel) jtbTau.getModel();
+        loadDSLoaiToa();
+        loadDSToa();
+        loadDSTau();
     }
 
+    //==============================================================================
+    private void setChiChon1(){
+        jtbLoaiToa.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jtbToa.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jtbTau.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+    private void loadDSLoaiToa(){
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from LoaiToa");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                tbmLoaiToa.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getFloat(3)});
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void loadDSToa(){
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from Toa");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                tbmToa.addRow(new Object[]{rs.getString(1), rs.getInt(2), rs.getString(3), rs.getString(4)});
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void loadDSTau(){
+        try {
+            PreparedStatement ps = connection.prepareStatement("select * from Tau");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                tbmTau.addRow(new Object[]{rs.getString(1), rs.getInt(2)});
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    //==============================================================================
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,6 +85,17 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jdlThemTau = new javax.swing.JDialog();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jtfTenTau = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jlToa = new javax.swing.JList<>();
+        jButton1 = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -79,6 +148,93 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
         btnXoaLoaiToa = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+
+        jdlThemTau.setMinimumSize(new java.awt.Dimension(400, 550));
+        jdlThemTau.setModal(true);
+        jdlThemTau.setPreferredSize(new java.awt.Dimension(400, 550));
+
+        jLabel14.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel14.setText("THÊM TÀU");
+
+        jLabel15.setText("Tên tàu:");
+
+        jLabel16.setText("Chọn toa:");
+
+        jlToa.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane4.setViewportView(jlToa);
+
+        jButton1.setText("XÁC NHẬN");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel17.setText("Số lượng toa:");
+
+        jLabel18.setText("0");
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(151, 151, 151)
+                        .addComponent(jLabel14))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel17))
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jtfTenTau)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel14)
+                .addGap(40, 40, 40)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(jtfTenTau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel18))
+                .addGap(76, 76, 76)
+                .addComponent(jButton1)
+                .addGap(48, 48, 48))
+        );
+
+        javax.swing.GroupLayout jdlThemTauLayout = new javax.swing.GroupLayout(jdlThemTau.getContentPane());
+        jdlThemTau.getContentPane().setLayout(jdlThemTauLayout);
+        jdlThemTauLayout.setHorizontalGroup(
+            jdlThemTauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jdlThemTauLayout.setVerticalGroup(
+            jdlThemTauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -153,14 +309,17 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 107, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
         );
 
         jPanel5.setBackground(new java.awt.Color(51, 255, 204));
 
         btnThemTau.setText("THÊM");
+        btnThemTau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemTauActionPerformed(evt);
+            }
+        });
 
         btnSuaTau.setText("SỬA");
 
@@ -187,11 +346,12 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnThemTau)
-                    .addComponent(btnSuaTau)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnXoaTau)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnThemTau)
+                        .addComponent(btnSuaTau)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -280,11 +440,11 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
 
             },
             new String [] {
-                "MÃ TOA", "SỐ CHỖ NGỒI", "MÃ LOẠI TOA"
+                "MÃ TOA", "SỐ CHỖ NGỒI", "MÃ LOẠI TOA", "TÊN TÀU"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -301,14 +461,17 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 107, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
         );
 
         jPanel10.setBackground(new java.awt.Color(51, 255, 204));
 
         btnThemToa.setText("THÊM");
+        btnThemToa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemToaActionPerformed(evt);
+            }
+        });
 
         btnSuaToa.setText("SỬA");
 
@@ -335,11 +498,12 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnThemToa)
-                    .addComponent(btnSuaToa)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnXoaToa)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnThemToa)
+                        .addComponent(btnSuaToa)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -383,7 +547,7 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 521, Short.MAX_VALUE)
+            .addGap(0, 524, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -466,9 +630,7 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 107, Short.MAX_VALUE))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
         );
 
         jPanel15.setBackground(new java.awt.Color(51, 255, 204));
@@ -500,11 +662,12 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnThemLoaiToa)
-                    .addComponent(btnSuaLoaiToa)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnXoaLoaiToa)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnThemLoaiToa)
+                        .addComponent(btnSuaLoaiToa)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -558,8 +721,8 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
 
@@ -574,6 +737,23 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnThemToaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemToaActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnThemToaActionPerformed
+
+    private void btnThemTauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemTauActionPerformed
+        // TODO add your handling code here:
+      
+       jdlThemTau.setLocationRelativeTo(this);
+        jdlThemTau.setVisible(true);
+    }//GEN-LAST:event_btnThemTauActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        tbmTau.addRow(new Object[]{jtfTenTau.getText(), jlToa.getSelectedValuesList().toString()});
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -592,11 +772,17 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbbTiemKiemTau;
     private javax.swing.JComboBox<String> cbbTimKiemLoaiToa;
     private javax.swing.JComboBox<String> cbbTimKiemToa;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -607,6 +793,7 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
@@ -622,10 +809,14 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JDialog jdlThemTau;
+    private javax.swing.JList<String> jlToa;
     private javax.swing.JTable jtbLoaiToa;
     private javax.swing.JTable jtbTau;
     private javax.swing.JTable jtbToa;
+    private javax.swing.JTextField jtfTenTau;
     private javax.swing.JTextField jtfTimKiemLoaiToa;
     private javax.swing.JTextField jtfTimKiemTau;
     private javax.swing.JTextField jtfTimKiemToa;

@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import view.JPanelQuanLiTuyen;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 
 /**
@@ -36,6 +37,8 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
      */
     public JPanelDanhSachTram() {
         initComponents();
+        jtbDanhSachTram.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jtbKhoangCachTram.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tbmBangTram = (DefaultTableModel) jtbDanhSachTram.getModel();
         tbmBangKhoangCachTram = (DefaultTableModel) jtbKhoangCachTram.getModel();
         getBangTramVaLenCBB();
