@@ -82,6 +82,8 @@ public class LopKetNoi {
         return listLoaiTK;
     }
     
+    
+    
     public TaiKhoan getTTTK(String TKCanTim, String MKCanTim){   //Lấy thông tin tài khoản sẵn dùng để check xem tài khoản có trong CSDL không?
     String sql="select * from TaiKhoan where TenTaiKhoan=? and MatKhau=?";
     TaiKhoan tk=null;
@@ -128,6 +130,36 @@ public class LopKetNoi {
     }
     return false;
 }
+    public NguoiDung getThongTinNguoiDung(String CMND)
+    {
+        String sql="select * from NguoiDung where CMND=?";
+        NguoiDung nguoiDung=null;
+    try {
+        PreparedStatement ps=connection.prepareStatement(sql);
+        ps.setString(1,CMND);
+        ResultSet rs=ps.executeQuery();
+        while (true)
+        {
+            if (rs.next())
+            {
+                nguoiDung=new NguoiDung();
+                nguoiDung.setCMND(rs.getString("CMND"));
+                nguoiDung.setSDT(rs.getString("SDT"));
+                nguoiDung.setTen(rs.getString("Ten"));
+                nguoiDung.setEmail(rs.getString("Email"));
+                nguoiDung.setTenTaiKhoan(rs.getString("TenTaiKhoan"));
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return nguoiDung;
+    }
     public boolean addTaiKhoan(TaiKhoan s)
 {
     String sql="insert into TaiKhoan(TenTaiKhoan,MatKhau,MaLoaiTaiKhoan,CMND) values(?,?,?,?)";
@@ -144,5 +176,6 @@ public class LopKetNoi {
     }
     return false;
 }
+    
   
 }

@@ -156,7 +156,9 @@ public class LoginFrame extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(rootPane, "Đăng nhập thành công!");
             this.setVisible(false);
-            new MainFrame().setVisible(true);
+            new MainFrame(tk).setVisible(true);
+            //new MainFrame().setVisible(true);
+            
         }
         else
         {

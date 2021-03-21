@@ -13,6 +13,8 @@ import java.awt.event.MouseListener;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import module.TaiKhoan;
+import view.JPanelCaiDatTaiKhoan;
 
 import view.JPanelDatVe;
 import view.JPanelQuanLiLoTrinh;
@@ -29,6 +31,8 @@ public class ChuyenManHinhController {
     private JPanel view; // khi bam vao label minh se hien thi panel len cai jpn view nay
 
     List<DanhMucBean> list = null;
+    
+    private TaiKhoan tk; //luu tai khoan dang nhap luc dau
 
     public ChuyenManHinhController() {
     }
@@ -56,6 +60,16 @@ public class ChuyenManHinhController {
         }
     }
 
+    public void setTk(TaiKhoan tk) {
+        this.tk = tk;
+    }
+
+    public TaiKhoan getTk() {
+        return tk;
+    }
+    
+    
+    
     class LabelEvent implements MouseListener {
 
         private JPanel node;
@@ -92,6 +106,9 @@ public class ChuyenManHinhController {
                     break;
                 case "ThongKe":
                     node = new JPanelThongKe();
+                    break;
+                case "CaiDatTaiKhoan":
+                    node=new JPanelCaiDatTaiKhoan(tk);
                     break;
             }
 
