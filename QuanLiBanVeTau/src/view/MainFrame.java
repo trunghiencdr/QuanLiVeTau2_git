@@ -21,7 +21,7 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-//    private TaiKhoan taiKhoan;
+//    TaiKhoan taiKhoan;
 //
 //    public TaiKhoan getTaiKhoan() {
 //        return taiKhoan;
@@ -32,22 +32,16 @@ public class MainFrame extends javax.swing.JFrame {
 
     
     
-    public MainFrame(String tenTaiKhoan) {
+    public MainFrame(TaiKhoan tk) {
         
         initComponents();
         setLocationRelativeTo(this);
         this.setVisible(true);
         setTitle("Quản lí bán vé tàu");
-        JOptionPane.showMessageDialog(rootPane, tenTaiKhoan);
-//        this.taiKhoan.setCMND(taiKhoan.getCMND());
-//        this.taiKhoan.setMaLoaiTaiKhoan(taiKhoan.getMaLoaiTaiKhoan());
-//        this.taiKhoan.setMatKhau(taiKhoan.getMatKhau());
-//        this.taiKhoan.setTenTaiKhoan(taiKhoan.getTenTaiKhoan());
-        
         
         ChuyenManHinhController controller = new ChuyenManHinhController(jpnView);
         controller.setView(jpnDatVe, jlbDatVe);
-        controller.setTenTaiKhoan(tenTaiKhoan);
+        controller.setTaiKhoan(tk);
         
         List<DanhMucBean> list = new ArrayList<>();
         list.add(new DanhMucBean("DatVe", jpnDatVe, jlbDatVe));
@@ -60,10 +54,7 @@ public class MainFrame extends javax.swing.JFrame {
         controller.setEvents(list);
         
     }
-//    public void setTenTaiKhoan(String tenTaiKhoan)
-//    {
-//        JOptionPane.showMessageDialog(rootPane, tenTaiKhoan);
-//    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.

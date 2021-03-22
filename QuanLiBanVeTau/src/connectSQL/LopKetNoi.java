@@ -204,6 +204,36 @@ public class LopKetNoi {
     }
     return false;
 }
-    
+    public boolean updateMatKhau(TaiKhoan s)    //y nghia: update mat khau cua tai khoan nay!
+    {
+        String sql="update TaiKhoan set MatKhau=? where TenTaiKhoan=?";
+        try {
+            PreparedStatement ps=connection.prepareStatement(sql);
+            ps.setString(1,s.getMatKhau());
+            ps.setString(2,s.getTenTaiKhoan());
+            return ps.executeUpdate()>0;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public boolean updateNguoiDung(NguoiDung s)
+    {
+        String sql="update NguoiDung set SDT=?, Ten=?, Email=? where CMND=?";
+        try {
+            PreparedStatement ps=connection.prepareStatement(sql);
+            ps.setString(1,s.getSDT());
+            ps.setString(2,s.getTen());
+            ps.setString(3,s.getEmail());
+            ps.setString(4,s.getCMND());
+
+            return ps.executeUpdate()>0;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
   
 }

@@ -32,7 +32,7 @@ public class ChuyenManHinhController {
 
     List<DanhMucBean> list = null;
     
-    String tenTaiKhoan; //luu tai khoan dang nhap luc dau
+    TaiKhoan taiKhoan; //luu tai khoan dang nhap luc dau
 
     public ChuyenManHinhController() {
     }
@@ -59,22 +59,10 @@ public class ChuyenManHinhController {
             
         }
     }
-    public void setTenTaiKhoan(String tenTaiKhoan)
+    public void setTaiKhoan(TaiKhoan taiKhoan)
     {
-        this.tenTaiKhoan=tenTaiKhoan;
+        this.taiKhoan=taiKhoan;
     }
-
-//    public void setTk(TaiKhoan tk) {
-//        this.tk.setCMND(tk.getCMND());
-//        this.tk.setMaLoaiTaiKhoan(tk.getMaLoaiTaiKhoan());
-//        this.tk.setMatKhau(tk.getMatKhau());
-//        this.tk.setTenTaiKhoan(tk.getTenTaiKhoan());
-//    }
-
-//    public TaiKhoan getTk() {
-//        return tk;
-//    }
-    
     
     
     class LabelEvent implements MouseListener {
@@ -115,7 +103,7 @@ public class ChuyenManHinhController {
                     node = new JPanelThongKe();
                     break;
                 case "CaiDatTaiKhoan":
-                    node=new JPanelCaiDatTaiKhoan(tenTaiKhoan);
+                    node=new JPanelCaiDatTaiKhoan(taiKhoan);
                     break;
             }
 

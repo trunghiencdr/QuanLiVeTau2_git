@@ -6,8 +6,7 @@
 package view;
 
 import connectSQL.LopKetNoi;
-import java.util.ArrayList;
-import module.LoaiTaiKhoan;
+import javax.swing.JOptionPane;
 import module.NguoiDung;
 import module.TaiKhoan;
 
@@ -19,15 +18,14 @@ public class JPanelCaiDatTaiKhoan extends javax.swing.JPanel {
 
     private LopKetNoi ketNoiCSDL;
     private NguoiDung nguoiDung;
-    
+    TaiKhoan taiKhoan;
     /**
      * Creates new form JPanelCaiDatTaiKhoan
      */
-    public JPanelCaiDatTaiKhoan(String tenTK) {
+    public JPanelCaiDatTaiKhoan(TaiKhoan taiKhoan) {
         initComponents();
-        
+        this.taiKhoan=taiKhoan;
         ketNoiCSDL = new LopKetNoi();
-        TaiKhoan taiKhoan=ketNoiCSDL.getTTTK(tenTK);
         nguoiDung=ketNoiCSDL.getThongTinNguoiDung(taiKhoan.getCMND());
         
         txtTen.setText(nguoiDung.getTen());
@@ -84,8 +82,10 @@ public class JPanelCaiDatTaiKhoan extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 204));
         setPreferredSize(new java.awt.Dimension(800, 600));
         setRequestFocusEnabled(false);
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Thông tin tài khoản");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(339, 11, -1, -1));
 
         jlbTen.setText("Họ và Tên");
 
@@ -99,6 +99,14 @@ public class JPanelCaiDatTaiKhoan extends javax.swing.JPanel {
 
         jlbMatKhau.setText("Mật khẩu");
 
+        txtTen.setEnabled(false);
+
+        txtCMND.setEnabled(false);
+
+        txtEmail.setEnabled(false);
+
+        txtSDT.setEnabled(false);
+
         txtTenTaiKhoan.setEnabled(false);
 
         jlbLoaiTaiKhoan.setText("Loại tài khoản");
@@ -106,10 +114,26 @@ public class JPanelCaiDatTaiKhoan extends javax.swing.JPanel {
         jcbLoaiTaiKhoan.setEnabled(false);
 
         jbtSua.setText("Sửa");
+        jbtSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtSuaActionPerformed(evt);
+            }
+        });
 
         jbnLuu.setText("Lưu");
+        jbnLuu.setEnabled(false);
+        jbnLuu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbnLuuActionPerformed(evt);
+            }
+        });
 
         jbtDoiMatKhau.setText("Đổi mật khẩu");
+        jbtDoiMatKhau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtDoiMatKhauActionPerformed(evt);
+            }
+        });
 
         jpwMatKhau.setEnabled(false);
 
@@ -119,14 +143,14 @@ public class JPanelCaiDatTaiKhoan extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGap(58, 58, 58)
                         .addComponent(jbtSua)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbnLuu)
                         .addGap(239, 239, 239)
+                        .addComponent(jbnLuu)
+                        .addGap(215, 215, 215)
                         .addComponent(jbtDoiMatKhau))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jlbTen)
@@ -136,25 +160,23 @@ public class JPanelCaiDatTaiKhoan extends javax.swing.JPanel {
                             .addComponent(jlbTenTaiKhoan)
                             .addComponent(jlbMatKhau)
                             .addComponent(jlbLoaiTaiKhoan))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtSDT, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
-                                    .addComponent(txtEmail)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtCMND, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtTenTaiKhoan, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jcbLoaiTaiKhoan, 0, 622, Short.MAX_VALUE)
-                                    .addComponent(jpwMatKhau)
-                                    .addComponent(txtTen, javax.swing.GroupLayout.Alignment.TRAILING))))))
-                .addGap(38, 38, 38))
+                        .addGap(33, 33, 33)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jcbLoaiTaiKhoan, javax.swing.GroupLayout.Alignment.LEADING, 0, 622, Short.MAX_VALUE)
+                            .addComponent(txtTen, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCMND, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTenTaiKhoan, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jpwMatKhau, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSDT))))
+                .addGap(10, 10, 10))
         );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jcbLoaiTaiKhoan, jpwMatKhau, txtCMND, txtEmail, txtSDT, txtTen, txtTenTaiKhoan});
+
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbTen)
@@ -163,7 +185,7 @@ public class JPanelCaiDatTaiKhoan extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbCMND)
                     .addComponent(txtCMND, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbEmail)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -191,29 +213,49 @@ public class JPanelCaiDatTaiKhoan extends javax.swing.JPanel {
                 .addGap(20, 20, 20))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(339, 339, 339)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(216, Short.MAX_VALUE))
-        );
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jcbLoaiTaiKhoan, jpwMatKhau, txtCMND, txtEmail, txtSDT, txtTen, txtTenTaiKhoan});
+
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, 390));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSuaActionPerformed
+        // TODO add your handling code here:
+        txtTen.setEnabled(true);
+        txtEmail.setEnabled(true);
+        txtSDT.setEnabled(true);
+        jbtSua.setEnabled(false);
+        jbnLuu.setEnabled(true);
+        jbtDoiMatKhau.setEnabled(false);
+                
+    }//GEN-LAST:event_jbtSuaActionPerformed
+
+    private void jbnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbnLuuActionPerformed
+        // TODO add your handling code here:
+        nguoiDung.setEmail(txtEmail.getText());
+        nguoiDung.setSDT(txtSDT.getText());
+        nguoiDung.setTen(txtTen.getText());
+        if (ketNoiCSDL.updateNguoiDung(nguoiDung))
+        {
+            JOptionPane.showMessageDialog(jlbTenTaiKhoan, "Cập nhật thành công!");
+            txtTen.setEnabled(false);
+            txtEmail.setEnabled(false);
+            txtSDT.setEnabled(false);
+            jbtSua.setEnabled(true);
+            jbnLuu.setEnabled(false);
+            jbtDoiMatKhau.setEnabled(true);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(jlbTenTaiKhoan, "Cập nhật thất bại!");
+        }
+    }//GEN-LAST:event_jbnLuuActionPerformed
+
+    private void jbtDoiMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDoiMatKhauActionPerformed
+        // TODO add your handling code here:
+        new JDialogChangePassword(taiKhoan, true).setVisible(true);
+        taiKhoan=ketNoiCSDL.getTTTK(taiKhoan.getTenTaiKhoan());   //lấy lai thông tin tài khoản từ CSDL
+        jpwMatKhau.setText(taiKhoan.getMatKhau());
+    }//GEN-LAST:event_jbtDoiMatKhauActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
