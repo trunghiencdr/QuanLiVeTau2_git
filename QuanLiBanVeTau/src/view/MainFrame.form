@@ -380,7 +380,7 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/images/baseline_wysiwyg_white_18dp.png"/>
+                      <Image iconType="3" name="/images/hiclipart.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="C&#xe0;i &#x111;&#x1eb7;t t&#xe0;i kho&#x1ea3;n"/>
                   </Properties>
