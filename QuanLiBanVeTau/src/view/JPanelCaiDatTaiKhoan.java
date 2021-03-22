@@ -19,24 +19,29 @@ public class JPanelCaiDatTaiKhoan extends javax.swing.JPanel {
 
     private LopKetNoi ketNoiCSDL;
     private NguoiDung nguoiDung;
+    
     /**
      * Creates new form JPanelCaiDatTaiKhoan
      */
-    public JPanelCaiDatTaiKhoan(TaiKhoan tk) {
+    public JPanelCaiDatTaiKhoan(String tenTK) {
         initComponents();
         
         ketNoiCSDL = new LopKetNoi();
-        nguoiDung=ketNoiCSDL.getThongTinNguoiDung(tk.getCMND());
+        TaiKhoan taiKhoan=ketNoiCSDL.getTTTK(tenTK);
+        nguoiDung=ketNoiCSDL.getThongTinNguoiDung(taiKhoan.getCMND());
         
         txtTen.setText(nguoiDung.getTen());
         txtCMND.setText(nguoiDung.getCMND());
         txtEmail.setText(nguoiDung.getEmail());
         txtSDT.setText(nguoiDung.getSDT());
         txtTenTaiKhoan.setText(nguoiDung.getTenTaiKhoan());
-        jpwMatKhau.setText(tk.getMatKhau());
+        jpwMatKhau.setText(taiKhoan.getMatKhau());
         
-        jcbLoaiTaiKhoan.addItem(tk.getMaLoaiTaiKhoan());        
+        jcbLoaiTaiKhoan.addItem(taiKhoan.getMaLoaiTaiKhoan());        
     }
+
+
+    
     
     
     

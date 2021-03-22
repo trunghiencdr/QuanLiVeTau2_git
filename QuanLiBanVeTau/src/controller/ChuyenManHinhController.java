@@ -32,7 +32,7 @@ public class ChuyenManHinhController {
 
     List<DanhMucBean> list = null;
     
-    private TaiKhoan tk; //luu tai khoan dang nhap luc dau
+    String tenTaiKhoan; //luu tai khoan dang nhap luc dau
 
     public ChuyenManHinhController() {
     }
@@ -59,14 +59,21 @@ public class ChuyenManHinhController {
             
         }
     }
-
-    public void setTk(TaiKhoan tk) {
-        this.tk = tk;
+    public void setTenTaiKhoan(String tenTaiKhoan)
+    {
+        this.tenTaiKhoan=tenTaiKhoan;
     }
 
-    public TaiKhoan getTk() {
-        return tk;
-    }
+//    public void setTk(TaiKhoan tk) {
+//        this.tk.setCMND(tk.getCMND());
+//        this.tk.setMaLoaiTaiKhoan(tk.getMaLoaiTaiKhoan());
+//        this.tk.setMatKhau(tk.getMatKhau());
+//        this.tk.setTenTaiKhoan(tk.getTenTaiKhoan());
+//    }
+
+//    public TaiKhoan getTk() {
+//        return tk;
+//    }
     
     
     
@@ -108,7 +115,7 @@ public class ChuyenManHinhController {
                     node = new JPanelThongKe();
                     break;
                 case "CaiDatTaiKhoan":
-                    node=new JPanelCaiDatTaiKhoan(tk);
+                    node=new JPanelCaiDatTaiKhoan(tenTaiKhoan);
                     break;
             }
 

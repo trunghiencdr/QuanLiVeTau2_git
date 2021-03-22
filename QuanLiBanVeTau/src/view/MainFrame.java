@@ -9,6 +9,7 @@ import bean.DanhMucBean;
 import controller.ChuyenManHinhController;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import module.TaiKhoan;
 
 /**
@@ -20,36 +21,33 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {
-        initComponents();
-        setLocationRelativeTo(this);
-        setTitle("Quản lí bán vé tàu");
-        
-        ChuyenManHinhController controller = new ChuyenManHinhController(jpnView);
-        controller.setView(jpnDatVe, jlbDatVe);
-        
-        List<DanhMucBean> list = new ArrayList<>();
-        list.add(new DanhMucBean("DatVe", jpnDatVe, jlbDatVe));
-        list.add(new DanhMucBean("QuanLiLoTrinh", jpnQuanLiLoTrinh, jlbQuanLiLoTrinh));
-        list.add(new DanhMucBean("QuanLiTau", jpnQuanLiTau, jlbQuanLiTau));
-        list.add(new DanhMucBean("QuanLiTuyen", jpnQuanLiTuyen, jlbQuanLiTuyen));
-        list.add(new DanhMucBean("ThongKe", jpnThongKe, jlbThongKe));
-        list.add(new DanhMucBean("CaiDatTaiKhoan",jpnCaiDatTaiKhoan,jlbCaiDatTaiKhoan));
-        
-        controller.setEvents(list);
-    }
-
+//    private TaiKhoan taiKhoan;
+//
+//    public TaiKhoan getTaiKhoan() {
+//        return taiKhoan;
+//    }
+//      String tenTaiKhoan;
+    
+    
 
     
     
-    public MainFrame(TaiKhoan tk) {
+    public MainFrame(String tenTaiKhoan) {
+        
         initComponents();
         setLocationRelativeTo(this);
+        this.setVisible(true);
         setTitle("Quản lí bán vé tàu");
+        JOptionPane.showMessageDialog(rootPane, tenTaiKhoan);
+//        this.taiKhoan.setCMND(taiKhoan.getCMND());
+//        this.taiKhoan.setMaLoaiTaiKhoan(taiKhoan.getMaLoaiTaiKhoan());
+//        this.taiKhoan.setMatKhau(taiKhoan.getMatKhau());
+//        this.taiKhoan.setTenTaiKhoan(taiKhoan.getTenTaiKhoan());
+        
         
         ChuyenManHinhController controller = new ChuyenManHinhController(jpnView);
         controller.setView(jpnDatVe, jlbDatVe);
-        controller.setTk(tk);
+        controller.setTenTaiKhoan(tenTaiKhoan);
         
         List<DanhMucBean> list = new ArrayList<>();
         list.add(new DanhMucBean("DatVe", jpnDatVe, jlbDatVe));
@@ -62,6 +60,10 @@ public class MainFrame extends javax.swing.JFrame {
         controller.setEvents(list);
         
     }
+//    public void setTenTaiKhoan(String tenTaiKhoan)
+//    {
+//        JOptionPane.showMessageDialog(rootPane, tenTaiKhoan);
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -225,7 +227,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jlbCaiDatTaiKhoan.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jlbCaiDatTaiKhoan.setForeground(new java.awt.Color(255, 255, 255));
-        jlbCaiDatTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hiclipart.png"))); // NOI18N
+        jlbCaiDatTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/baseline_wysiwyg_white_18dp.png"))); // NOI18N
         jlbCaiDatTaiKhoan.setText("Cài đặt tài khoản");
 
         javax.swing.GroupLayout jpnCaiDatTaiKhoanLayout = new javax.swing.GroupLayout(jpnCaiDatTaiKhoan);
@@ -323,37 +325,37 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainFrame().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new MainFrame().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

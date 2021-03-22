@@ -84,7 +84,35 @@ public class LopKetNoi {
     
     
     
-    public TaiKhoan getTTTK(String TKCanTim, String MKCanTim){   //Lấy thông tin tài khoản sẵn dùng để check xem tài khoản có trong CSDL không?
+    public TaiKhoan getTTTK(String TKCanTim){   
+    String sql="select * from TaiKhoan where TenTaiKhoan=?";
+    TaiKhoan tk=null;
+    try {
+        PreparedStatement ps=connection.prepareStatement(sql);
+        ps.setString(1,TKCanTim);
+        ResultSet rs=ps.executeQuery();
+        while (true)
+        {
+            if (rs.next())
+            {
+                tk=new TaiKhoan();
+                tk.setTenTaiKhoan(rs.getString("TenTaiKhoan"));
+                tk.setMatKhau(rs.getString("MatKhau"));
+                tk.setMaLoaiTaiKhoan(rs.getString("MaLoaiTaiKhoan"));
+                tk.setCMND(rs.getString("CMND"));
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return tk;
+}
+    public TaiKhoan dangNhap(String TKCanTim, String MKCanTim){   //Lấy thông tin tài khoản sẵn dùng để check xem tài khoản có trong CSDL không?
     String sql="select * from TaiKhoan where TenTaiKhoan=? and MatKhau=?";
     TaiKhoan tk=null;
     try {
