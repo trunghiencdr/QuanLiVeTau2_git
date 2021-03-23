@@ -9,8 +9,11 @@ import bean.DanhMucBean;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import module.TaiKhoan;
@@ -91,33 +94,37 @@ public class ChuyenManHinhController {
 
         @Override
         public void mousePressed(java.awt.event.MouseEvent e) {
-            switch (kind) {
-                case "DatVe":
-                    node = new JPanelDatVe();
-                    break;
-                case "QuanLiLoTrinh":
-                    node = new JPanelQuanLiLoTrinh();
-                    break;
-                case "QuanLiTau":
-                    node = new JPanelQuanLiTau();
-                    break;
-                case "QuanLiTuyen":
-                    node = new JPanelQuanLiTuyen();
-                    break;
-                case "ThongKe":
-                    node = new JPanelThongKe();
-                    break;
-                case "CaiDatTaiKhoan":
-                    node=new JPanelCaiDatTaiKhoan(tk);
-                    break;
+            try {
+                switch (kind) {
+                    case "DatVe":
+                        node = new JPanelDatVe();
+                        break;
+                    case "QuanLiLoTrinh":
+                        node = new JPanelQuanLiLoTrinh();
+                        break;
+                    case "QuanLiTau":
+                        node = new JPanelQuanLiTau();
+                        break;
+                    case "QuanLiTuyen":
+                        node = new JPanelQuanLiTuyen();
+                        break;
+                    case "ThongKe":
+                        node = new JPanelThongKe();
+                        break;
+                    case "CaiDatTaiKhoan":
+                        node=new JPanelCaiDatTaiKhoan(tk);
+                        break;
+                }
+                
+                view.removeAll();
+                view.setLayout(new BorderLayout());
+                view.add(node);
+                view.validate();
+                view.repaint();
+                setChangeBackground();
+            } catch (SQLException ex) {
+                Logger.getLogger(ChuyenManHinhController.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            view.removeAll();
-            view.setLayout(new BorderLayout());
-            view.add(node);
-            view.validate();
-            view.repaint();
-            setChangeBackground();
         }
 
         @Override
