@@ -213,7 +213,7 @@ public class JPanelCaiDatTaiKhoan extends javax.swing.JPanel {
                 .addGap(20, 20, 20))
         );
 
-<<<<<<< HEAD
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -236,11 +236,6 @@ public class JPanelCaiDatTaiKhoan extends javax.swing.JPanel {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(181, Short.MAX_VALUE))
         );
-=======
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jcbLoaiTaiKhoan, jpwMatKhau, txtCMND, txtEmail, txtSDT, txtTen, txtTenTaiKhoan});
-
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, 390));
->>>>>>> ddf0b3d5f5a713cf9634db2f75899fda6cb24193
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSuaActionPerformed
