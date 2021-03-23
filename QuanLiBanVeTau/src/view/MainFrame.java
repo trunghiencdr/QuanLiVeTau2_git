@@ -218,6 +218,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jlbCaiDatTaiKhoan.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jlbCaiDatTaiKhoan.setForeground(new java.awt.Color(255, 255, 255));
+        jlbCaiDatTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/gear.png"))); // NOI18N
         jlbCaiDatTaiKhoan.setText("Cài đặt tài khoản");
 
         javax.swing.GroupLayout jpnCaiDatTaiKhoanLayout = new javax.swing.GroupLayout(jpnCaiDatTaiKhoan);
