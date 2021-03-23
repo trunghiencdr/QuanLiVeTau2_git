@@ -10,7 +10,7 @@ package module;
  * 
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
-public class TaiKhoan {
+public class TaiKhoan{
     private String tenTaiKhoan, matKhau, CMND, maLoaiTaiKhoan;
 
     public TaiKhoan() {

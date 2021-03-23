@@ -16,6 +16,8 @@ public class LoginFrame extends javax.swing.JFrame {
     /**
      * Creates new form LoginFrame
      */
+    TaiKhoan tk;
+    
     public LoginFrame() {
         initComponents();
         setLocationRelativeTo(this);
@@ -151,12 +153,13 @@ public class LoginFrame extends javax.swing.JFrame {
         String TKCanTim=jTextField1.getText();
         String MKCanTim=new String(jPasswordField1.getPassword());
         LopKetNoi ketNoiCSDL=new LopKetNoi();
-        TaiKhoan tk=ketNoiCSDL.getTTTK(TKCanTim, MKCanTim);
+        tk=ketNoiCSDL.dangNhap(TKCanTim, MKCanTim);
         if (tk!=null)
         {
             JOptionPane.showMessageDialog(rootPane, "Đăng nhập thành công!");
             this.setVisible(false);
-            new MainFrame(tk).setVisible(true);
+            new MainFrame(tk);
+                        
             //new MainFrame().setVisible(true);
             
         }

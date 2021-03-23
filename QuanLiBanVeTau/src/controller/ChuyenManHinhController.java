@@ -35,7 +35,7 @@ public class ChuyenManHinhController {
 
     List<DanhMucBean> list = null;
     
-    private TaiKhoan tk; //luu tai khoan dang nhap luc dau
+    TaiKhoan taiKhoan; //luu tai khoan dang nhap luc dau
 
     public ChuyenManHinhController() {
     }
@@ -62,15 +62,10 @@ public class ChuyenManHinhController {
             
         }
     }
-
-    public void setTk(TaiKhoan tk) {
-        this.tk = tk;
+    public void setTaiKhoan(TaiKhoan taiKhoan)
+    {
+        this.taiKhoan=taiKhoan;
     }
-
-    public TaiKhoan getTk() {
-        return tk;
-    }
-    
     
     
     class LabelEvent implements MouseListener {
@@ -112,7 +107,7 @@ public class ChuyenManHinhController {
                         node = new JPanelThongKe();
                         break;
                     case "CaiDatTaiKhoan":
-                        node=new JPanelCaiDatTaiKhoan(tk);
+                        node=new JPanelCaiDatTaiKhoan(taiKhoan);
                         break;
                 }
                 
