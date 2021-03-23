@@ -139,6 +139,7 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jtbDanhSachTram.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jtbDanhSachTram.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -329,6 +330,7 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jtbKhoangCachTram.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jtbKhoangCachTram.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

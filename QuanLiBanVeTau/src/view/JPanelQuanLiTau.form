@@ -192,8 +192,8 @@
                                       <Component id="jtfMaLoaiToa" min="-2" pref="265" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel20" min="-2" pref="60" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jtfTenLoaiToa" min="-2" pref="265" max="-2" attributes="0"/>
                                           <Component id="jlbMaLoaiToa" min="-2" pref="195" max="-2" attributes="0"/>
@@ -556,6 +556,11 @@
                       <SubComponents>
                         <Component class="javax.swing.JTable" name="jtbTau">
                           <Properties>
+                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                                <MatteColorBorder/>
+                              </Border>
+                            </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="2" rowCount="0">
                                 <Column editable="false" title="T&#xca;N T&#xc0;U" type="java.lang.Object"/>
@@ -1138,6 +1143,11 @@
                       <SubComponents>
                         <Component class="javax.swing.JTable" name="jtbLoaiToa">
                           <Properties>
+                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                                <EmptyBorder/>
+                              </Border>
+                            </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="3" rowCount="0">
                                 <Column editable="false" title="M&#xc3; LO&#x1ea0;I TOA" type="java.lang.Object"/>

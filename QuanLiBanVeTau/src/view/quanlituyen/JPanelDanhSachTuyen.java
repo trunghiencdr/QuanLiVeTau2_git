@@ -108,6 +108,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
 
         jLabel1.setText("Thông tin chi tiết");
 
+        jtbTuyen.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jtbTuyen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

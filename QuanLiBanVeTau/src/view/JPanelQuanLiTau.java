@@ -283,8 +283,8 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(jtfMaLoaiToa, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel16Layout.createSequentialGroup()
-                                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel20)
+                                .addGap(17, 17, 17)
                                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jtfTenLoaiToa, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jlbMaLoaiToa, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -389,6 +389,7 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
+        jtbTau.setBorder(new javax.swing.border.MatteBorder(null));
         jtbTau.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -708,6 +709,7 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
 
         jPanel14.setBackground(new java.awt.Color(255, 255, 255));
 
+        jtbLoaiToa.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jtbLoaiToa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
