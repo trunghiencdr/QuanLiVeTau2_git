@@ -304,11 +304,11 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
                             .addComponent(jLabel19))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
+                                .addGap(50, 50, 50)
                                 .addComponent(jButton2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(cbbTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jlbQuyTacSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -321,9 +321,8 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnXoa)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jTabbedPane4.addTab("Trạm", jPanel2);
@@ -486,7 +485,7 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
                     .addComponent(jtfKhoangCach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(jLabel18))
-                .addGap(22, 22, 22)
+                .addGap(25, 25, 25)
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbbTimKiem1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -569,12 +568,12 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
         // kiem tra rang buoc
-        if (jtfTenTram.equals("")) {
-            JOptionPane.showMessageDialog(this, "Tên trạm không được trống");
-            jtfTenTram.requestFocus();
+        
+        if(hangDangChon==-1){
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn đối tượng! Vui lòng chọn 1 dòng");
             return;
-
         }
+        String tenTram = jtbDanhSachTram.getValueAt(hangDangChon, 0).toString();
         if (jtfDiaChi.equals("")) {
             JOptionPane.showMessageDialog(this, "Địa chỉ không được trống");
             jtfDiaChi.requestFocus();
@@ -582,7 +581,6 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
 
         }
         String sql = "update tram set  diaChi=? where tenTram = ?;";
-        String tenTram = jtfTenTram.getText().trim().toUpperCase();
         String diaChi = jtfDiaChi.getText().trim();
         try {
             PreparedStatement ps = lopKetNoi.getConnection().prepareStatement(sql);
@@ -883,6 +881,10 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
     private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
         // TODO add your handling code here:
 
+        if(hangDangChon1==-1){
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn đối tượng! Vui lòng chọn 1 dòng");
+            return;
+        }
         String tramBD = cbbTramBatDau.getSelectedItem().toString();
         String tramKT = cbbTramKetThuc.getSelectedItem().toString();
         float khoangCach = 0f;

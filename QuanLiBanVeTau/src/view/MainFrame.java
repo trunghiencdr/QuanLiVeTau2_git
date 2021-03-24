@@ -9,6 +9,7 @@ import bean.DanhMucBean;
 import controller.ChuyenManHinhController;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import module.TaiKhoan;
 
@@ -27,34 +28,29 @@ public class MainFrame extends javax.swing.JFrame {
 //        return taiKhoan;
 //    }
 //      String tenTaiKhoan;
-    
-    
-
-    
-    
     public MainFrame(TaiKhoan tk) {
-        
+//        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//        this.setUndecorated(true);
         initComponents();
         setLocationRelativeTo(this);
         this.setVisible(true);
         setTitle("Quản lí bán vé tàu");
-        
+
         ChuyenManHinhController controller = new ChuyenManHinhController(jpnView);
         controller.setView(jpnDatVe, jlbDatVe);
         controller.setTaiKhoan(tk);
-        
+
         List<DanhMucBean> list = new ArrayList<>();
         list.add(new DanhMucBean("DatVe", jpnDatVe, jlbDatVe));
         list.add(new DanhMucBean("QuanLiLoTrinh", jpnQuanLiLoTrinh, jlbQuanLiLoTrinh));
         list.add(new DanhMucBean("QuanLiTau", jpnQuanLiTau, jlbQuanLiTau));
         list.add(new DanhMucBean("QuanLiTuyen", jpnQuanLiTuyen, jlbQuanLiTuyen));
         list.add(new DanhMucBean("ThongKe", jpnThongKe, jlbThongKe));
-        list.add(new DanhMucBean("CaiDatTaiKhoan",jpnCaiDatTaiKhoan,jlbCaiDatTaiKhoan));
-        
-        controller.setEvents(list);
-        
-    }
+        list.add(new DanhMucBean("CaiDatTaiKhoan", jpnCaiDatTaiKhoan, jlbCaiDatTaiKhoan));
 
+        controller.setEvents(list);
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
