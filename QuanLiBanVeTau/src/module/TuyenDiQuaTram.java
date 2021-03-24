@@ -11,6 +11,8 @@ package module;
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
 public class TuyenDiQuaTram {
-    private String maTuyen, maTram;
+    private String maTuyen, tenTram;
+    private int STT;
+    private int thoiGianDen, thoiGianDi;
     
 }

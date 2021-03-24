@@ -49,5 +49,12 @@ public class Tuyen {
         this.DSTramDiQua = DSTramDiQua;
     }
     
-    
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder=new StringBuilder();
+        DSTramDiQua.forEach(s -> {
+            stringBuilder.append(s).append("-");
+        });
+        return stringBuilder.replace(stringBuilder.length()-1, stringBuilder.length(),"").toString();
+    }
 }
