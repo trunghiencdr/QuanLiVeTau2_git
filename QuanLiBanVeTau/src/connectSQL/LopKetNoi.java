@@ -31,7 +31,6 @@ public class LopKetNoi {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, user, pass);
-            System.out.println("Ket noi thanh cong");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(LopKetNoi.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -192,7 +191,6 @@ public class LopKetNoi {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, user, pass);
-            System.out.println("Ket noi thanh cong");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(LopKetNoi.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -200,16 +198,16 @@ public class LopKetNoi {
 
     public static ResultSet select(String sql, Object... args) {
         ketNoi();
+        ResultSet rs = null;
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             for (int i = 0; i < args.length; i++) {
                 ps.setObject(i + 1, args[i]);
             }
-            return ps.executeQuery();
+            rs = ps.executeQuery();
         } catch (SQLException e) {
-            e.printStackTrace();
         }
-        return null;
+        return rs;
     }
 
     public static boolean update(String sql, Object... args) {
@@ -221,36 +219,37 @@ public class LopKetNoi {
             }
             ps.executeUpdate();
         } catch (Exception e) {
-            return false; // khóa bị trùng
+            return false; // khóa bị trùng khi thêm , còn sửa và xóa thì chắc là không lỗi đâu
         }
-    return true;
-}
-    public boolean updateMatKhau(TaiKhoan s)    //y nghia: update mat khau cua tai khoan nay!
+        return true;
+    }
+
+    public boolean updateMatKhau(TaiKhoan s) //y nghia: update mat khau cua tai khoan nay!
     {
-        String sql="update TaiKhoan set MatKhau=? where TenTaiKhoan=?";
+        String sql = "update TaiKhoan set MatKhau=? where TenTaiKhoan=?";
         try {
-            PreparedStatement ps=connection.prepareStatement(sql);
-            ps.setString(1,s.getMatKhau());
-            ps.setString(2,s.getTenTaiKhoan());
-            return ps.executeUpdate()>0;
-            
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, s.getMatKhau());
+            ps.setString(2, s.getTenTaiKhoan());
+            return ps.executeUpdate() > 0;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
-    public boolean updateNguoiDung(NguoiDung s)
-    {
-        String sql="update NguoiDung set SDT=?, Ten=?, Email=? where CMND=?";
-        try {
-            PreparedStatement ps=connection.prepareStatement(sql);
-            ps.setString(1,s.getSDT());
-            ps.setString(2,s.getTen());
-            ps.setString(3,s.getEmail());
-            ps.setString(4,s.getCMND());
 
-            return ps.executeUpdate()>0;
-            
+    public boolean updateNguoiDung(NguoiDung s) {
+        String sql = "update NguoiDung set SDT=?, Ten=?, Email=? where CMND=?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, s.getSDT());
+            ps.setString(2, s.getTen());
+            ps.setString(3, s.getEmail());
+            ps.setString(4, s.getCMND());
+
+            return ps.executeUpdate() > 0;
+
         } catch (Exception e) {
             e.printStackTrace();
         }

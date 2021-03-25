@@ -65,5 +65,5 @@ public class TuyenDiQuaTram {
     public void setThoiGianDi(int thoiGianDi) {
         this.thoiGianDi = thoiGianDi;
     }
-
+    
 }
