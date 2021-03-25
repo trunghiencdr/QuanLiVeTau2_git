@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import module.Tram;
 
@@ -33,6 +34,26 @@ public class TramDao {
         }
     }
 
+    public void themTramVaoDB(Tram tram){
+        try {
+            LopKetNoi.update("insert into Tram values(?,?)", tram.getTenTram(), tram.getDiaChi());
+        } catch (Exception e) {
+        }
+    }
+    public void suaTramTrongDB(Tram tram) {
+        try {
+            LopKetNoi.update("update tram set diaChi = ? where tenTram = ?", tram.getDiaChi(), tram.getTenTram());
+        } catch (Exception e) {
+        }
+    }
+
+    public void xoaTramTrongDB(String tenTram) {
+        try {
+            LopKetNoi.update("delete from tram where tenTram = ?", tenTram);
+        } catch (Exception e) {
+        }
+    }
+
     public void themTramVaoBang(Tram tram, JTable jtb) {
         DefaultTableModel model = (DefaultTableModel) jtb.getModel();
         model.addRow(new Object[]{tram.getTenTram(), tram.getDiaChi()});
@@ -47,11 +68,11 @@ public class TramDao {
         jtb.setValueAt(tram.getDiaChi(), hang, 1);
     }
 
-    public void xoaTramKhoiBang(int hang, JTable jtb) {
-        jtb.remove(hang);
+    public void xoaTramKhoiBang(int hang, DefaultTableModel model) {
+        model.removeRow(hang);
     }
 
-    public void getTramTuBang(int hang, JTable jtb, JLabel tenTram, JLabel diaChi) {
+    public void getTramTuBang(int hang, JTable jtb, JTextField tenTram, JTextField diaChi) {
         tenTram.setText(jtb.getValueAt(hang, 0) + "");
         diaChi.setText(jtb.getValueAt(hang, 1) + "");
     }

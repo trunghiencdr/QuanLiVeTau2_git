@@ -39,10 +39,21 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
      */
     public JPanelDanhSachTram() {
         initComponents();
+//        disableJTF();
         jtbDanhSachTram.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tbmBangTram = (DefaultTableModel) jtbDanhSachTram.getModel();
         tramDao.loadDSTramVaoBang(LopKetNoi.select("select * from Tram"), tbmBangTram);
 
+    }
+
+    private void enableJTF() {
+        jtfTenTram.enable(true);
+        jtfDiaChi.enable(true);
+    }
+
+    private void disableJTF() {
+        jtfTenTram.enable(false);
+        jtfDiaChi.enable(false);
     }
 
     /**
@@ -54,6 +65,15 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jdlThemSuaTram = new javax.swing.JDialog();
+        jPanel5 = new javax.swing.JPanel();
+        jlbTenDialog = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jlbTenTramDialog = new javax.swing.JLabel();
+        jtfTenTramDialog = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jtfDiaChiDialog = new javax.swing.JTextField();
+        btnXacNhanDialog = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -64,7 +84,6 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jtfDiaChi = new javax.swing.JTextField();
-        jlbTenTram = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         btnThem = new javax.swing.JButton();
@@ -78,6 +97,105 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
         cbbTimKiem = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         cbbSapXep = new javax.swing.JComboBox<>();
+
+        jdlThemSuaTram.setMinimumSize(new java.awt.Dimension(420, 350));
+
+        jPanel5.setMinimumSize(new java.awt.Dimension(397, 300));
+
+        jlbTenDialog.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jlbTenDialog.setForeground(new java.awt.Color(51, 51, 255));
+        jlbTenDialog.setText("THÊM TRẠM");
+
+        jLabel8.setText("Tên trạm:");
+
+        jlbTenTramDialog.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jlbTenTramDialog.setForeground(new java.awt.Color(255, 51, 51));
+        jlbTenTramDialog.setText("Tên trạm không được trống");
+
+        jtfTenTramDialog.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfTenTramDialogKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfTenTramDialogKeyReleased(evt);
+            }
+        });
+
+        jLabel9.setText("Địa chỉ:");
+
+        jtfDiaChiDialog.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfDiaChiDialogKeyPressed(evt);
+            }
+        });
+
+        btnXacNhanDialog.setText("XÁC NHẬN");
+        btnXacNhanDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXacNhanDialogActionPerformed(evt);
+            }
+        });
+        btnXacNhanDialog.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnXacNhanDialogKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jlbTenDialog)
+                .addGap(156, 156, 156))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jtfTenTramDialog)
+                            .addComponent(jtfDiaChiDialog)
+                            .addComponent(jlbTenTramDialog, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(142, 142, 142)
+                        .addComponent(btnXacNhanDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jlbTenDialog)
+                .addGap(50, 50, 50)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jtfTenTramDialog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlbTenTramDialog)
+                .addGap(22, 22, 22)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jtfDiaChiDialog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addComponent(btnXacNhanDialog)
+                .addGap(39, 39, 39))
+        );
+
+        javax.swing.GroupLayout jdlThemSuaTramLayout = new javax.swing.GroupLayout(jdlThemSuaTram.getContentPane());
+        jdlThemSuaTram.getContentPane().setLayout(jdlThemSuaTramLayout);
+        jdlThemSuaTramLayout.setHorizontalGroup(
+            jdlThemSuaTramLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jdlThemSuaTramLayout.setVerticalGroup(
+            jdlThemSuaTramLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("DANH SÁCH TRẠM");
@@ -93,14 +211,7 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
 
         jLabel4.setText("Tên trạm:");
 
-        jtfTenTram.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jtfTenTramKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jtfTenTramKeyReleased(evt);
-            }
-        });
+        jtfTenTram.setEditable(false);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 51, 51));
@@ -108,9 +219,7 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
 
         jLabel5.setText("Địa chỉ:");
 
-        jlbTenTram.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
-        jlbTenTram.setForeground(new java.awt.Color(255, 51, 51));
-        jlbTenTram.setText("Tên trạm không được trống");
+        jtfDiaChi.setEditable(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -120,14 +229,11 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
                 .addGap(71, 71, 71)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlbTenTram, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jtfTenTram, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48)
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jtfDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jtfTenTram, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addComponent(jtfDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(69, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -146,9 +252,7 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
                         .addComponent(jLabel5)
                         .addComponent(jtfDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlbTenTram)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         jButton2.setBackground(new java.awt.Color(153, 153, 255));
@@ -288,14 +392,9 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -322,7 +421,7 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -344,12 +443,12 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -421,178 +520,159 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
     }//GEN-LAST:event_jtfTimKiemKeyPressed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // TODO add your handling code here:
-        //        if (hangDangChon == -1) {
-        //            JOptionPane.showMessageDialog(this, "Bạn chưa chọn đối tượng trong bảng để xóa!");
-        //            return;
-        //        }
-        //        //kiem tra ma dang chon co nam trong bang khoang cach khong
-        //
-        //        try {
-        //            PreparedStatement ps = lopKetNoi.getConnection().prepareStatement("select * from tram, khoangCachTram where tenTram = ? "
-        //                    + "and (tenTram = tenTramBD or tenTram = tenTramKT)");
-        //            ps.setString(1, jtbDanhSachTram.getValueAt(hangDangChon, 0).toString());
-        //            ResultSet rs = ps.executeQuery();
-        //            if (rs.next()) {
-        //                if (!rs.getString(1).equals("")) {
-        //                    JOptionPane.showMessageDialog(this, "Không thể xóa vì trạm này còn ở bảng khoảng cách");
-        //                    return;
-        //                }
-        //            }
-        //        } catch (Exception e) {
-        //            e.printStackTrace();
-        //        }
-        //        int cauTraLoi = JOptionPane.showConfirmDialog(this, "Bạn chắc muốn xóa chứ?", "Thông báo", JOptionPane.YES_NO_OPTION);
-        //        if (cauTraLoi == JOptionPane.YES_OPTION) {
-        //            String sql = "delete tram where tenTram=?";
-        //            try {
-        //                PreparedStatement ps = lopKetNoi.getConnection().prepareStatement(sql);
-        //                ps.setString(1, jtbDanhSachTram.getValueAt(hangDangChon, 0).toString());
-        //                ps.executeUpdate();
-        //                JOptionPane.showMessageDialog(this, "Xóa thành công!");
-        //                tbmBangTram.removeRow(hangDangChon);
-        //                jtfDiaChi.setText("");
-        //                jtfTenTram.setText("");
-        //                jtbDanhSachTram.clearSelection();
-        //                // cap nhat lai cbb khi xoa thanh cong
-        //                cbbTramBatDau.removeAllItems();
-        //                cbbTramKetThuc.removeAllItems();
-        //                ResultSet rs = lopKetNoi.selectQuery("select tenTram from Tram");
-        //                while (rs.next()) {
-        //                    String tenTram = rs.getString(1);
-        //                    cbbTramBatDau.addItem(tenTram);
-        //                    cbbTramKetThuc.addItem(tenTram);
-        //                }
-        //            } catch (HeadlessException | SQLException e) {
-        //                e.printStackTrace();
-        //            }
-        //        }
+        if (hangDangChon == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 dòng để xóa");
+        } else {
+            xoaTram();
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // kiem tra cac rang buoc
-
-        if (!jlbTenTram.getText().equals("")) {
-
-        }
-        //        if (jtfTenTram.equals("")) {
-        //            JOptionPane.showMessageDialog(this, " Tên trạm không được trống!");
-        //            jtfTenTram.requestFocus();
-        //            return;
-        //        }
-        //        if (jtfDiaChi.equals("")) {
-        //            JOptionPane.showMessageDialog(this, "Địa chỉ không được trống!");
-        //            jtfDiaChi.requestFocus();
-        //            return;
-        //        }
-        //        // sau khi on thoa het thi them vao table va csdl
-        //        String sql = "insert into tram values(?,?)";
-        //        String tenTram = jtfTenTram.getText().toString().trim().toUpperCase();
-        //        String diaChi = jtfDiaChi.getText().toString().trim();
-        //        try {
-        //            PreparedStatement ps = lopKetNoi.getConnection().prepareStatement(sql);
-        //            ps.setString(1, tenTram);
-        //            ps.setString(2, diaChi);
-        //            ps.executeUpdate();
-        //
-        //        } catch (Exception e) {
-        //            JOptionPane.showMessageDialog(this, "Tên trạm bị trùng");
-        //        }
-        //        tbmBangTram.addRow(new Object[]{tenTram, diaChi});
-        //        JOptionPane.showMessageDialog(this, "Thêm thành công!");
-        //
-        //        //highlight thằng vừa vào
-        //        int tongSoHang = jtbDanhSachTram.getRowCount();
-        //        jtbDanhSachTram.scrollRectToVisible(jtbDanhSachTram.getCellRect(tongSoHang - 1, 0, true));
-        //        jtbDanhSachTram.clearSelection();
-        //        jtbDanhSachTram.addRowSelectionInterval(tongSoHang - 1, tongSoHang - 1); // selection tu hang nao den hang nao
-        //        hangDangChon = tongSoHang - 1;
-        //        // set rỗng các texxt field
-        //        jtfTenTram.setText("");
-        //        jtfDiaChi.setText("");
-        //        // cap nhat lai cbb
-        //        cbbTramBatDau.removeAllItems();
-        //        cbbTramKetThuc.removeAllItems();
-        //        ResultSet rs = lopKetNoi.selectQuery("select tenTram from Tram");
-        //        try {
-        //            while (rs.next()) {
-        //                tenTram = rs.getString(1);
-        //                cbbTramBatDau.addItem(tenTram);
-        //                cbbTramKetThuc.addItem(tenTram);
-        //            }
-        //        } catch (SQLException ex) {
-        //            Logger.getLogger(JPanelDanhSachTram.class.getName()).log(Level.SEVERE, null, ex);
-        //        }
+        hienThiDialog("THÊM TRẠM");
     }//GEN-LAST:event_btnThemActionPerformed
 
+    private void hienThiDialog(String title) {
+        jdlThemSuaTram.setLocationRelativeTo(this);
+        jdlThemSuaTram.setVisible(true);
+        jdlThemSuaTram.setTitle(title);
+        jlbTenDialog.setText(title);
+        if (title.equals("THÊM TRẠM")) {
+            jtfTenTramDialog.enable(true);
+            jtfDiaChiDialog.enable(true);
+            jtfTenTramDialog.setText("");
+            jtfDiaChiDialog.setText("");
+        } else {
+            jtfTenTramDialog.setText(jtfTenTram.getText());
+            jtfDiaChiDialog.setText(jtfDiaChi.getText());
+            jtfTenTramDialog.enable(false);
+            jtfDiaChiDialog.enable(true);
+        }
+    }
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
         // kiem tra rang buoc
-
         if (hangDangChon == -1) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa chọn đối tượng! Vui lòng chọn 1 dòng");
-            return;
-        }
-        String tenTram = jtbDanhSachTram.getValueAt(hangDangChon, 0).toString();
-        if (jtfDiaChi.equals("")) {
-            JOptionPane.showMessageDialog(this, "Địa chỉ không được trống");
-            jtfDiaChi.requestFocus();
-            return;
-
-        }
-        String sql = "update tram set  diaChi=? where tenTram = ?;";
-        String diaChi = jtfDiaChi.getText().trim();
-        try {
-            PreparedStatement ps = lopKetNoi.getConnection().prepareStatement(sql);
-            ps.setString(1, diaChi);
-            ps.setString(2, tenTram);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(this, "Sửa thành công!");
-            jtbDanhSachTram.setValueAt(diaChi, hangDangChon, 1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 dòng muốn sửa");
+        } else
+            hienThiDialog("SỬA TÀU");
     }//GEN-LAST:event_btnSuaActionPerformed
-
-    private void jtfTenTramKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTenTramKeyPressed
-        // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            jtfDiaChi.requestFocus();
-        }
-    }//GEN-LAST:event_jtfTenTramKeyPressed
 
     private void jtbDanhSachTramMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbDanhSachTramMousePressed
         // TODO add your handling code here:
         hangDangChon = jtbDanhSachTram.getSelectedRow();
-        jtfTenTram.setText(jtbDanhSachTram.getValueAt(hangDangChon, 0) + "");
-        jtfDiaChi.setText(jtbDanhSachTram.getValueAt(hangDangChon, 1) + "");
+        tramDao.getTramTuBang(hangDangChon, jtbDanhSachTram, jtfTenTram, jtfDiaChi);
     }//GEN-LAST:event_jtbDanhSachTramMousePressed
 
-    private void jtfTenTramKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTenTramKeyReleased
+    private void setRong() {
+        jtfTenTram.setText(jtfTenTramDialog.getText().trim().toUpperCase());
+        jtfDiaChi.setText(jtfDiaChiDialog.getText().trim());
+        jtfTenTramDialog.setText("");
+        jtfDiaChiDialog.setText("");
+        jlbTenTramDialog.setText("Tên trạm không được rỗng");
+        jtfTenTramDialog.requestFocus();
+    }
+
+    private void themTram() {
+        if (!jlbTenTramDialog.getText().equals(" ")) { // là bị đỏ
+            JOptionPane.showMessageDialog(jdlThemSuaTram, "Thêm thất bại");
+            jtfTenTramDialog.requestFocus();
+            return;
+        } else {
+            String tenTram = jtfTenTramDialog.getText().trim().toUpperCase();
+            String diaChi = jtfDiaChiDialog.getText().trim();
+            //them vao csdl va bang
+            Tram tram = new Tram(tenTram, diaChi);
+            tramDao.themTramVaoDB(tram);
+            tramDao.themTramVaoBang(tram, jtbDanhSachTram);
+            JOptionPane.showMessageDialog(jdlThemSuaTram, "Thêm thành công");
+            //cap nhat lai cac truong
+            setRong();
+            hangDangChon = jtbDanhSachTram.getRowCount() - 1;
+        }
+    }
+
+    private void suaTram() {
+        String tenTram = jtfTenTram.getText();
+        String diaChi = jtfDiaChiDialog.getText().trim();
+        //============================================================
+        Tram tram = new Tram(tenTram, diaChi);
+        tramDao.suaTramTrongBang(tram, hangDangChon, jtbDanhSachTram);
+        tramDao.suaTramTrongDB(tram);
+        //===== cap nhat lai mot so thong tin
+        jtfDiaChi.setText(diaChi);
+    }
+
+    private void xoaTram() {
+        int input = JOptionPane.showConfirmDialog(this, "Bạn chắn chắn muốn xóa chứ?", "Thông báo", JOptionPane.YES_NO_OPTION);
+        if (input == JOptionPane.YES_OPTION) {
+            tramDao.xoaTramTrongDB(jtfTenTram.getText());
+            tramDao.xoaTramKhoiBang(hangDangChon, tbmBangTram);
+            //===================================
+            hangDangChon = -1;
+            jtfTenTram.setText("");
+            jtfDiaChi.setText("");
+            jtbDanhSachTram.clearSelection();
+        }
+    }
+    private void btnXacNhanDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanDialogActionPerformed
         // TODO add your handling code here:
-        String tenTram = jtfTenTram.getText().toUpperCase();
+        if (jdlThemSuaTram.getTitle().equals("Thêm trạm")) {
+            themTram();
+        } else {
+            suaTram();
+            jdlThemSuaTram.dispose();
+        }
+    }//GEN-LAST:event_btnXacNhanDialogActionPerformed
+
+    private void jtfTenTramDialogKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTenTramDialogKeyReleased
+        // TODO add your handling code here:
+        String tenTram = jtfTenTramDialog.getText().toUpperCase();
         if (!tenTram.equals("")) {
-            jlbTenTram.setText("");
+            jlbTenTramDialog.setText(" ");
             try {
-                    ResultSet rs = LopKetNoi.select("select * from Tram where tenTram = ?", tenTram );
-                    if(rs.next()){
-                        jlbTenTram.setText("Tên trạm bị trùng");
-                    }
-                    else{
-                        jlbTenTram.setText("");
-                    }
+                ResultSet rs = LopKetNoi.select("select * from Tram where tenTram = ?", tenTram);
+                if (rs.next()) {
+                    jlbTenTramDialog.setText("Tên trạm bị trùng");
+                } else {
+                    jlbTenTramDialog.setText(" ");
+                }
             } catch (Exception e) {
             }
         } else {
-            jlbTenTram.setText("Tên trạm không được rỗng");
+            jlbTenTramDialog.setText("Tên trạm không được rỗng");
         }
+    }//GEN-LAST:event_jtfTenTramDialogKeyReleased
 
-    }//GEN-LAST:event_jtfTenTramKeyReleased
+    private void jtfTenTramDialogKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTenTramDialogKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            jtfDiaChiDialog.requestFocus();
+        }
+    }//GEN-LAST:event_jtfTenTramDialogKeyPressed
+
+    private void jtfDiaChiDialogKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDiaChiDialogKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_UP) {
+            jtfTenTramDialog.requestFocus();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            btnXacNhanDialog.requestFocus();
+        }
+    }//GEN-LAST:event_jtfDiaChiDialogKeyPressed
+
+    private void btnXacNhanDialogKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnXacNhanDialogKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            themTram();
+        }
+    }//GEN-LAST:event_btnXacNhanDialogKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnXacNhanDialog;
     private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cbbSapXep;
     private javax.swing.JComboBox<String> cbbTimKiem;
@@ -604,16 +684,23 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel jlbTenTram;
+    private javax.swing.JDialog jdlThemSuaTram;
+    private javax.swing.JLabel jlbTenDialog;
+    private javax.swing.JLabel jlbTenTramDialog;
     private javax.swing.JTable jtbDanhSachTram;
     private javax.swing.JTextField jtfDiaChi;
+    private javax.swing.JTextField jtfDiaChiDialog;
     private javax.swing.JTextField jtfTenTram;
+    private javax.swing.JTextField jtfTenTramDialog;
     private javax.swing.JTextField jtfTimKiem;
     // End of variables declaration//GEN-END:variables
 }
