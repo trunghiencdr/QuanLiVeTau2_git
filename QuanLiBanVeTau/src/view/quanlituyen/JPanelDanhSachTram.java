@@ -333,9 +333,6 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
         jLabel6.setText("Tìm kiếm:");
 
         jtfTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jtfTimKiemKeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtfTimKiemKeyReleased(evt);
             }
@@ -448,7 +445,7 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -463,61 +460,42 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
         if (cbbSapXep.getSelectedIndex() == 0)// ten tram a-z
         {
             try {
-                PreparedStatement ps = lopKetNoi.getConnection().prepareStatement("select * from tram order by tenTram  ASC");
-                ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
-                    tbmBangTram.addRow(new Object[]{rs.getString(1), rs.getString(2)});
-                }
+                tramDao.loadDSTramVaoBang(LopKetNoi.select("select * from tram order by tenTram ASC"), tbmBangTram);
             } catch (Exception e) {
             }
-
         } else {// ten tram z-a
             try {
-                PreparedStatement ps = lopKetNoi.getConnection().prepareStatement("select * from tram order by tenTram DESC");
-                ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
-                    tbmBangTram.addRow(new Object[]{rs.getString(1), rs.getString(2)});
-                }
+                tramDao.loadDSTramVaoBang(LopKetNoi.select("select * from tram order by tenTram DESC"), tbmBangTram);
             } catch (Exception e) {
             }
         }
         hangDangChon = -1;
+        setRong();
     }//GEN-LAST:event_cbbSapXepActionPerformed
 
     private void jtfTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTimKiemKeyReleased
         // TODO add your handling code here:
-        tbmBangTram.setRowCount(0);
         if (cbbTimKiem.getSelectedIndex() == 0) {// tim kiem theo ten trạm
             try {
                 // tim kiem theo ma ca tram bd va kt
-                PreparedStatement ps = lopKetNoi.getConnection().prepareStatement("select * from tram where tenTram like '%" + jtfTimKiem.getText() + "%'");
-                ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
-                    tbmBangTram.addRow(new Object[]{rs.getString(1), rs.getString(2)});
-                }
-            } catch (SQLException ex) {
+                String tenTram = jtfTimKiem.getText().trim().toUpperCase();
+                tramDao.loadDSTramVaoBang(LopKetNoi.select("select * from tram where tenTram like ?","%" + tenTram +"%" ), tbmBangTram);
+            } catch (Exception ex) {
                 Logger.getLogger(JPanelDanhSachTram.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } else {
             try {
                 // tim kiem theo ma ca tram bd va kt
-                PreparedStatement ps = lopKetNoi.getConnection().prepareStatement("select * from tram where diaChi like '%" + jtfTimKiem.getText() + "%'");
-                ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
-                    tbmBangTram.addRow(new Object[]{rs.getString(1), rs.getString(2)});
-                }
-            } catch (SQLException ex) {
+                String diaChi = jtfTimKiem.getText().trim();
+                tramDao.loadDSTramVaoBang(LopKetNoi.select("select * from tram where diaChi like ?","%" + diaChi +"%" ), tbmBangTram);
+            } catch (Exception ex) {
                 Logger.getLogger(JPanelDanhSachTram.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         hangDangChon = -1;
+        setRong();
     }//GEN-LAST:event_jtfTimKiemKeyReleased
-
-    private void jtfTimKiemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTimKiemKeyPressed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jtfTimKiemKeyPressed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         if (hangDangChon == -1) {
@@ -564,7 +542,11 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
         tramDao.getTramTuBang(hangDangChon, jtbDanhSachTram, jtfTenTram, jtfDiaChi);
     }//GEN-LAST:event_jtbDanhSachTramMousePressed
 
-    private void setRong() {
+    private void setRong(){
+        jtfTenTram.setText("");
+        jtfDiaChi.setText("");
+    }
+    private void capNhatSauKhiThem() {
         jtfTenTram.setText(jtfTenTramDialog.getText().trim().toUpperCase());
         jtfDiaChi.setText(jtfDiaChiDialog.getText().trim());
         jtfTenTramDialog.setText("");
@@ -587,7 +569,7 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
             tramDao.themTramVaoBang(tram, jtbDanhSachTram);
             JOptionPane.showMessageDialog(jdlThemSuaTram, "Thêm thành công");
             //cap nhat lai cac truong
-            setRong();
+            capNhatSauKhiThem();
             hangDangChon = jtbDanhSachTram.getRowCount() - 1;
         }
     }
