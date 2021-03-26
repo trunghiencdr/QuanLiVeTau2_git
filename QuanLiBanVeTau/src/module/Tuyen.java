@@ -15,14 +15,16 @@ import java.util.ArrayList;
 public class Tuyen {
     private String maTuyen, tenTuyen;
     private ArrayList<String> DSTramDiQua;
+    private ArrayList<Float>DSKhoangCach;
 
     public Tuyen() {
     }
 
-    public Tuyen(String maTuyen, String tenTuyen, ArrayList<String> DSTramDiQua) {
+    public Tuyen(String maTuyen, String tenTuyen, ArrayList<String> DSTramDiQua, ArrayList<Float> DSKhoangCach) {
         this.maTuyen = maTuyen;
         this.tenTuyen = tenTuyen;
         this.DSTramDiQua = DSTramDiQua;
+        this.DSKhoangCach = DSKhoangCach;
     }
 
     public String getMaTuyen() {
@@ -49,8 +51,16 @@ public class Tuyen {
         this.DSTramDiQua = DSTramDiQua;
     }
     
-    @Override
-    public String toString(){
+
+    public String DSTramDiQuaSangChuoi(){
+        StringBuilder stringBuilder=new StringBuilder();
+        DSTramDiQua.forEach(s -> {
+            stringBuilder.append(s).append("-");
+        });
+        return stringBuilder.replace(stringBuilder.length()-1, stringBuilder.length(),"").toString();
+    }
+    
+    public String DSKhoangCachSangChuoi(){
         StringBuilder stringBuilder=new StringBuilder();
         DSTramDiQua.forEach(s -> {
             stringBuilder.append(s).append("-");
