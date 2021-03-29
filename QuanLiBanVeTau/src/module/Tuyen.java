@@ -67,4 +67,13 @@ public class Tuyen {
         });
         return stringBuilder.replace(stringBuilder.length()-1, stringBuilder.length(),"").toString();
     }
+
+    public ArrayList<Float> getDSKhoangCach() {
+        return DSKhoangCach;
+    }
+
+    public void setDSKhoangCach(ArrayList<Float> DSKhoangCach) {
+        this.DSKhoangCach = DSKhoangCach;
+    }
+    
 }

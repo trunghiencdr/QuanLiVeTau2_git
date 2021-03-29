@@ -64,7 +64,6 @@ public class TramDao {
     }
 
     public void suaTramTrongBang(Tram tram, int hang, JTable jtb) {
-        jtb.setValueAt(tram.getTenTram(), hang, 0);
         jtb.setValueAt(tram.getDiaChi(), hang, 1);
     }
 

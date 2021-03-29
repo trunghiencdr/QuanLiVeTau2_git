@@ -156,15 +156,15 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
 
         jlbMaTuyen.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jlbMaTuyen.setForeground(new java.awt.Color(255, 51, 51));
-        jlbMaTuyen.setText("Không được rỗng");
+        jlbMaTuyen.setText("Không được để trống");
 
         jlbCacTramDiQua.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jlbCacTramDiQua.setForeground(new java.awt.Color(255, 51, 51));
-        jlbCacTramDiQua.setText("Không được rỗng");
+        jlbCacTramDiQua.setText("Không được để trống");
 
         jlbKhoangCach.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jlbKhoangCach.setForeground(new java.awt.Color(255, 51, 51));
-        jlbKhoangCach.setText("Không được rỗng");
+        jlbKhoangCach.setText("Không được để trống");
 
         jLabel12.setText("Định dạng: trạm-trạm-trạm");
 
@@ -417,11 +417,20 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
     }
     
     private void kiemTraThongTinNhap(String loai){
+        loai.toLowerCase();
         switch(loai){
-            case "Mã tuyến":
-                String kt = jtfMaTuyen.getText().trim();
-                if(kt.equals("")){
-                    jlbMa
+            case "mã tuyến":
+                String maTuyen = jtfMaTuyen.getText().trim();
+                if(maTuyen.equals("")){
+                    jlbMaTuyen.setText("Không được để trống");
+                }else{// kiểm tra mã có bị trùng không
+                    try {
+                         ResultSet rs = LopKetNoi.select("select * from tuyen where maTuyen = ?", maTuyen);
+                        if(rs.next()){
+                             jlbMaTuyen.setText("Mã bị trùng");
+                        }
+                    } catch (Exception e) {
+                    }
                 }
                 break;
         }
@@ -545,7 +554,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
 
     private void jtfMaTuyenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfMaTuyenKeyReleased
         // TODO add your handling code here:
-        
+        kiemTraThongTinNhap("mã tuyến");
     }//GEN-LAST:event_jtfMaTuyenKeyReleased
 
 
