@@ -9,6 +9,7 @@ import connectSQL.LopKetNoi;
 import java.awt.TextArea;
 import java.sql.ResultSet;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import module.Tuyen;
@@ -92,7 +93,6 @@ public class TuyenDao {
     public void suaTuyenTrongDB(Tuyen tuyen) {
         try {
             LopKetNoi.update("update tuyen set TenTuyen = ? where MaTuyen = ?", tuyen.getTenTuyen(), tuyen.getMaTuyen());
-            LopKetNoi.update("delete tuyendiquatram where matuyen = ? ", tuyen.getMaTuyen());
             capNhatLaiTuyenDiQuaTram(tuyen);
         } catch (Exception e) {
         }
@@ -125,8 +125,8 @@ public class TuyenDao {
         model.removeRow(hang);
     }
 
-    public void getTramTuBang(int hang, JTable jtb, JTextField maTuyen, JTextField tenTuyen, 
-            TextArea tramDiQua, TextArea khoangCach) {
+    public void getTuyenTuBang(int hang, JTable jtb, JTextField maTuyen, JTextField tenTuyen, 
+        JTextArea tramDiQua, JTextArea khoangCach) {
         maTuyen.setText(jtb.getValueAt(hang, 0) + "");
         tenTuyen.setText(jtb.getValueAt(hang, 1) + "");
         tramDiQua.setText(jtb.getValueAt(hang, 2) + "");

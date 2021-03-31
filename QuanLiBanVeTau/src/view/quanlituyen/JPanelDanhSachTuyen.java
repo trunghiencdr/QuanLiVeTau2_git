@@ -122,6 +122,8 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
+        jdlThuocTinhTuyen.setMinimumSize(new java.awt.Dimension(508, 555));
+
         jPanel2.setMinimumSize(new java.awt.Dimension(508, 529));
 
         jlbTenDialog.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -434,8 +436,11 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                 batCacTruong();
                 break;
             case "SỬA TUYẾN":
+                batCacTruong();
+                jtfMaTuyen.enable(false);
                 break;
             case "THÔNG TIN TUYẾN":
+                tatCacTruong();
                 break;
         }
         jlbTenDialog.setText(tenDialog);
@@ -549,113 +554,51 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         }
     }
 
-    private List<String> getDSTram(){
-        
+    private ArrayList<String> getCacTramDiQua() {
+        String[] tramDiQua = jtaCacTramDiQua.getText().trim().split("\\s*-\\s*");
+        List<String> tam = Arrays.asList(tramDiQua);
+        return (ArrayList<String>) tam;
     }
-    private ArrayList <Float> getKhoangCach(){
-        String [] khoangCach = jtaKhoangCach.getText().trim().split("\\s*-\\s*");
-        ArrayList <Float> tam = new ArrayList<>();
-        for(String s: khoangCach){
+
+    private ArrayList<Float> getKhoangCach() {
+        String[] khoangCach = jtaKhoangCach.getText().trim().split("\\s*-\\s*");
+        ArrayList<Float> tam = new ArrayList<>();
+        for (String s : khoangCach) {
             try {
+                tam.add(Float.parseFloat(s));
             } catch (Exception e) {
+                return null;
             }
         }
         return tam;
     }
-    private Tuyen getTuyenTuDialog() {
 
+    private Tuyen getTuyenTuDialog() {
         String maTuyen = jtfMaTuyen.getText().trim().toUpperCase();
         String tenTuyen = jtfTenTuyen.getText().trim().toUpperCase();
-        List<String> cacTramDiQua = Arrays.asList(jtaCacTramDiQua.getText().trim().split("\\s*-\\s*"));
-        List<Float> khoangCach = Arrays.asList(jtaKhoangCach.getText().trim().split("\\s*-\\s*"));
-        khoangCach.add(0, " ");
+        ArrayList<String> cacTramDiQua = getCacTramDiQua();
+        ArrayList<Float> khoangCach = getKhoangCach();
         return new Tuyen(maTuyen, tenTuyen, cacTramDiQua, khoangCach);
     }
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         hienThiDialog("THÊM TUYẾN");
-
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
         if (hangDangChon < 0) {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn đối tượng! Vui lòng chọn 1 dòng trong bảng");
-            return;
+        }else{
+            hienThiDialog("SỬA TUYẾN");
         }
-        String cacTramDiQua[] = null;
-        if (jtaCacTramDiQua.equals("")) {
-            JOptionPane.showMessageDialog(this, "Trạm đi qua không được trống");
-            jtaCacTramDiQua.requestFocus();
-            return;
-        } else {
-            cacTramDiQua = jtaCacTramDiQua.getText().split("\\s*-\\s*");
-            if (cacTramDiQua.length < 2) {
-                JOptionPane.showMessageDialog(this, "Trạm đi qua phải ít nhất 2 trạm");
-                jtaCacTramDiQua.requestFocus();
-                return;
-            }
-        }
-
-        try {
-            PreparedStatement ps = connection.prepareStatement("update tuyen set TenTuyen = ? where MaTuyen = ?");
-            ps.setString(1, jtfTenTuyen.getText().toUpperCase());
-            ps.setString(2, jtbTuyen.getValueAt(hangDangChon, 0).toString());
-            ps.executeUpdate();
-            /// cap nhat bang cac tram di qua trong tuyen
-            ps = connection.prepareStatement("delete from TuyenDiQuaTram where MaTuyen = ?");
-            ps.setString(1, jtbTuyen.getValueAt(hangDangChon, 0).toString());
-            ps.executeUpdate();
-            int i = 0;
-            for (String s : cacTramDiQua) {
-                PreparedStatement ps1 = connection.prepareStatement("insert into tuyenDiQuaTram values(?,?,?)");
-                ps1.setString(1, jtbTuyen.getValueAt(hangDangChon, 0).toString());
-                ps1.setString(2, s);
-                ps1.setInt(3, i);
-                i++;
-                ps1.executeUpdate();
-            }
-            jtfMaTuyen.setText(jtbTuyen.getValueAt(hangDangChon, 0).toString().toUpperCase());
-            jtbTuyen.setValueAt(jtfTenTuyen.getText().toUpperCase(), hangDangChon, 1);
-            jtbTuyen.setValueAt(jtaCacTramDiQua.getText(), hangDangChon, 2);
-            JOptionPane.showMessageDialog(this, "Sửa tuyến thành công!");
-            tbmBangTuyen.addRow(new Object[]{jtfMaTuyen.getText().toUpperCase(), jtfTenTuyen.getText().toUpperCase(),
-                jtaCacTramDiQua.getText().toUpperCase()});
-        } catch (Exception e) {
-        }
-
-
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void jtbTuyenMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbTuyenMousePressed
         // TODO add your handling code here:
         hangDangChon = jtbTuyen.getSelectedRow();
-        jtfMaTuyen.setText(jtbTuyen.getValueAt(hangDangChon, 0) + "");
-        jtfTenTuyen.setText(jtbTuyen.getValueAt(hangDangChon, 1) + "");
-        jtaCacTramDiQua.setText(jtbTuyen.getValueAt(hangDangChon, 2) + "");
-        // load lại cbb
-        String[] tam = jtaCacTramDiQua.getText().split("\\s*-\\s*");
-        String tramVuaChon = tam[tam.length - 1];
-        count = -1;
-//        cbbGoiYTram.removeAllItems();
-        try {
-            PreparedStatement ps = connection.prepareStatement("select tenTramBD, tenTramKT from khoangCachTram where "
-                    + "tenTramBD = ?  or tenTramKT = ?");
-            ps.setString(1, tramVuaChon);
-            ps.setString(2, tramVuaChon);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                String tramBD = rs.getString(1);
-                String tramKT = rs.getString(2);
-                if (tramVuaChon.equals(tramBD)) {
-//                    cbbGoiYTram.addItem(tramKT);
-                } else if (tramVuaChon.equals(tramKT)) {
-//                    cbbGoiYTram.addItem(tramBD);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        hienThiDialog("THÔNG TIN TUYẾN");
+       tuyenDao.getTuyenTuBang(hangDangChon, jtbTuyen, jtfMaTuyen, jtfTenTuyen, jtaCacTramDiQua, jtaKhoangCach);
     }//GEN-LAST:event_jtbTuyenMousePressed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -703,14 +646,24 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
         // TODO add your handling code here:
-
         if (kiemTraTruocKhiXacNhan()) {
-
-            String maTuyen = jtfMaTuyen.getText().trim().toUpperCase();
-            String tenTuyen = jtfTenTuyen.getText()
-            tuyenDao.themTuyenVaoDB(new Tuyen());
-            tuyenDao.themTuyenVaoBang(tuyen, jtbTuyen);
+            jlbTenDialog.getText().toLowerCase();
+            Tuyen tuyen = getTuyenTuDialog();
+            switch (jlbTenDialog.getText()) {
+                case "thêm tuyến":
+                    tuyenDao.themTuyenVaoDB(tuyen);
+                    tuyenDao.themTuyenVaoBang(tuyen, jtbTuyen);
+                    hangDangChon = jtbTuyen.getRowCount()-1;
+                    break;
+                case "sửa tuyến":
+                    tuyenDao.suaTuyenTrongDB(tuyen);
+                    tuyenDao.suaTuyenTrongBang(tuyen, hangDangChon, jtbTuyen);
+                    break;
+            }
+        } else {
+            JOptionPane.showMessageDialog(jdlThuocTinhTuyen, jlbTenDialog.getText() + " thất bại");
         }
+
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
 
