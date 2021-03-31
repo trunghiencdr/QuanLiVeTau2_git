@@ -63,7 +63,7 @@ public class Tuyen {
     
     public String DSKhoangCachSangChuoi(){
         StringBuilder stringBuilder=new StringBuilder();
-        DSTramDiQua.forEach(s -> {
+        DSKhoangCach.forEach(s -> {
             stringBuilder.append(s).append("-");
         });
         return stringBuilder.replace(stringBuilder.length()-1, stringBuilder.length(),"").toString();

@@ -6,16 +6,17 @@
 package view.quanlituyen;
 
 import connectSQL.LopKetNoi;
+import controller.ChuyenManHinhView;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import javax.swing.table.DefaultTableModel;
 import module.Tuyen;
 import java.sql.ResultSet;
 import java.sql.Connection;
-import java.util.Arrays;
-import java.util.List;
 import javax.swing.JOptionPane;
 import moduledao.TuyenDao;
+import view.JPanelQuanLiTuyen;
 
 /**
  *
@@ -39,8 +40,6 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         connection = new LopKetNoi().getConnection();
         tbmBangTuyen = (DefaultTableModel) jtbTuyen.getModel();
         tuyenDao.loadDSTuyenVaoBang(LopKetNoi.select("select * from Tuyen"), tbmBangTuyen);
-//        loadDuLieuTuyenLenBang();
-//        loadDSTramVaoCBB();
     }
 
     private void loadDSTramVaoCBB() {
@@ -121,6 +120,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         cbbSapXep = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        btnThongTIn = new javax.swing.JButton();
 
         jdlThuocTinhTuyen.setMinimumSize(new java.awt.Dimension(508, 555));
 
@@ -134,7 +134,11 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Mã tuyến:");
 
+        jtfMaTuyen.setForeground(new java.awt.Color(0, 0, 0));
         jtfMaTuyen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfMaTuyenKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtfMaTuyenKeyReleased(evt);
             }
@@ -143,12 +147,16 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Tên tuyến:");
 
+        jtfTenTuyen.setForeground(new java.awt.Color(0, 0, 0));
         jtfTenTuyen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfTenTuyenActionPerformed(evt);
             }
         });
         jtfTenTuyen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtfTenTuyenKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtfTenTuyenKeyReleased(evt);
             }
@@ -158,20 +166,48 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         jLabel6.setText("Các trạm đi qua:");
 
         jtaCacTramDiQua.setColumns(20);
+        jtaCacTramDiQua.setForeground(new java.awt.Color(0, 0, 0));
         jtaCacTramDiQua.setRows(5);
+        jtaCacTramDiQua.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtaCacTramDiQuaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtaCacTramDiQuaKeyReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(jtaCacTramDiQua);
 
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Khoảng cách:");
 
         jtaKhoangCach.setColumns(20);
+        jtaKhoangCach.setForeground(new java.awt.Color(0, 0, 0));
         jtaKhoangCach.setRows(5);
+        jtaKhoangCach.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtaKhoangCachKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtaKhoangCachKeyReleased(evt);
+            }
+        });
         jScrollPane3.setViewportView(jtaKhoangCach);
 
         btnXacNhan.setText("XÁC NHẬN");
+        btnXacNhan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXacNhanMouseClicked(evt);
+            }
+        });
         btnXacNhan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnXacNhanActionPerformed(evt);
+            }
+        });
+        btnXacNhan.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnXacNhanKeyPressed(evt);
             }
         });
 
@@ -286,6 +322,11 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         );
 
         jTextField3.setText("jTextField3");
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Thông tin chi tiết");
 
@@ -307,6 +348,9 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
             }
         });
         jtbTuyen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtbTuyenMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jtbTuyenMousePressed(evt);
             }
@@ -338,9 +382,36 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
 
         jLabel8.setText("Tìm kiếm:");
 
+        jtfTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfTimKiemKeyReleased(evt);
+            }
+        });
+
+        cbbTiemKiem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mã tuyến", "Tên tuyến" }));
+
+        cbbSapXep.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên tuyến a-z", "Tên tuyến z-a" }));
+        cbbSapXep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbSapXepActionPerformed(evt);
+            }
+        });
+
         jLabel9.setText("Sắp xếp:");
 
         jButton1.setText("Trờ về");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        btnThongTIn.setText("THÔNG TIN");
+        btnThongTIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThongTInActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -352,7 +423,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                     .addComponent(jLabel8)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cbbTiemKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -361,15 +432,16 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbbSapXep, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(55, 325, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49)
-                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55))))
+                        .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(btnThongTIn)
+                        .addGap(104, 104, 104))))
             .addComponent(jScrollPane1)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jButton1)
@@ -390,7 +462,8 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                     .addComponent(jLabel5)
                     .addComponent(btnThem)
                     .addComponent(btnSua)
-                    .addComponent(btnXoa))
+                    .addComponent(btnXoa)
+                    .addComponent(btnThongTIn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(cbbTiemKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -417,35 +490,55 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void batCacTruong() {
-        jtfMaTuyen.enable(true);
-        jtfTenTuyen.enable(true);
-        jtaCacTramDiQua.enable(true);
-        jtaKhoangCach.enable(true);
+        jtfMaTuyen.setEditable(true);
+        jtfTenTuyen.setEditable(true);
+        jtaCacTramDiQua.setEditable(true);
+        jtaKhoangCach.setEditable(true);
     }
 
     private void tatCacTruong() {
-        jtfMaTuyen.enable(false);
-        jtfTenTuyen.enable(false);
-        jtaCacTramDiQua.enable(false);
-        jtaKhoangCach.enable(false);
+        jtfMaTuyen.setEditable(false);
+        jtfTenTuyen.setEditable(false);
+        jtaCacTramDiQua.setEditable(false);
+        jtaKhoangCach.setEditable(false);
     }
 
     private void hienThiDialog(String tenDialog) {
         switch (tenDialog) {
             case "THÊM TUYẾN":
                 batCacTruong();
+                setRong();
+                setLabelThongBao();
                 break;
             case "SỬA TUYẾN":
                 batCacTruong();
+                setLabelThongBaoRong();
                 jtfMaTuyen.enable(false);
+                tuyenDao.getTuyenTuBang(hangDangChon, jtbTuyen, jtfMaTuyen, jtfTenTuyen, jtaCacTramDiQua, jtaKhoangCach);
                 break;
             case "THÔNG TIN TUYẾN":
                 tatCacTruong();
+                setLabelThongBaoRong();
+                tuyenDao.getTuyenTuBang(hangDangChon, jtbTuyen, jtfMaTuyen, jtfTenTuyen, jtaCacTramDiQua, jtaKhoangCach);
                 break;
         }
         jlbTenDialog.setText(tenDialog);
         jdlThuocTinhTuyen.setLocationRelativeTo(this);
         jdlThuocTinhTuyen.setVisible(true);
+    }
+
+    private void setLabelThongBao() {
+        jlbMaTuyen.setText("Không được để trống");
+        jlbTenTuyen.setText("Không được để trống");
+        jlbCacTramDiQua.setText("Không được để trống");
+        jlbKhoangCach.setText("Không được để trống");
+    }
+
+    private void setLabelThongBaoRong() {
+        jlbMaTuyen.setText(" ");
+        jlbTenTuyen.setText(" ");
+        jlbCacTramDiQua.setText(" ");
+        jlbKhoangCach.setText(" ");
     }
 
     private void kiemTraThongTinNhap(String loai) {
@@ -477,7 +570,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                         if (rs.next()) {
                             jlbTenTuyen.setText("Tên bị trùng");
                         } else {
-                            jlbMaTuyen.setText(" ");
+                            jlbTenTuyen.setText(" ");
                         }
                     } catch (Exception e) {
                     }
@@ -489,42 +582,48 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                     jlbCacTramDiQua.setText("Không được để trống");
                 } else {
                     String[] tachTram = cacTramDiQua.split("\\s*-\\s*");// khoang trang - khoang trang
-                    for (String s : tachTram) {
-                        if (s.length() == 0) {
-                            jlbCacTramDiQua.setText("Không đúng định dạng");
-                            break;
-                        } else {// kiem tra co tồn tại trạm này không
+
+                    if (cacTramDiQua.substring(cacTramDiQua.length() - 1, cacTramDiQua.length()).equals("-")) {
+                        jlbCacTramDiQua.setText("Không đúng định dạng");
+
+                    } else {
+                        for (String s : tachTram) {
+                            // kiem tra co tồn tại trạm này không
                             try {
                                 ResultSet rs = LopKetNoi.select("select * from tram where tenTram=?", s);
                                 if (rs.next()) {
-                                    jlbCacTramDiQua.setText(" ");
+                                    if (tachTram.length < 2) {
+                                        jlbCacTramDiQua.setText("Ít nhất 2 trạm");
+                                    } else {
+                                        jlbCacTramDiQua.setText(" ");
+                                    }
                                 } else {
                                     jlbCacTramDiQua.setText("Không tồn tại trạm này");
                                 }
                             } catch (Exception e) {
                             }
+
                         }
                     }
                 }
                 break;
             case "khoảng cách":
-                String khoangCach = jtaCacTramDiQua.getText().trim();
+                String khoangCach = jtaKhoangCach.getText().trim();
                 if (khoangCach.equals("")) {
                     jlbKhoangCach.setText("Không được để trống");
                 } else {
                     String[] tachKhoangCach = khoangCach.split("\\s*-\\s*");// khoang trang - khoang trang
-                    for (String s : tachKhoangCach) {
-                        if (s.length() == 0) {
-                            jlbKhoangCach.setText("Không đúng định dạng");
-                            break;
-                        } else {
+                    if (khoangCach.substring(khoangCach.length() - 1, khoangCach.length()).equals("-")) {
+                        jlbKhoangCach.setText("Không đúng định dạng");
+                    } else {
+                        for (String s : tachKhoangCach) {
                             String tachTram[] = jtaCacTramDiQua.getText().trim().split("\\s*-\\s*");
                             for (String kc : tachKhoangCach) {
                                 try {
                                     float kcFloat = Float.parseFloat(kc);
                                     if (kcFloat == 0) {
                                         jlbKhoangCach.setText("Khoảng cách phải khác không");
-                                    } else {
+                                    } else {// không đổi đc
                                         if (tachKhoangCach.length == tachTram.length - 1) {
                                             jlbKhoangCach.setText(" ");
                                         } else {
@@ -556,8 +655,11 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
 
     private ArrayList<String> getCacTramDiQua() {
         String[] tramDiQua = jtaCacTramDiQua.getText().trim().split("\\s*-\\s*");
-        List<String> tam = Arrays.asList(tramDiQua);
-        return (ArrayList<String>) tam;
+        ArrayList<String> tam = new ArrayList<>();
+        for (String s : tramDiQua) {
+            tam.add(s);
+        }
+        return tam;
     }
 
     private ArrayList<Float> getKhoangCach() {
@@ -580,6 +682,13 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         ArrayList<Float> khoangCach = getKhoangCach();
         return new Tuyen(maTuyen, tenTuyen, cacTramDiQua, khoangCach);
     }
+
+    private void setRong() {
+        jtfMaTuyen.setText("");
+        jtfTenTuyen.setText("");
+        jtaCacTramDiQua.setText("");
+        jtaKhoangCach.setText("");
+    }
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         hienThiDialog("THÊM TUYẾN");
@@ -589,7 +698,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (hangDangChon < 0) {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn đối tượng! Vui lòng chọn 1 dòng trong bảng");
-        }else{
+        } else {
             hienThiDialog("SỬA TUYẾN");
         }
     }//GEN-LAST:event_btnSuaActionPerformed
@@ -597,37 +706,29 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
     private void jtbTuyenMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbTuyenMousePressed
         // TODO add your handling code here:
         hangDangChon = jtbTuyen.getSelectedRow();
-        hienThiDialog("THÔNG TIN TUYẾN");
-       tuyenDao.getTuyenTuBang(hangDangChon, jtbTuyen, jtfMaTuyen, jtfTenTuyen, jtaCacTramDiQua, jtaKhoangCach);
     }//GEN-LAST:event_jtbTuyenMousePressed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
         if (hangDangChon < 0) {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn đối tượng! Vui lòng chọn 1 hàng trong bảng");
-            return;
-        }
-        try {
-            PreparedStatement ps = connection.prepareStatement("delete from TuyenDiQuaTram where MaTuyen = ?");
-            ps.setString(1, jtbTuyen.getValueAt(hangDangChon, 0).toString());
-            ps.executeUpdate();
-            ps = connection.prepareStatement("delete from Tuyen where MaTuyen = ?");
-            ps.setString(1, jtbTuyen.getValueAt(hangDangChon, 0).toString());
-            ps.executeUpdate();
-            tbmBangTuyen.removeRow(hangDangChon);
-            jtbTuyen.clearSelection();
-            jtfMaTuyen.setText("");
-            jtfTenTuyen.setText("");
-            jtaCacTramDiQua.setText("");
-            count = -1;
-//            cbbGoiYTram.removeAllItems();
-            loadDSTramVaoCBB();
 
-            hangDangChon = -1;
-            JOptionPane.showMessageDialog(this, "Xóa thành công");
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            int input = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa không?", "Cảnh báo", JOptionPane.YES_NO_OPTION);
+            if (input == JOptionPane.YES_OPTION) {
+                String maTuyen = jtbTuyen.getValueAt(hangDangChon, 0).toString();
+                boolean kt = tuyenDao.xoaTuyenTrongDB(maTuyen);
+                if (kt) {
+                    tuyenDao.xoaTramKhoiBang(hangDangChon, tbmBangTuyen);
+                    hangDangChon = -1;
+                    jtbTuyen.clearSelection();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Không thể xóa vì có tàu đang chạy trên tuyến này");
+                }
+            }
+
         }
+
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void jtfMaTuyenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfMaTuyenKeyReleased
@@ -647,29 +748,173 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
         // TODO add your handling code here:
         if (kiemTraTruocKhiXacNhan()) {
-            jlbTenDialog.getText().toLowerCase();
+            String loai = jlbTenDialog.getText().toLowerCase();
             Tuyen tuyen = getTuyenTuDialog();
-            switch (jlbTenDialog.getText()) {
+            switch (loai) {
                 case "thêm tuyến":
                     tuyenDao.themTuyenVaoDB(tuyen);
                     tuyenDao.themTuyenVaoBang(tuyen, jtbTuyen);
-                    hangDangChon = jtbTuyen.getRowCount()-1;
+                    hangDangChon = jtbTuyen.getRowCount() - 1;
+                    setRong();
+                    setLabelThongBao();
+                    jtfMaTuyen.requestFocus();
                     break;
                 case "sửa tuyến":
                     tuyenDao.suaTuyenTrongDB(tuyen);
                     tuyenDao.suaTuyenTrongBang(tuyen, hangDangChon, jtbTuyen);
+                    jdlThuocTinhTuyen.dispose();
                     break;
+                case "thông tin tuyến":
+                    jdlThuocTinhTuyen.dispose();
+                    break;
+
             }
         } else {
-            JOptionPane.showMessageDialog(jdlThuocTinhTuyen, jlbTenDialog.getText() + " thất bại");
+            if (!jlbTenDialog.getText().equalsIgnoreCase("thông tin tuyến")) {
+                JOptionPane.showMessageDialog(jdlThuocTinhTuyen, jlbTenDialog.getText() + " thất bại");
+            }
         }
 
     }//GEN-LAST:event_btnXacNhanActionPerformed
+
+    private void jtaCacTramDiQuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtaCacTramDiQuaKeyReleased
+        // TODO add your handling code here:
+        kiemTraThongTinNhap("các trạm đi qua");
+    }//GEN-LAST:event_jtaCacTramDiQuaKeyReleased
+
+    private void jtaKhoangCachKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtaKhoangCachKeyReleased
+        // TODO add your handling code here:
+        kiemTraThongTinNhap("khoảng cách");
+    }//GEN-LAST:event_jtaKhoangCachKeyReleased
+
+    private void jtfMaTuyenKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfMaTuyenKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN || evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            jtfTenTuyen.requestFocus();
+        }
+    }//GEN-LAST:event_jtfMaTuyenKeyPressed
+
+    private void jtfTenTuyenKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTenTuyenKeyPressed
+        // TODO add your handling code here:
+        if (jlbTenDialog.getText().equalsIgnoreCase("thêm tuyến")) {
+            if (evt.getKeyCode() == KeyEvent.VK_UP) {
+                jtfMaTuyen.requestFocus();
+            }
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN || evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            jtaCacTramDiQua.requestFocus();
+        }
+
+    }//GEN-LAST:event_jtfTenTuyenKeyPressed
+
+    private void jtaCacTramDiQuaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtaCacTramDiQuaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN || evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            jtaKhoangCach.requestFocus();
+        } else if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            jtfTenTuyen.requestFocus();
+        }
+    }//GEN-LAST:event_jtaCacTramDiQuaKeyPressed
+
+    private void jtaKhoangCachKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtaKhoangCachKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN || evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnXacNhan.requestFocus();
+        } else if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            jtaCacTramDiQua.requestFocus();
+        }
+    }//GEN-LAST:event_jtaKhoangCachKeyPressed
+
+    private void btnXacNhanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnXacNhanKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (kiemTraTruocKhiXacNhan()) {
+                String loai = jlbTenDialog.getText().toLowerCase();
+                Tuyen tuyen = getTuyenTuDialog();
+                switch (loai) {
+                    case "thêm tuyến":
+                        tuyenDao.themTuyenVaoDB(tuyen);
+                        tuyenDao.themTuyenVaoBang(tuyen, jtbTuyen);
+                        hangDangChon = jtbTuyen.getRowCount() - 1;
+                        setRong();
+                        setLabelThongBao();
+                        jtfMaTuyen.requestFocus();
+                        break;
+                    case "sửa tuyến":
+                        tuyenDao.suaTuyenTrongDB(tuyen);
+                        tuyenDao.suaTuyenTrongBang(tuyen, hangDangChon, jtbTuyen);
+                        jdlThuocTinhTuyen.dispose();
+                        break;
+
+                }
+            } else {
+                if (!jlbTenDialog.getText().equalsIgnoreCase("thông tin tuyến")) {
+                    JOptionPane.showMessageDialog(jdlThuocTinhTuyen, jlbTenDialog.getText() + " thất bại");
+                } else {
+                    jdlThuocTinhTuyen.dispose();
+                }
+            }
+        }
+
+        if (evt.getKeyCode() == KeyEvent.VK_UP) {
+            jtaKhoangCach.requestFocus();
+        }
+    }//GEN-LAST:event_btnXacNhanKeyPressed
+
+    private void btnXacNhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXacNhanMouseClicked
+
+    }//GEN-LAST:event_btnXacNhanMouseClicked
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jtfTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTimKiemKeyReleased
+        // TODO add your handling code here:
+
+        if (cbbTiemKiem.getSelectedIndex() == 0) {// tim kiem theo ma tuyen
+            String maTuyen = jtfTimKiem.getText().trim();
+            tuyenDao.loadDSTuyenVaoBang(LopKetNoi.select("select * from tuyen where maTuyen like ?",
+                    "%" + maTuyen + "%"), tbmBangTuyen);
+        } else {// tim kiem theo ten tuyen
+            String tenTuyen = jtfTimKiem.getText().trim();
+            tuyenDao.loadDSTuyenVaoBang(LopKetNoi.select("select * from tuyen where tenTuyen like ?",
+                    "%" + tenTuyen + "%"), tbmBangTuyen);
+        }
+    }//GEN-LAST:event_jtfTimKiemKeyReleased
+
+    private void cbbSapXepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSapXepActionPerformed
+        // TODO add your handling code here:
+        if (cbbSapXep.getSelectedIndex() == 0) {// sap xep ten tuyen tu a - z
+            tuyenDao.loadDSTuyenVaoBang(LopKetNoi.select("select * from tuyen order by tentuyen ASC"), tbmBangTuyen);
+        } else {
+            tuyenDao.loadDSTuyenVaoBang(LopKetNoi.select("select * from tuyen order by tentuyen DESC"), tbmBangTuyen);
+        }
+    }//GEN-LAST:event_cbbSapXepActionPerformed
+
+    private void jtbTuyenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbTuyenMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jtbTuyenMouseClicked
+
+    private void btnThongTInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongTInActionPerformed
+        // TODO add your handling code here:
+        if (hangDangChon == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 hàng trong bảng");
+        } else
+            hienThiDialog("THÔNG TIN TUYẾN");
+    }//GEN-LAST:event_btnThongTInActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        new ChuyenManHinhView(this, new JPanelQuanLiTuyen()).change();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnThongTIn;
     private javax.swing.JButton btnXacNhan;
     private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cbbSapXep;

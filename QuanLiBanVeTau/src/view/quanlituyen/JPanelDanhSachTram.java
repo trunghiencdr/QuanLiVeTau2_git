@@ -7,17 +7,13 @@ package view.quanlituyen;
 
 import connectSQL.LopKetNoi;
 import controller.ChuyenManHinhView;
-import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import view.JPanelQuanLiTuyen;
-import java.sql.PreparedStatement;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import module.Tram;
