@@ -12,6 +12,8 @@ import javax.swing.table.DefaultTableModel;
 import module.Tuyen;
 import java.sql.ResultSet;
 import java.sql.Connection;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.JOptionPane;
 import moduledao.TuyenDao;
 
@@ -103,6 +105,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         jlbKhoangCach = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        jlbTenTuyen = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -138,6 +141,17 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Tên tuyến:");
 
+        jtfTenTuyen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfTenTuyenActionPerformed(evt);
+            }
+        });
+        jtfTenTuyen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfTenTuyenKeyReleased(evt);
+            }
+        });
+
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Các trạm đi qua:");
 
@@ -153,6 +167,11 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         jScrollPane3.setViewportView(jtaKhoangCach);
 
         btnXacNhan.setText("XÁC NHẬN");
+        btnXacNhan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXacNhanActionPerformed(evt);
+            }
+        });
 
         jlbMaTuyen.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jlbMaTuyen.setForeground(new java.awt.Color(255, 51, 51));
@@ -169,6 +188,10 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         jLabel12.setText("Định dạng: trạm-trạm-trạm");
 
         jLabel13.setText("Định dạng: km-km");
+
+        jlbTenTuyen.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        jlbTenTuyen.setForeground(new java.awt.Color(255, 51, 51));
+        jlbTenTuyen.setText("Không được để trống");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -195,7 +218,8 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                                 .addComponent(jtfMaTuyen)
                                 .addComponent(jtfTenTuyen)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                                .addComponent(jlbMaTuyen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jlbMaTuyen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jlbTenTuyen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jLabel12)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
@@ -217,13 +241,15 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jtfMaTuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
+                .addGap(0, 0, 0)
                 .addComponent(jlbMaTuyen)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jtfTenTuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(3, 3, 3)
+                .addComponent(jlbTenTuyen)
+                .addGap(15, 15, 15)
                 .addComponent(jLabel12)
                 .addGap(2, 2, 2)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,7 +257,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlbCacTramDiQua)
-                .addGap(12, 12, 12)
+                .addGap(15, 15, 15)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -388,21 +414,22 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void batCacTruong(){
+    private void batCacTruong() {
         jtfMaTuyen.enable(true);
         jtfTenTuyen.enable(true);
         jtaCacTramDiQua.enable(true);
         jtaKhoangCach.enable(true);
     }
-    
-     private void tatCacTruong(){
+
+    private void tatCacTruong() {
         jtfMaTuyen.enable(false);
         jtfTenTuyen.enable(false);
         jtaCacTramDiQua.enable(false);
         jtaKhoangCach.enable(false);
     }
-    private void hienThiDialog(String tenDialog){
-        switch(tenDialog){
+
+    private void hienThiDialog(String tenDialog) {
+        switch (tenDialog) {
             case "THÊM TUYẾN":
                 batCacTruong();
                 break;
@@ -415,26 +442,134 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         jdlThuocTinhTuyen.setLocationRelativeTo(this);
         jdlThuocTinhTuyen.setVisible(true);
     }
-    
-    private void kiemTraThongTinNhap(String loai){
+
+    private void kiemTraThongTinNhap(String loai) {
         loai.toLowerCase();
-        switch(loai){
+        switch (loai) {
             case "mã tuyến":
                 String maTuyen = jtfMaTuyen.getText().trim();
-                if(maTuyen.equals("")){
+                if (maTuyen.equals("")) {
                     jlbMaTuyen.setText("Không được để trống");
-                }else{// kiểm tra mã có bị trùng không
+                } else {// kiểm tra mã có bị trùng không
                     try {
-                         ResultSet rs = LopKetNoi.select("select * from tuyen where maTuyen = ?", maTuyen);
-                        if(rs.next()){
-                             jlbMaTuyen.setText("Mã bị trùng");
+                        ResultSet rs = LopKetNoi.select("select * from tuyen where maTuyen = ?", maTuyen);
+                        if (rs.next()) {
+                            jlbMaTuyen.setText("Mã bị trùng");
+                        } else {
+                            jlbMaTuyen.setText(" ");
                         }
                     } catch (Exception e) {
                     }
                 }
                 break;
+            case "tên tuyến":
+                String tenTuyen = jtfTenTuyen.getText().trim();
+                if (tenTuyen.equals("")) {
+                    jlbTenTuyen.setText("Không được để trống");
+                } else {
+                    try {
+                        ResultSet rs = LopKetNoi.select("select * from tuyen where tenTuyen = ?", tenTuyen);
+                        if (rs.next()) {
+                            jlbTenTuyen.setText("Tên bị trùng");
+                        } else {
+                            jlbMaTuyen.setText(" ");
+                        }
+                    } catch (Exception e) {
+                    }
+                }
+                break;
+            case "các trạm đi qua":
+                String cacTramDiQua = jtaCacTramDiQua.getText().trim();
+                if (cacTramDiQua.equals("")) {
+                    jlbCacTramDiQua.setText("Không được để trống");
+                } else {
+                    String[] tachTram = cacTramDiQua.split("\\s*-\\s*");// khoang trang - khoang trang
+                    for (String s : tachTram) {
+                        if (s.length() == 0) {
+                            jlbCacTramDiQua.setText("Không đúng định dạng");
+                            break;
+                        } else {// kiem tra co tồn tại trạm này không
+                            try {
+                                ResultSet rs = LopKetNoi.select("select * from tram where tenTram=?", s);
+                                if (rs.next()) {
+                                    jlbCacTramDiQua.setText(" ");
+                                } else {
+                                    jlbCacTramDiQua.setText("Không tồn tại trạm này");
+                                }
+                            } catch (Exception e) {
+                            }
+                        }
+                    }
+                }
+                break;
+            case "khoảng cách":
+                String khoangCach = jtaCacTramDiQua.getText().trim();
+                if (khoangCach.equals("")) {
+                    jlbKhoangCach.setText("Không được để trống");
+                } else {
+                    String[] tachKhoangCach = khoangCach.split("\\s*-\\s*");// khoang trang - khoang trang
+                    for (String s : tachKhoangCach) {
+                        if (s.length() == 0) {
+                            jlbKhoangCach.setText("Không đúng định dạng");
+                            break;
+                        } else {
+                            String tachTram[] = jtaCacTramDiQua.getText().trim().split("\\s*-\\s*");
+                            for (String kc : tachKhoangCach) {
+                                try {
+                                    float kcFloat = Float.parseFloat(kc);
+                                    if (kcFloat == 0) {
+                                        jlbKhoangCach.setText("Khoảng cách phải khác không");
+                                    } else {
+                                        if (tachKhoangCach.length == tachTram.length - 1) {
+                                            jlbKhoangCach.setText(" ");
+                                        } else {
+                                            jlbKhoangCach.setText("Số khoảng cách phải bằng số trạm - 1");
+                                        }
+                                    }
+                                } catch (Exception e) {
+                                    jlbKhoangCach.setText("Khoảng cách phải là một số");
+                                    break;
+                                }
+                            }
+
+                        }
+                    }
+                }
+                break;
         }
+
+    }
+
+    private boolean kiemTraTruocKhiXacNhan() {
+        if (jlbMaTuyen.getText().equals(" ") && jlbMaTuyen.getText().equals(" ")
+                && jlbCacTramDiQua.getText().equals(" ") && jlbKhoangCach.getText().equals(" ")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private List<String> getDSTram(){
         
+    }
+    private ArrayList <Float> getKhoangCach(){
+        String [] khoangCach = jtaKhoangCach.getText().trim().split("\\s*-\\s*");
+        ArrayList <Float> tam = new ArrayList<>();
+        for(String s: khoangCach){
+            try {
+            } catch (Exception e) {
+            }
+        }
+        return tam;
+    }
+    private Tuyen getTuyenTuDialog() {
+
+        String maTuyen = jtfMaTuyen.getText().trim().toUpperCase();
+        String tenTuyen = jtfTenTuyen.getText().trim().toUpperCase();
+        List<String> cacTramDiQua = Arrays.asList(jtaCacTramDiQua.getText().trim().split("\\s*-\\s*"));
+        List<Float> khoangCach = Arrays.asList(jtaKhoangCach.getText().trim().split("\\s*-\\s*"));
+        khoangCach.add(0, " ");
+        return new Tuyen(maTuyen, tenTuyen, cacTramDiQua, khoangCach);
     }
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
@@ -544,7 +679,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
             count = -1;
 //            cbbGoiYTram.removeAllItems();
             loadDSTramVaoCBB();
-            
+
             hangDangChon = -1;
             JOptionPane.showMessageDialog(this, "Xóa thành công");
         } catch (Exception e) {
@@ -556,6 +691,27 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         // TODO add your handling code here:
         kiemTraThongTinNhap("mã tuyến");
     }//GEN-LAST:event_jtfMaTuyenKeyReleased
+
+    private void jtfTenTuyenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfTenTuyenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfTenTuyenActionPerformed
+
+    private void jtfTenTuyenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTenTuyenKeyReleased
+        // TODO add your handling code here:
+        kiemTraThongTinNhap("tên tuyến");
+    }//GEN-LAST:event_jtfTenTuyenKeyReleased
+
+    private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
+        // TODO add your handling code here:
+
+        if (kiemTraTruocKhiXacNhan()) {
+
+            String maTuyen = jtfMaTuyen.getText().trim().toUpperCase();
+            String tenTuyen = jtfTenTuyen.getText()
+            tuyenDao.themTuyenVaoDB(new Tuyen());
+            tuyenDao.themTuyenVaoBang(tuyen, jtbTuyen);
+        }
+    }//GEN-LAST:event_btnXacNhanActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -587,6 +743,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
     private javax.swing.JLabel jlbKhoangCach;
     private javax.swing.JLabel jlbMaTuyen;
     private javax.swing.JLabel jlbTenDialog;
+    private javax.swing.JLabel jlbTenTuyen;
     private javax.swing.JTextArea jtaCacTramDiQua;
     private javax.swing.JTextArea jtaKhoangCach;
     private javax.swing.JTable jtbTuyen;
