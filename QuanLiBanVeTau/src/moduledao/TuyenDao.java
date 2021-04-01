@@ -65,24 +65,15 @@ public class TuyenDao {
     }
 
     public void themTuyenDiQuaTram(Tuyen tuyen) {
-        try {
-            int i = 0;
-            float khoangCach = 0f;
-            for (String s : tuyen.getDSTramDiQua()) {
-                if (i == 0) {
-                    khoangCach = 0;
-                    LopKetNoi.update("insert into tuyendiquatram values(?,?,?,?)", tuyen.getMaTuyen(), s, 0, 0f);
-
-                } else {
-                    khoangCach = tuyen.getDSKhoangCach().get(i - 1);
-                    LopKetNoi.update("insert into tuyendiquatram values(?,?,?,?)", tuyen.getMaTuyen(), s, i, khoangCach);
-
-                }
-                i++;
-
+        float khoangCach = 0f;
+        for (int i = 0; i < tuyen.getDSTramDiQua().size(); i++) {
+            if (i == 0) {
+                khoangCach = 0;
+            } else {
+                khoangCach = tuyen.getDSKhoangCach().get(i - 1);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            LopKetNoi.update("insert into tuyendiquatram values(?,?,?,?)", tuyen.getMaTuyen(),
+                    tuyen.getDSTramDiQua().get(i), i, khoangCach);
         }
     }
 

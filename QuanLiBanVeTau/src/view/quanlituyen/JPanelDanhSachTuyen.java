@@ -513,7 +513,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
             case "SỬA TUYẾN":
                 batCacTruong();
                 setLabelThongBaoRong();
-                jtfMaTuyen.enable(false);
+                jtfMaTuyen.setEditable(false);
                 tuyenDao.getTuyenTuBang(hangDangChon, jtbTuyen, jtfMaTuyen, jtfTenTuyen, jtaCacTramDiQua, jtaKhoangCach);
                 break;
             case "THÔNG TIN TUYẾN":
@@ -541,104 +541,121 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         jlbKhoangCach.setText(" ");
     }
 
+    private void kiemTraJTAKhoangCach() {
+        String khoangCach = jtaKhoangCach.getText().trim();
+        if (khoangCach.equals("")) {
+            jlbKhoangCach.setText("Không được để trống");
+        } else {
+            String[] tachKhoangCach = khoangCach.split("\\s*-\\s*");// khoang trang - khoang trang
+            if (khoangCach.substring(khoangCach.length() - 1, khoangCach.length()).equals("-")) {
+                jlbKhoangCach.setText("Không đúng định dạng");
+            } else {
+                for (String s : tachKhoangCach) {
+                    String tachTram[] = jtaCacTramDiQua.getText().trim().split("\\s*-\\s*");
+                    for (String kc : tachKhoangCach) {
+                        try {
+                            float kcFloat = Float.parseFloat(kc);
+                            if (kcFloat == 0) {
+                                jlbKhoangCach.setText("Khoảng cách phải khác không");
+                            } else {// không đổi đc
+                                if (tachKhoangCach.length == tachTram.length - 1) {
+                                    jlbKhoangCach.setText(" ");
+                                } else {
+                                    jlbKhoangCach.setText("Số khoảng cách phải bằng số trạm - 1");
+                                }
+                            }
+                        } catch (Exception e) {
+                            jlbKhoangCach.setText("Khoảng cách phải là một số");
+                            break;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    private void kiemTraJTFMaTuyen() {
+        String maTuyen = jtfMaTuyen.getText().trim();
+        if (maTuyen.equals("")) {
+            jlbMaTuyen.setText("Không được để trống");
+        } else {// kiểm tra mã có bị trùng không
+            try {
+                ResultSet rs = LopKetNoi.select("select * from tuyen where maTuyen = ?", maTuyen);
+                if (rs.next()) {
+                    jlbMaTuyen.setText("Mã bị trùng");
+                } else {
+                    jlbMaTuyen.setText(" ");
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    private void kiemTraJTFTenTuyen() {
+        String tenTuyen = jtfTenTuyen.getText().trim();
+        if (tenTuyen.equals("")) {
+            jlbTenTuyen.setText("Không được để trống");
+        } else {
+            try {
+                ResultSet rs = LopKetNoi.select("select * from tuyen where tenTuyen = ?", tenTuyen);
+                if (rs.next()) {
+                    jlbTenTuyen.setText("Tên bị trùng");
+                } else {
+                    jlbTenTuyen.setText(" ");
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    private void kiemTraJTACacTramDiQua() {
+        String cacTramDiQua = jtaCacTramDiQua.getText().trim();
+        if (cacTramDiQua.equals("")) {
+            jlbCacTramDiQua.setText("Không được để trống");
+        } else {
+            String[] tachTram = cacTramDiQua.split("\\s*-\\s*");// khoang trang - khoang trang
+
+            if (cacTramDiQua.substring(cacTramDiQua.length() - 1, cacTramDiQua.length()).equals("-")) {
+                jlbCacTramDiQua.setText("Không đúng định dạng");
+
+            } else {
+                for (String s : tachTram) {
+                    // kiem tra co tồn tại trạm này không
+                    try {
+                        ResultSet rs = LopKetNoi.select("select * from tram where tenTram=?", s);
+                        if (rs.next()) {
+                            if (tachTram.length < 2) {
+                                jlbCacTramDiQua.setText("Ít nhất 2 trạm");
+                            } else {
+                                jlbCacTramDiQua.setText(" ");
+                                kiemTraJTAKhoangCach();
+                            }
+                        } else {
+                            jlbCacTramDiQua.setText("Không tồn tại trạm này");
+                        }
+                    } catch (Exception e) {
+                    }
+
+                }
+            }
+        }
+    }
+
     private void kiemTraThongTinNhap(String loai) {
         loai.toLowerCase();
         switch (loai) {
             case "mã tuyến":
-                String maTuyen = jtfMaTuyen.getText().trim();
-                if (maTuyen.equals("")) {
-                    jlbMaTuyen.setText("Không được để trống");
-                } else {// kiểm tra mã có bị trùng không
-                    try {
-                        ResultSet rs = LopKetNoi.select("select * from tuyen where maTuyen = ?", maTuyen);
-                        if (rs.next()) {
-                            jlbMaTuyen.setText("Mã bị trùng");
-                        } else {
-                            jlbMaTuyen.setText(" ");
-                        }
-                    } catch (Exception e) {
-                    }
-                }
+                kiemTraJTFMaTuyen();
                 break;
             case "tên tuyến":
-                String tenTuyen = jtfTenTuyen.getText().trim();
-                if (tenTuyen.equals("")) {
-                    jlbTenTuyen.setText("Không được để trống");
-                } else {
-                    try {
-                        ResultSet rs = LopKetNoi.select("select * from tuyen where tenTuyen = ?", tenTuyen);
-                        if (rs.next()) {
-                            jlbTenTuyen.setText("Tên bị trùng");
-                        } else {
-                            jlbTenTuyen.setText(" ");
-                        }
-                    } catch (Exception e) {
-                    }
-                }
+                kiemTraJTFTenTuyen();
                 break;
             case "các trạm đi qua":
-                String cacTramDiQua = jtaCacTramDiQua.getText().trim();
-                if (cacTramDiQua.equals("")) {
-                    jlbCacTramDiQua.setText("Không được để trống");
-                } else {
-                    String[] tachTram = cacTramDiQua.split("\\s*-\\s*");// khoang trang - khoang trang
-
-                    if (cacTramDiQua.substring(cacTramDiQua.length() - 1, cacTramDiQua.length()).equals("-")) {
-                        jlbCacTramDiQua.setText("Không đúng định dạng");
-
-                    } else {
-                        for (String s : tachTram) {
-                            // kiem tra co tồn tại trạm này không
-                            try {
-                                ResultSet rs = LopKetNoi.select("select * from tram where tenTram=?", s);
-                                if (rs.next()) {
-                                    if (tachTram.length < 2) {
-                                        jlbCacTramDiQua.setText("Ít nhất 2 trạm");
-                                    } else {
-                                        jlbCacTramDiQua.setText(" ");
-                                    }
-                                } else {
-                                    jlbCacTramDiQua.setText("Không tồn tại trạm này");
-                                }
-                            } catch (Exception e) {
-                            }
-
-                        }
-                    }
-                }
+                kiemTraJTACacTramDiQua();
                 break;
             case "khoảng cách":
-                String khoangCach = jtaKhoangCach.getText().trim();
-                if (khoangCach.equals("")) {
-                    jlbKhoangCach.setText("Không được để trống");
-                } else {
-                    String[] tachKhoangCach = khoangCach.split("\\s*-\\s*");// khoang trang - khoang trang
-                    if (khoangCach.substring(khoangCach.length() - 1, khoangCach.length()).equals("-")) {
-                        jlbKhoangCach.setText("Không đúng định dạng");
-                    } else {
-                        for (String s : tachKhoangCach) {
-                            String tachTram[] = jtaCacTramDiQua.getText().trim().split("\\s*-\\s*");
-                            for (String kc : tachKhoangCach) {
-                                try {
-                                    float kcFloat = Float.parseFloat(kc);
-                                    if (kcFloat == 0) {
-                                        jlbKhoangCach.setText("Khoảng cách phải khác không");
-                                    } else {// không đổi đc
-                                        if (tachKhoangCach.length == tachTram.length - 1) {
-                                            jlbKhoangCach.setText(" ");
-                                        } else {
-                                            jlbKhoangCach.setText("Số khoảng cách phải bằng số trạm - 1");
-                                        }
-                                    }
-                                } catch (Exception e) {
-                                    jlbKhoangCach.setText("Khoảng cách phải là một số");
-                                    break;
-                                }
-                            }
-
-                        }
-                    }
-                }
+                kiemTraJTAKhoangCach();
                 break;
         }
 
