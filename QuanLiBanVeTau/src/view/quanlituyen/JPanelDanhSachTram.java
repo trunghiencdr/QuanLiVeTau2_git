@@ -43,13 +43,13 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
     }
 
     private void enableJTF() {
-        jtfTenTram.enable(true);
-        jtfDiaChi.enable(true);
+        jtfTenTram.setEditable(true);
+        jtfDiaChi.setEditable(true);
     }
 
     private void disableJTF() {
-        jtfTenTram.enable(false);
-        jtfDiaChi.enable(false);
+        jtfTenTram.setEditable(false);
+        jtfDiaChi.setEditable(false);
     }
 
     /**
@@ -475,7 +475,7 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
             try {
                 // tim kiem theo ma ca tram bd va kt
                 String tenTram = jtfTimKiem.getText().trim().toUpperCase();
-                tramDao.loadDSTramVaoBang(LopKetNoi.select("select * from tram where tenTram like ?","%" + tenTram +"%" ), tbmBangTram);
+                tramDao.loadDSTramVaoBang(LopKetNoi.select("select * from tram where tenTram like ?", "%" + tenTram + "%"), tbmBangTram);
             } catch (Exception ex) {
                 Logger.getLogger(JPanelDanhSachTram.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -484,7 +484,7 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
             try {
                 // tim kiem theo ma ca tram bd va kt
                 String diaChi = jtfTimKiem.getText().trim();
-                tramDao.loadDSTramVaoBang(LopKetNoi.select("select * from tram where diaChi like ?","%" + diaChi +"%" ), tbmBangTram);
+                tramDao.loadDSTramVaoBang(LopKetNoi.select("select * from tram where diaChi like ?", "%" + diaChi + "%"), tbmBangTram);
             } catch (Exception ex) {
                 Logger.getLogger(JPanelDanhSachTram.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -512,15 +512,15 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
         jdlThemSuaTram.setTitle(title);
         jlbTenDialog.setText(title);
         if (title.equals("THÊM TRẠM")) {
-            jtfTenTramDialog.enable(true);
-            jtfDiaChiDialog.enable(true);
+            jtfTenTramDialog.setEditable(true);
+            jtfDiaChiDialog.setEditable(true);
             jtfTenTramDialog.setText("");
             jtfDiaChiDialog.setText("");
         } else {
             jtfTenTramDialog.setText(jtfTenTram.getText());
             jtfDiaChiDialog.setText(jtfDiaChi.getText());
-            jtfTenTramDialog.enable(false);
-            jtfDiaChiDialog.enable(true);
+            jtfTenTramDialog.setEditable(true);
+            jtfDiaChiDialog.setEditable(true);
         }
     }
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
@@ -529,7 +529,7 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
         if (hangDangChon == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 dòng muốn sửa");
         } else
-            hienThiDialog("SỬA TÀU");
+            hienThiDialog("SỬA TRẠM");
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void jtbDanhSachTramMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbDanhSachTramMousePressed
@@ -538,10 +538,11 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
         tramDao.getTramTuBang(hangDangChon, jtbDanhSachTram, jtfTenTram, jtfDiaChi);
     }//GEN-LAST:event_jtbDanhSachTramMousePressed
 
-    private void setRong(){
+    private void setRong() {
         jtfTenTram.setText("");
         jtfDiaChi.setText("");
     }
+
     private void capNhatSauKhiThem() {
         jtfTenTram.setText(jtfTenTramDialog.getText().trim().toUpperCase());
         jtfDiaChi.setText(jtfDiaChiDialog.getText().trim());
@@ -549,13 +550,13 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
         jtfDiaChiDialog.setText("");
         jlbTenTramDialog.setText("Tên trạm không được rỗng");
         jtfTenTramDialog.requestFocus();
+        hangDangChon = jtbDanhSachTram.getRowCount() - 1;
     }
 
     private void themTram() {
         if (!jlbTenTramDialog.getText().equals(" ")) { // là bị đỏ
             JOptionPane.showMessageDialog(jdlThemSuaTram, "Thêm thất bại");
             jtfTenTramDialog.requestFocus();
-            return;
         } else {
             String tenTram = jtfTenTramDialog.getText().trim().toUpperCase();
             String diaChi = jtfDiaChiDialog.getText().trim();
@@ -566,7 +567,6 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(jdlThemSuaTram, "Thêm thành công");
             //cap nhat lai cac truong
             capNhatSauKhiThem();
-            hangDangChon = jtbDanhSachTram.getRowCount() - 1;
         }
     }
 
@@ -584,18 +584,23 @@ public class JPanelDanhSachTram extends javax.swing.JPanel {
     private void xoaTram() {
         int input = JOptionPane.showConfirmDialog(this, "Bạn chắn chắn muốn xóa chứ?", "Thông báo", JOptionPane.YES_NO_OPTION);
         if (input == JOptionPane.YES_OPTION) {
-            tramDao.xoaTramTrongDB(jtfTenTram.getText());
-            tramDao.xoaTramKhoiBang(hangDangChon, tbmBangTram);
+            boolean kt = tramDao.xoaTramTrongDB(jtfTenTram.getText());
+            if (kt) {
+                tramDao.xoaTramKhoiBang(hangDangChon, tbmBangTram);
+                hangDangChon = -1;
+                jtfTenTram.setText("");
+                jtfDiaChi.setText("");
+                jtbDanhSachTram.clearSelection();
+            }else{
+                JOptionPane.showMessageDialog(this, "Không thể xóa vì có tuyến đi qua trạm này");
+            }
+
             //===================================
-            hangDangChon = -1;
-            jtfTenTram.setText("");
-            jtfDiaChi.setText("");
-            jtbDanhSachTram.clearSelection();
         }
     }
     private void btnXacNhanDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanDialogActionPerformed
         // TODO add your handling code here:
-        if (jdlThemSuaTram.getTitle().equals("Thêm trạm")) {
+        if (jdlThemSuaTram.getTitle().equalsIgnoreCase("Thêm trạm")) {
             themTram();
         } else {
             suaTram();

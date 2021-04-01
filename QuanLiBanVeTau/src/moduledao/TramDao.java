@@ -8,10 +8,8 @@ package moduledao;
 import connectSQL.LopKetNoi;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -34,23 +32,31 @@ public class TramDao {
         }
     }
 
-    public void themTramVaoDB(Tram tram){
+    public void themTramVaoDB(Tram tram) {
         try {
             LopKetNoi.update("insert into Tram values(?,?)", tram.getTenTram(), tram.getDiaChi());
         } catch (Exception e) {
         }
     }
+
     public void suaTramTrongDB(Tram tram) {
         try {
-            LopKetNoi.update("update tram set diaChi = ? where tenTram = ?", tram.getDiaChi(), tram.getTenTram());
+            LopKetNoi.update("update tram set diaChi = ? , tenTram = ? where tenTram = ?", tram.getDiaChi(), tram.getTenTram(), tram.getTenTram());
         } catch (Exception e) {
         }
     }
 
-    public void xoaTramTrongDB(String tenTram) {
+    public boolean xoaTramTrongDB(String tenTram) {
         try {
-            LopKetNoi.update("delete from tram where tenTram = ?", tenTram);
+            ResultSet rs = LopKetNoi.select("select * from tuyendiquatram where  tenTram = ?", tenTram);
+            if (rs.next()) {
+                return false;
+            } else {
+                LopKetNoi.update("delete from tram where tenTram = ?", tenTram);
+            }
+            return true;
         } catch (Exception e) {
+            return false;
         }
     }
 
@@ -64,6 +70,7 @@ public class TramDao {
     }
 
     public void suaTramTrongBang(Tram tram, int hang, JTable jtb) {
+        jtb.setValueAt(tram.getTenTram(), hang, 0);
         jtb.setValueAt(tram.getDiaChi(), hang, 1);
     }
 
