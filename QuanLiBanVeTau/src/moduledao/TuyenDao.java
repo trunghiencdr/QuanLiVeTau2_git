@@ -8,6 +8,7 @@ package moduledao;
 import connectSQL.LopKetNoi;
 import java.awt.TextArea;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -19,21 +20,37 @@ import module.Tuyen;
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
 public class TuyenDao {
-
-    public String getDSTramDiQua(String maTuyen) {
+    
+    public String chuyenArrayListStringSangString(ArrayList<String> DS, String dau) {
         String tam = "";
+        for (String s : DS) {
+            tam += s + dau;
+        }
+        return tam.substring(0, tam.length() - 1);
+    }
+    
+    public String chuyenArrayListStringFloatString(ArrayList<Float> DS, String dau) {
+        String tam = "";
+        for (Float s : DS) {
+            tam += Float.toString(s) + dau;
+        }
+        return tam.substring(0, tam.length() - 1);
+    }
+
+    public ArrayList<String> getDSTramDiQua(String maTuyen) {
+        ArrayList<String> DS = new ArrayList<>();
         try {
             ResultSet rs = LopKetNoi.select("select tenTram from TuyenDiQuaTram where maTuyen=? order by STT ASC", maTuyen);
             while (rs.next()) {
-                tam += rs.getString(1) + "-";
+                DS.add(rs.getString(1));
             }
         } catch (Exception e) {
         }
-        return tam.substring(0, tam.length() - 1);// loai bo ki tu - cuoi cung
+        return DS;
     }
-
-    public String getDSKhoangCach(String maTuyen) {
-        String tam = "";
+    
+    public ArrayList<Float> getDSKhoangCach(String maTuyen) {
+        ArrayList<Float> DS = new ArrayList<>();
         int i = 0;
         try {
             ResultSet rs = LopKetNoi.select("select khoangCach from TuyenDiQuaTram where maTuyen=? order by STT ASC", maTuyen);
@@ -42,28 +59,28 @@ public class TuyenDao {
                     rs.getFloat(1);
                     i++;
                 } else {
-                    tam += Float.toString(rs.getFloat(1)) + "-";
+                    DS.add(rs.getFloat(1));
                 }
             }
         } catch (Exception e) {
         }
-        return tam.substring(0, tam.length() - 1);// loai bo ki tu - cuoi cung
+        return DS;
     }
-
+    
     public void loadDSTuyenVaoBang(ResultSet rs, DefaultTableModel model) {
         model.setRowCount(0);
         try {
             while (rs.next()) {
                 String maTuyen = rs.getString(1);
-                String DSTramDiQua = getDSTramDiQua(maTuyen);
-                String DSKhoangCach = getDSKhoangCach(maTuyen);
+                String DSTramDiQua = chuyenArrayListStringSangString(getDSTramDiQua(maTuyen), "-");
+                String DSKhoangCach = chuyenArrayListStringFloatString(getDSKhoangCach(maTuyen),"-");
                 String tenTuyen = rs.getString(2);
                 model.addRow(new Object[]{maTuyen, tenTuyen, DSTramDiQua, DSKhoangCach});
             }
         } catch (Exception e) {
         }
     }
-
+    
     public void themTuyenDiQuaTram(Tuyen tuyen) {
         float khoangCach = 0f;
         for (int i = 0; i < tuyen.getDSTramDiQua().size(); i++) {
@@ -76,7 +93,7 @@ public class TuyenDao {
                     tuyen.getDSTramDiQua().get(i), i, khoangCach);
         }
     }
-
+    
     public void capNhatLaiTuyenDiQuaTram(Tuyen tuyen) {
         try {
             LopKetNoi.update("delete from tuyendiquatram where matuyen = ?", tuyen.getMaTuyen());
@@ -84,7 +101,7 @@ public class TuyenDao {
         } catch (Exception e) {
         }
     }
-
+    
     public void themTuyenVaoDB(Tuyen tuyen) {
         try {
             LopKetNoi.update("insert into tuyen values(?,?)", tuyen.getMaTuyen(), tuyen.getTenTuyen());
@@ -92,7 +109,7 @@ public class TuyenDao {
         } catch (Exception e) {
         }
     }
-
+    
     public void suaTuyenTrongDB(Tuyen tuyen) {
         try {
             LopKetNoi.update("update tuyen set TenTuyen = ? where MaTuyen = ?", tuyen.getTenTuyen(), tuyen.getMaTuyen());
@@ -100,7 +117,7 @@ public class TuyenDao {
         } catch (Exception e) {
         }
     }
-
+    
     public boolean xoaTuyenTrongDB(String maTuyen) {
         try {
             LopKetNoi.update("delete from tuyen where maTuyen = ?", maTuyen);
@@ -109,7 +126,7 @@ public class TuyenDao {
             return false;
         }
     }
-
+    
     public void themTuyenVaoBang(Tuyen tuyen, JTable jtb) {
         DefaultTableModel model = (DefaultTableModel) jtb.getModel();
         model.addRow(new Object[]{tuyen.getMaTuyen(), tuyen.getTenTuyen(),
@@ -119,17 +136,17 @@ public class TuyenDao {
         jtb.clearSelection();
         jtb.setRowSelectionInterval(hangCuoi - 1, hangCuoi - 1);
     }
-
+    
     public void suaTuyenTrongBang(Tuyen tuyen, int hang, JTable jtb) {
         jtb.setValueAt(tuyen.getTenTuyen(), hang, 1);
         jtb.setValueAt(tuyen.DSTramDiQuaSangChuoi(), hang, 2);
         jtb.setValueAt(tuyen.DSKhoangCachSangChuoi(), hang, 3);
     }
-
+    
     public void xoaTramKhoiBang(int hang, DefaultTableModel model) {
         model.removeRow(hang);
     }
-
+    
     public void getTuyenTuBang(int hang, JTable jtb, JTextField maTuyen, JTextField tenTuyen,
             JTextArea tramDiQua, JTextArea khoangCach) {
         maTuyen.setText(jtb.getValueAt(hang, 0) + "");

@@ -14,6 +14,8 @@ import javax.swing.table.DefaultTableModel;
 import module.Tuyen;
 import java.sql.ResultSet;
 import java.sql.Connection;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import moduledao.TuyenDao;
 import view.JPanelQuanLiTuyen;
@@ -30,16 +32,30 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
     private DefaultTableModel tbmBangTuyen;
     private int count = 0;
     private int hangDangChon = -1;
+    private DefaultListModel<String> lmTram;
 
     /**
      * Creates new form JPanelDanhSachTuyen
      */
     public JPanelDanhSachTuyen() {
         initComponents();
+        jlTram.setEnabled(false);
+        lmTram = new DefaultListModel<>();
         tuyenDao = new TuyenDao();
         connection = new LopKetNoi().getConnection();
         tbmBangTuyen = (DefaultTableModel) jtbTuyen.getModel();
         tuyenDao.loadDSTuyenVaoBang(LopKetNoi.select("select * from Tuyen"), tbmBangTuyen);
+    }
+
+    private void loadTramVaoList() {
+        try {
+            ResultSet rs = LopKetNoi.select("select tenTram from tram");
+            while (rs.next()) {
+                lmTram.addElement(rs.getString(1));
+            }
+        } catch (Exception e) {
+        }
+        jlTram.setModel(lmTram);
     }
 
     private void loadDSTramVaoCBB() {
@@ -105,6 +121,8 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jlbTenTuyen = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jlTram = new javax.swing.JList<>();
         jTextField3 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -122,9 +140,9 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         btnThongTIn = new javax.swing.JButton();
 
-        jdlThuocTinhTuyen.setMinimumSize(new java.awt.Dimension(508, 555));
+        jdlThuocTinhTuyen.setMinimumSize(new java.awt.Dimension(588, 555));
 
-        jPanel2.setMinimumSize(new java.awt.Dimension(508, 529));
+        jPanel2.setMinimumSize(new java.awt.Dimension(588, 555));
 
         jlbTenDialog.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jlbTenDialog.setForeground(new java.awt.Color(102, 102, 255));
@@ -231,14 +249,12 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         jlbTenTuyen.setForeground(new java.awt.Color(255, 51, 51));
         jlbTenTuyen.setText("Không được để trống");
 
+        jScrollPane4.setViewportView(jlTram);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jlbTenDialog)
-                .addGap(201, 201, 201))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -250,14 +266,19 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                                 .addComponent(jLabel4)))
                         .addGap(48, 48, 48)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jlbCacTramDiQua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jtfMaTuyen)
-                                .addComponent(jtfTenTuyen)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                                .addComponent(jlbMaTuyen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jlbTenTuyen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jlbCacTramDiQua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jtfMaTuyen)
+                                    .addComponent(jtfTenTuyen)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                                    .addComponent(jlbMaTuyen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jlbTenTuyen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(60, 60, 60)
+                                        .addComponent(btnXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel12)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
@@ -265,10 +286,13 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                         .addGap(48, 48, 48)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jlbKhoangCach, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(69, Short.MAX_VALUE))
+                            .addComponent(jlbKhoangCach, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(27, 27, 27))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jlbTenDialog)
+                .addGap(238, 238, 238))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,9 +314,10 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addComponent(jLabel12)
                 .addGap(2, 2, 2)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jLabel6)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlbCacTramDiQua)
                 .addGap(15, 15, 15)
@@ -303,9 +328,9 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlbKhoangCach)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGap(38, 38, 38)
                 .addComponent(btnXacNhan)
-                .addGap(36, 36, 36))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jdlThuocTinhTuyenLayout = new javax.swing.GroupLayout(jdlThuocTinhTuyen.getContentPane());
@@ -504,11 +529,12 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
     }
 
     private void hienThiDialog(String tenDialog) {
+        loadTramVaoList();
         switch (tenDialog) {
             case "THÊM TUYẾN":
                 batCacTruong();
+                setLabelThongBaoRong();
                 setRong();
-                setLabelThongBao();
                 break;
             case "SỬA TUYẾN":
                 batCacTruong();
@@ -609,6 +635,25 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         }
     }
 
+    private boolean kiemTraTramDiQuaDB() {
+        ArrayList<String> DSTramDiQuaNhap = getCacTramDiQua();
+        try {
+            ResultSet rs = LopKetNoi.select("select maTuyen from tuyen");
+            while (rs.next()) {
+                ResultSet rs1 = LopKetNoi.select("select tenTram from tuyendiquatram where matuyen = ? order by STT", rs.getString(1));
+                ArrayList<String> DSTram = new ArrayList<>();
+                while (rs1.next()) {
+                    DSTram.add(rs1.getString(1));
+                }
+                if (DSTram.equals(DSTramDiQuaNhap)) {
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+        }
+        return true;
+    }
+
     private void kiemTraJTACacTramDiQua() {
         String cacTramDiQua = jtaCacTramDiQua.getText().trim();
         if (cacTramDiQua.equals("")) {
@@ -628,8 +673,15 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                             if (tachTram.length < 2) {
                                 jlbCacTramDiQua.setText("Ít nhất 2 trạm");
                             } else {
-                                jlbCacTramDiQua.setText(" ");
-                                kiemTraJTAKhoangCach();
+
+                                // kiem tra xem co tồn tại trạm đi qua này chưa
+                                if (kiemTraTramDiQuaDB()) {// nếu chưa có trong csdl
+                                    jlbCacTramDiQua.setText(" ");
+                                    kiemTraJTAKhoangCach();
+                                } else {
+                                    jlbCacTramDiQua.setText("Các trạm đi qua đã tồn tại rồi");
+                                }
+
                             }
                         } else {
                             jlbCacTramDiQua.setText("Không tồn tại trạm này");
@@ -662,6 +714,10 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
     }
 
     private boolean kiemTraTruocKhiXacNhan() {
+        kiemTraJTFMaTuyen();
+        kiemTraJTFTenTuyen();
+        kiemTraJTACacTramDiQua();
+        kiemTraJTAKhoangCach();
         if (jlbMaTuyen.getText().equals(" ") && jlbMaTuyen.getText().equals(" ")
                 && jlbCacTramDiQua.getText().equals(" ") && jlbKhoangCach.getText().equals(" ")) {
             return true;
@@ -706,6 +762,20 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         jtaCacTramDiQua.setText("");
         jtaKhoangCach.setText("");
     }
+
+    private void timKiemTram() {
+        String[] cacTramDiQua = jtaCacTramDiQua.getText().trim().split("\\s*-\\s*");
+        lmTram.setSize(0);
+        String tenTram = cacTramDiQua[cacTramDiQua.length - 1];
+        try {
+            ResultSet rs = LopKetNoi.select("select tenTram from tram where tenTram like ?", "%" + tenTram + "%");
+            while (rs.next()) {
+                lmTram.addElement(rs.getString(1));
+            }
+        } catch (Exception e) {
+        }
+        jlTram.setModel(lmTram);
+    }
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         hienThiDialog("THÊM TUYẾN");
@@ -743,14 +813,13 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "Không thể xóa vì có tàu đang chạy trên tuyến này");
                 }
             }
-
         }
 
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void jtfMaTuyenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfMaTuyenKeyReleased
         // TODO add your handling code here:
-        kiemTraThongTinNhap("mã tuyến");
+//        kiemTraThongTinNhap("mã tuyến");
     }//GEN-LAST:event_jtfMaTuyenKeyReleased
 
     private void jtfTenTuyenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfTenTuyenActionPerformed
@@ -759,13 +828,13 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
 
     private void jtfTenTuyenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTenTuyenKeyReleased
         // TODO add your handling code here:
-        kiemTraThongTinNhap("tên tuyến");
+//        kiemTraThongTinNhap("tên tuyến");
     }//GEN-LAST:event_jtfTenTuyenKeyReleased
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
         // TODO add your handling code here:
+        String loai = jlbTenDialog.getText().toLowerCase();
         if (kiemTraTruocKhiXacNhan()) {
-            String loai = jlbTenDialog.getText().toLowerCase();
             Tuyen tuyen = getTuyenTuDialog();
             switch (loai) {
                 case "thêm tuyến":
@@ -781,14 +850,12 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                     tuyenDao.suaTuyenTrongBang(tuyen, hangDangChon, jtbTuyen);
                     jdlThuocTinhTuyen.dispose();
                     break;
-                case "thông tin tuyến":
-                    jdlThuocTinhTuyen.dispose();
-                    break;
-
             }
         } else {
-            if (!jlbTenDialog.getText().equalsIgnoreCase("thông tin tuyến")) {
+            if (!loai.equalsIgnoreCase("thông tin tuyến")) {// neu khong phai thong tin tuyen thi ỉn ra
                 JOptionPane.showMessageDialog(jdlThuocTinhTuyen, jlbTenDialog.getText() + " thất bại");
+            }else{
+                jdlThuocTinhTuyen.dispose();
             }
         }
 
@@ -796,12 +863,13 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
 
     private void jtaCacTramDiQuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtaCacTramDiQuaKeyReleased
         // TODO add your handling code here:
-        kiemTraThongTinNhap("các trạm đi qua");
+//        kiemTraThongTinNhap("các trạm đi qua");
+//        timKiemTram();
     }//GEN-LAST:event_jtaCacTramDiQuaKeyReleased
 
     private void jtaKhoangCachKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtaKhoangCachKeyReleased
         // TODO add your handling code here:
-        kiemTraThongTinNhap("khoảng cách");
+//        kiemTraThongTinNhap("khoảng cách");
     }//GEN-LAST:event_jtaKhoangCachKeyReleased
 
     private void jtfMaTuyenKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfMaTuyenKeyPressed
@@ -844,9 +912,9 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
 
     private void btnXacNhanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnXacNhanKeyPressed
         // TODO add your handling code here:
+        String loai = jlbTenDialog.getText().toLowerCase();
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (kiemTraTruocKhiXacNhan()) {
-                String loai = jlbTenDialog.getText().toLowerCase();
                 Tuyen tuyen = getTuyenTuDialog();
                 switch (loai) {
                     case "thêm tuyến":
@@ -862,12 +930,11 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                         tuyenDao.suaTuyenTrongBang(tuyen, hangDangChon, jtbTuyen);
                         jdlThuocTinhTuyen.dispose();
                         break;
-
                 }
             } else {
-                if (!jlbTenDialog.getText().equalsIgnoreCase("thông tin tuyến")) {
+                if (!loai.equalsIgnoreCase("thông tin tuyến")) {// neu khong phai thong tin tuyen thi ỉn ra
                     JOptionPane.showMessageDialog(jdlThuocTinhTuyen, jlbTenDialog.getText() + " thất bại");
-                } else {
+                }else{
                     jdlThuocTinhTuyen.dispose();
                 }
             }
@@ -952,8 +1019,10 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JDialog jdlThuocTinhTuyen;
+    private javax.swing.JList<String> jlTram;
     private javax.swing.JLabel jlbCacTramDiQua;
     private javax.swing.JLabel jlbKhoangCach;
     private javax.swing.JLabel jlbMaTuyen;
