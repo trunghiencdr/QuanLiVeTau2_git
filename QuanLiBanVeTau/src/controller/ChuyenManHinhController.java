@@ -34,6 +34,7 @@ public class ChuyenManHinhController {
     private JPanel view; // khi bam vao label minh se hien thi panel len cai jpn view nay
 
     List<DanhMucBean> list = null;
+   
     
     TaiKhoan taiKhoan; //luu tai khoan dang nhap luc dau
 
@@ -45,8 +46,8 @@ public class ChuyenManHinhController {
     }
 
     public void setView(JPanel jpnItem, JLabel jlbItem) { // set vua vao se vao danh muc bean dau tien la dat ve
-        jpnItem.setBackground(new Color(96, 100, 191));
-        jlbItem.setBackground(new Color(96, 100, 191));
+        jpnItem.setBackground(new Color(51,153,255));
+        jlbItem.setBackground(new Color(51,153,255));
 
         view.removeAll();
         view.setLayout(new BorderLayout());
@@ -140,11 +141,11 @@ public class ChuyenManHinhController {
         private void setChangeBackground() {
             for (DanhMucBean iBean : list) {
                 if (kind.equalsIgnoreCase(iBean.getKind())) {
-                    iBean.getJpn().setBackground(new Color(96, 100, 191));
-                    iBean.getJlb().setBackground(new Color(96, 100, 191));
+                    iBean.getJpn().setBackground(new Color(51,153,255));
+                    iBean.getJlb().setBackground(new Color(51,153,255));
                 } else {
-                    iBean.getJpn().setBackground(new Color(0, 204, 51));
-                    iBean.getJlb().setBackground(new Color(0, 204, 51));
+                    iBean.getJpn().setBackground(new Color(255, 255, 255));
+                    iBean.getJlb().setBackground(new Color(255, 255, 255));
                 }
             }
         }

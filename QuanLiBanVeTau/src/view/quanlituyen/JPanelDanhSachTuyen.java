@@ -8,6 +8,7 @@ package view.quanlituyen;
 import connectSQL.LopKetNoi;
 import controller.ChuyenManHinhView;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import javax.swing.table.DefaultTableModel;
@@ -139,6 +140,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         btnThongTIn = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         jdlThuocTinhTuyen.setMinimumSize(new java.awt.Dimension(588, 555));
 
@@ -473,6 +475,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 286, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(349, 349, 349))
+            .addComponent(jSeparator1)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -489,7 +492,9 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                     .addComponent(btnSua)
                     .addComponent(btnXoa)
                     .addComponent(btnThongTIn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbbTiemKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -669,11 +674,10 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                     // kiem tra co tồn tại trạm này không
                     try {
                         ResultSet rs = LopKetNoi.select("select * from tram where tenTram=?", s);
-                        if (rs.next()) {
+                        if (rs.next()) { // nếu có tên trạm rồi thì ok
                             if (tachTram.length < 2) {
                                 jlbCacTramDiQua.setText("Ít nhất 2 trạm");
                             } else {
-
                                 // kiem tra xem co tồn tại trạm đi qua này chưa
                                 if (kiemTraTramDiQuaDB()) {// nếu chưa có trong csdl
                                     jlbCacTramDiQua.setText(" ");
@@ -685,6 +689,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                             }
                         } else {
                             jlbCacTramDiQua.setText("Không tồn tại trạm này");
+                            return;
                         }
                     } catch (Exception e) {
                     }
@@ -793,6 +798,12 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
     private void jtbTuyenMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbTuyenMousePressed
         // TODO add your handling code here:
         hangDangChon = jtbTuyen.getSelectedRow();
+        if (hangDangChon != -1) {
+            if (evt.getButton() == MouseEvent.BUTTON3) {
+                hienThiDialog("THÔNG TIN TUYẾN");
+            }
+        }
+
     }//GEN-LAST:event_jtbTuyenMousePressed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -854,7 +865,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         } else {
             if (!loai.equalsIgnoreCase("thông tin tuyến")) {// neu khong phai thong tin tuyen thi ỉn ra
                 JOptionPane.showMessageDialog(jdlThuocTinhTuyen, jlbTenDialog.getText() + " thất bại");
-            }else{
+            } else {
                 jdlThuocTinhTuyen.dispose();
             }
         }
@@ -934,7 +945,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
             } else {
                 if (!loai.equalsIgnoreCase("thông tin tuyến")) {// neu khong phai thong tin tuyen thi ỉn ra
                     JOptionPane.showMessageDialog(jdlThuocTinhTuyen, jlbTenDialog.getText() + " thất bại");
-                }else{
+                } else {
                     jdlThuocTinhTuyen.dispose();
                 }
             }
@@ -1020,6 +1031,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JDialog jdlThuocTinhTuyen;
     private javax.swing.JList<String> jlTram;

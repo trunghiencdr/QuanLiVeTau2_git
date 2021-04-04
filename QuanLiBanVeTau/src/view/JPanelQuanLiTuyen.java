@@ -38,15 +38,16 @@ public class JPanelQuanLiTuyen extends javax.swing.JPanel {
         jpnDanhSachTram = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 255, 204));
+        setBackground(new java.awt.Color(204, 204, 204));
 
-        jpnDanhSachTuyen.setBackground(new java.awt.Color(255, 0, 153));
+        jpnDanhSachTuyen.setBackground(new java.awt.Color(255, 255, 255));
         jpnDanhSachTuyen.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jpnDanhSachTuyenMousePressed(evt);
             }
         });
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/baseline_table_rows_black_18dp.png"))); // NOI18N
@@ -65,13 +66,14 @@ public class JPanelQuanLiTuyen extends javax.swing.JPanel {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
         );
 
-        jpnDanhSachTram.setBackground(new java.awt.Color(255, 0, 255));
+        jpnDanhSachTram.setBackground(new java.awt.Color(255, 255, 255));
         jpnDanhSachTram.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jpnDanhSachTramMousePressed(evt);
             }
         });
 
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/baseline_table_chart_black_18dp.png"))); // NOI18N

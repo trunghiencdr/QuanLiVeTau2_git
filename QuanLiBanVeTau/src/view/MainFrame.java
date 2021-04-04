@@ -83,10 +83,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         jpnRoot.setBackground(new java.awt.Color(102, 102, 102));
 
-        jpnMenu.setBackground(new java.awt.Color(102, 102, 102));
+        jpnMenu.setBackground(new java.awt.Color(0, 0, 0));
 
-        jpnTenPhanMem.setBackground(new java.awt.Color(255, 51, 102));
+        jpnTenPhanMem.setBackground(new java.awt.Color(51, 51, 255));
 
+        jLabel1.setBackground(new java.awt.Color(51, 51, 255));
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -110,10 +111,11 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jpnDatVe.setBackground(new java.awt.Color(0, 204, 51));
+        jpnDatVe.setBackground(new java.awt.Color(255, 255, 255));
 
+        jlbDatVe.setBackground(new java.awt.Color(255, 255, 255));
         jlbDatVe.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jlbDatVe.setForeground(new java.awt.Color(255, 255, 255));
+        jlbDatVe.setForeground(new java.awt.Color(0, 0, 0));
         jlbDatVe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/baseline_shopping_cart_white_18dp.png"))); // NOI18N
         jlbDatVe.setText("Đặt vé");
 
@@ -130,10 +132,11 @@ public class MainFrame extends javax.swing.JFrame {
             .addComponent(jlbDatVe, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        jpnQuanLiLoTrinh.setBackground(new java.awt.Color(0, 204, 51));
+        jpnQuanLiLoTrinh.setBackground(new java.awt.Color(255, 255, 255));
 
+        jlbQuanLiLoTrinh.setBackground(new java.awt.Color(255, 255, 255));
         jlbQuanLiLoTrinh.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jlbQuanLiLoTrinh.setForeground(new java.awt.Color(255, 255, 255));
+        jlbQuanLiLoTrinh.setForeground(new java.awt.Color(0, 0, 0));
         jlbQuanLiLoTrinh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/baseline_wysiwyg_white_18dp.png"))); // NOI18N
         jlbQuanLiLoTrinh.setText("Quản lí lộ trình");
 
@@ -150,10 +153,11 @@ public class MainFrame extends javax.swing.JFrame {
             .addComponent(jlbQuanLiLoTrinh, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        jpnThongKe.setBackground(new java.awt.Color(0, 204, 51));
+        jpnThongKe.setBackground(new java.awt.Color(255, 255, 255));
 
+        jlbThongKe.setBackground(new java.awt.Color(255, 255, 255));
         jlbThongKe.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jlbThongKe.setForeground(new java.awt.Color(255, 255, 255));
+        jlbThongKe.setForeground(new java.awt.Color(0, 0, 0));
         jlbThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/baseline_leaderboard_white_18dp.png"))); // NOI18N
         jlbThongKe.setText("Thống kê");
 
@@ -170,10 +174,11 @@ public class MainFrame extends javax.swing.JFrame {
             .addComponent(jlbThongKe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
         );
 
-        jpnQuanLiTuyen.setBackground(new java.awt.Color(0, 204, 51));
+        jpnQuanLiTuyen.setBackground(new java.awt.Color(255, 255, 255));
 
+        jlbQuanLiTuyen.setBackground(new java.awt.Color(255, 255, 255));
         jlbQuanLiTuyen.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jlbQuanLiTuyen.setForeground(new java.awt.Color(255, 255, 255));
+        jlbQuanLiTuyen.setForeground(new java.awt.Color(0, 0, 0));
         jlbQuanLiTuyen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/baseline_alt_route_white_18dp.png"))); // NOI18N
         jlbQuanLiTuyen.setText("Quản lí tuyến");
 
@@ -190,10 +195,11 @@ public class MainFrame extends javax.swing.JFrame {
             .addComponent(jlbQuanLiTuyen, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        jpnQuanLiTau.setBackground(new java.awt.Color(0, 204, 51));
+        jpnQuanLiTau.setBackground(new java.awt.Color(255, 255, 255));
 
+        jlbQuanLiTau.setBackground(new java.awt.Color(255, 255, 255));
         jlbQuanLiTau.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jlbQuanLiTau.setForeground(new java.awt.Color(255, 255, 255));
+        jlbQuanLiTau.setForeground(new java.awt.Color(0, 0, 0));
         jlbQuanLiTau.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/baseline_directions_subway_filled_white_18dp.png"))); // NOI18N
         jlbQuanLiTau.setText("Quản lí tàu");
 
@@ -210,10 +216,11 @@ public class MainFrame extends javax.swing.JFrame {
             .addComponent(jlbQuanLiTau, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        jpnCaiDatTaiKhoan.setBackground(new java.awt.Color(0, 204, 51));
+        jpnCaiDatTaiKhoan.setBackground(new java.awt.Color(255, 255, 255));
 
+        jlbCaiDatTaiKhoan.setBackground(new java.awt.Color(255, 255, 255));
         jlbCaiDatTaiKhoan.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jlbCaiDatTaiKhoan.setForeground(new java.awt.Color(255, 255, 255));
+        jlbCaiDatTaiKhoan.setForeground(new java.awt.Color(0, 0, 0));
         jlbCaiDatTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/gear.png"))); // NOI18N
         jlbCaiDatTaiKhoan.setText("Cài đặt tài khoản");
 
@@ -267,7 +274,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jpnView.setBackground(new java.awt.Color(255, 255, 102));
+        jpnView.setBackground(new java.awt.Color(51, 153, 255));
 
         javax.swing.GroupLayout jpnViewLayout = new javax.swing.GroupLayout(jpnView);
         jpnView.setLayout(jpnViewLayout);

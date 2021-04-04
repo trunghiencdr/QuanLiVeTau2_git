@@ -338,10 +338,13 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 255));
 
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Chức năng");
 
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Tìm kiếm:");
 
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Sắp xếp:");
 
         cbbSapXepTau.addActionListener(new java.awt.event.ActionListener() {
@@ -493,12 +496,15 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
 
         jPanel8.setBackground(new java.awt.Color(204, 204, 255));
 
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Chức năng");
 
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Tìm kiếm:");
 
         cbbTimKiemToa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Sắp xếp:");
 
         cbbSapXepToa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -664,10 +670,13 @@ public class JPanelQuanLiTau extends javax.swing.JPanel {
 
         jPanel13.setBackground(new java.awt.Color(204, 204, 255));
 
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Chức năng");
 
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Tìm kiếm:");
 
+        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Sắp xếp:");
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
