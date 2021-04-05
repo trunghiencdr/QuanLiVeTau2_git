@@ -34,8 +34,7 @@ public class ChuyenManHinhController {
     private JPanel view; // khi bam vao label minh se hien thi panel len cai jpn view nay
 
     List<DanhMucBean> list = null;
-   
-    
+
     TaiKhoan taiKhoan; //luu tai khoan dang nhap luc dau
 
     public ChuyenManHinhController() {
@@ -46,8 +45,8 @@ public class ChuyenManHinhController {
     }
 
     public void setView(JPanel jpnItem, JLabel jlbItem) { // set vua vao se vao danh muc bean dau tien la dat ve
-        jpnItem.setBackground(new Color(51,153,255));
-        jlbItem.setBackground(new Color(51,153,255));
+        jpnItem.setBackground(new Color(0, 0, 0));
+        jlbItem.setForeground(new Color(51, 204, 255));
 
         view.removeAll();
         view.setLayout(new BorderLayout());
@@ -60,15 +59,14 @@ public class ChuyenManHinhController {
         this.list = list;
         for (DanhMucBean i : list) {
             i.getJpn().addMouseListener(new LabelEvent(i.getKind(), i.getJpn(), i.getJlb()));
-            
+
         }
     }
-    public void setTaiKhoan(TaiKhoan taiKhoan)
-    {
-        this.taiKhoan=taiKhoan;
+
+    public void setTaiKhoan(TaiKhoan taiKhoan) {
+        this.taiKhoan = taiKhoan;
     }
-    
-    
+
     class LabelEvent implements MouseListener {
 
         private JPanel node;
@@ -108,10 +106,10 @@ public class ChuyenManHinhController {
                         node = new JPanelThongKe();
                         break;
                     case "CaiDatTaiKhoan":
-                        node=new JPanelCaiDatTaiKhoan(taiKhoan);
+                        node = new JPanelCaiDatTaiKhoan(taiKhoan);
                         break;
                 }
-                
+
                 view.removeAll();
                 view.setLayout(new BorderLayout());
                 view.add(node);
@@ -141,11 +139,11 @@ public class ChuyenManHinhController {
         private void setChangeBackground() {
             for (DanhMucBean iBean : list) {
                 if (kind.equalsIgnoreCase(iBean.getKind())) {
-                    iBean.getJpn().setBackground(new Color(51,153,255));
-                    iBean.getJlb().setBackground(new Color(51,153,255));
+                    iBean.getJpn().setBackground(new Color(0, 0, 0));
+                    iBean.getJlb().setForeground(new Color(51, 204, 255));
                 } else {
-                    iBean.getJpn().setBackground(new Color(255, 255, 255));
-                    iBean.getJlb().setBackground(new Color(255, 255, 255));
+                    iBean.getJpn().setBackground(new Color(0, 0, 0));
+                    iBean.getJlb().setForeground(new Color(255, 255, 255));
                 }
             }
         }

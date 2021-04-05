@@ -38,7 +38,7 @@ public class JPanelQuanLiTuyen extends javax.swing.JPanel {
         jpnDanhSachTram = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(204, 204, 204));
+        setBackground(new java.awt.Color(0, 0, 0));
 
         jpnDanhSachTuyen.setBackground(new java.awt.Color(255, 255, 255));
         jpnDanhSachTuyen.addMouseListener(new java.awt.event.MouseAdapter() {
