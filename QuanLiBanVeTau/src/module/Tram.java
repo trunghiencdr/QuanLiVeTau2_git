@@ -11,12 +11,18 @@ package module;
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
 public class Tram {
-    private String tenTram, diaChi;
+    private String maTram, tenTram, diaChi;
 
     public Tram() {
     }
 
-    public Tram( String tenTram, String diaChi) {
+    public Tram(String tenTram, String diaChi) {
+        this.tenTram = tenTram;
+        this.diaChi = diaChi;
+    }
+    
+    public Tram(String maTram, String tenTram, String diaChi) {
+        this.maTram = maTram;
         this.tenTram = tenTram;
         this.diaChi = diaChi;
     }
@@ -28,7 +34,15 @@ public class Tram {
     public void setDiaChi(String diaChi) {
         this.diaChi = diaChi;
     }
-    
+
+    public String getMaTram() {
+        return maTram;
+    }
+
+    public void setMaTram(String maTram) {
+        this.maTram = maTram;
+    }
+
     public String getTenTram() {
         return tenTram;
     }
@@ -36,5 +50,4 @@ public class Tram {
     public void setTenTram(String tenTram) {
         this.tenTram = tenTram;
     }
-    
 }

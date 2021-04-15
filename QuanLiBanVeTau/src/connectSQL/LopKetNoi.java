@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
@@ -255,5 +256,157 @@ public class LopKetNoi {
         }
         return false;
     }
+    public ArrayList<Tram> getDSTram() {
+        ArrayList<Tram> listTram = new ArrayList<Tram>();
+        String sql = "select * from Tram";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (true) {
+                if (rs.next()) {
+                    Tram s = new Tram();
+                    s.setMaTram(rs.getString("MaTram"));
+                    s.setTenTram(rs.getString("TenTram"));
+                    listTram.add(s);
+                } else {
+                    break;
+                }
+            }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listTram;
+    }
+    public ArrayList<TuyenDiQuaTram> getTuyenPhuHop(String maTramDi, String maTramDen) {     //Hàm lấy danh sách mã tuyến phù hợp với yêu cầu trạm đi và trạm đến
+        ArrayList<TuyenDiQuaTram> listTuyen = new ArrayList<TuyenDiQuaTram>();
+        String sql = "select table1.MaTuyen, table1.MaTram as MaTramDi, table1.STT as STTDi, table2.MaTram as MaTramDen, table2.STT as STTDen from TuyenDiQuaTram as table1\n" +
+        "join TuyenDiQuaTram as table2\n" +
+        "on  table1.MaTuyen=table2.MaTuyen and table1.MaTram=? and table2.MaTram=? and table1.STT<table2.STT;";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, maTramDi);
+            ps.setString(2, maTramDen);
+            ResultSet rs = ps.executeQuery();
+            while (true) {
+                if (rs.next()) {
+                    TuyenDiQuaTram s=new TuyenDiQuaTram();
+                    s.setMaTuyen(rs.getString("MaTuyen"));
+                    s.setMaTramDi(rs.getString("MaTramDi"));
+                    s.setMaTramDen(rs.getString("MaTramDen"));
+                    s.setSTTDi(rs.getInt("STTDi"));
+                    s.setSTTDen(rs.getInt("STTDen"));
+                    listTuyen.add(s);
+                } else {
+                    break;
+                }
+            }
+
+        } catch (Exception e) {
+        }
+        return listTuyen;
+    }
+    public ArrayList<TauChayTuyen> getTauTheoMaTuyen(String maTuyen,String ngayDi) {     //Hàm lấy danh sách tàu theo mã tuyến
+        ArrayList<TauChayTuyen> listTau = new ArrayList<TauChayTuyen>();
+        String sql = "select * from TauChayTuyen where MaTuyen=? and ThoiGianDen > ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, maTuyen);
+            ps.setString(2, ngayDi);
+            ResultSet rs = ps.executeQuery();
+            while (true) {
+                if (rs.next()) {
+                    TauChayTuyen s=new TauChayTuyen();
+                    s.setMaTau(rs.getString("MaTau"));
+                    s.setThoiGianKhoiHanh(rs.getTimestamp("ThoiGianKhoiHanh"));
+                    listTau.add(s);
+                } else {
+                    break;
+                }
+            }
+
+        } catch (Exception e) {
+        }
+        return listTau;
+    }
+    public TauChayTuyen getTauPhuHop(String maTuyen, int STTDi, int STTDen,String maTau,Timestamp thoiGianTauXuatPhat, String ngayCanTim) {     //Hàm lấy danh sách tàu theo mã tuyến
+        TauChayTuyen thongTinTauPhuHop=null;
+        String sql = "select * from [dbo].[tinhTauTuyenThoiGianTheoYeuCau](?,?,?,?,?,?);";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, maTuyen);
+            ps.setInt(2, STTDi);
+            ps.setInt(3, STTDen);
+            ps.setString(4, maTau);
+            ps.setTimestamp(5, thoiGianTauXuatPhat);
+            ps.setString(6, ngayCanTim);
+            ResultSet rs = ps.executeQuery();
+            while (true) {
+                if (rs.next()) {
+                    thongTinTauPhuHop = new TauChayTuyen();
+                    thongTinTauPhuHop.setMaTau(rs.getString("MaTau"));
+                    thongTinTauPhuHop.setMaTuyen(rs.getString("MaTuyen"));
+                    thongTinTauPhuHop.setThoiGianKhoiHanh(rs.getTimestamp("ThoiGianTauXuatPhat"));//Thời gian tàu đi từ trạm mà khách chọn
+                    thongTinTauPhuHop.setThoiGianDen(rs.getTimestamp("ThoiGianTauDenDich"));//Thời gian tàu đến đích mà khách chọn
+                } else {
+                    break;
+                }
+            }
+
+        } catch (Exception e) {
+        }
+        return thongTinTauPhuHop;
+    }
+    public ArrayList<Toa> getToaTheoMaTau(String maTau) {     //Hàm lấy danh sách Toa theo mã Tàu
+        ArrayList<Toa> listToa = new ArrayList<Toa>();
+        String sql = "select * from Toa\n" +
+"where MaToa in (select MaToa from ToaThuocTau where MaTau=?)";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, maTau);
+            ResultSet rs = ps.executeQuery();
+            while (true) {
+                if (rs.next()) {
+                    Toa s=new Toa();
+                    s.setMaToa(rs.getString("MaToa"));
+                    s.setMaLoaiToa(rs.getString("MaLoaiToa"));
+                    listToa.add(s);
+                } else {
+                    break;
+                }
+            }
+
+        } catch (Exception e) {
+        }
+        return listToa;
+    }
+    public boolean addVe(String tenTaiKhoan,int choNgoi,Timestamp thoiGianLenTau, Timestamp thoiGianDen,float gia, String maLoaiVe, String maToa,String maTau) {
+        String sql = "insert into Ve(TenTaiKhoan, ChoNgoi, ThoiGianLenTau, ThoiGianDen, Gia, MaLoaiVe, MaToa, MaTau) values(?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, tenTaiKhoan);
+            ps.setInt(2, choNgoi);
+            ps.setTimestamp(3, thoiGianLenTau);
+            ps.setTimestamp(4, thoiGianDen);
+            ps.setFloat(5, gia);
+            ps.setString(6, maLoaiVe);
+            ps.setString(7, maToa);
+            ps.setString(8, maTau);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            if (e.getMessage().equals("Arithmetic overflow error converting IDENTITY to data type int."))
+            {
+                String sql2 = "DBCC CHECKIDENT (Ve, RESEED, 0)";//reset lại mã vé
+                try {
+                    PreparedStatement ps2 = connection.prepareStatement(sql2);
+                    ps2.executeUpdate();
+                    addVe(tenTaiKhoan,choNgoi,thoiGianLenTau, thoiGianDen,gia, maLoaiVe, maToa, maTau);
+                }
+                catch (Exception e2) {
+                    e2.printStackTrace();
+                }
+            }
+        }
+        return false;
+    }
 }

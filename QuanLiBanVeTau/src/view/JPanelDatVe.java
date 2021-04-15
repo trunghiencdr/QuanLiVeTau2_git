@@ -7,6 +7,7 @@ package view;
 
 import view.datve.JPanelTimVeTau;
 import java.awt.BorderLayout;
+import module.TaiKhoan;
 
 
 /**
@@ -18,8 +19,10 @@ public class JPanelDatVe extends javax.swing.JPanel {
     /**
      * Creates new form JPanelDatVe
      */
-    public JPanelDatVe() {
+    TaiKhoan tk;
+    public JPanelDatVe(TaiKhoan tk) {
         initComponents();
+        this.tk=tk;
         
       
     }
@@ -122,7 +125,7 @@ public class JPanelDatVe extends javax.swing.JPanel {
         // TODO add your handling code here:
         this.removeAll();
         this.setLayout(new BorderLayout());
-        this.add(new JPanelTimVeTau());
+        this.add(new JPanelTimVeTau(tk));
         this.validate();
         this.repaint();
     }//GEN-LAST:event_jLabel1MousePressed
@@ -131,7 +134,7 @@ public class JPanelDatVe extends javax.swing.JPanel {
         // TODO add your handling code here:
          this.removeAll();
         this.setLayout(new BorderLayout());
-        this.add(new JPanelTimVeTau());
+        this.add(new JPanelTimVeTau(tk));
         this.validate();
         this.repaint();
     }//GEN-LAST:event_jpnTimVeTauMousePressed
@@ -140,7 +143,7 @@ public class JPanelDatVe extends javax.swing.JPanel {
         // TODO add your handling code here:
          this.removeAll();
         this.setLayout(new BorderLayout());
-        this.add(new JPanelTimVeTau());
+        this.add(new JPanelTimVeTau(tk));
         this.validate();
         this.repaint();
     }//GEN-LAST:event_jpnTraCuuThongTinMousePressed
