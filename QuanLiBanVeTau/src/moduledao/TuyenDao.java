@@ -6,7 +6,6 @@
 package moduledao;
 
 import connectSQL.LopKetNoi;
-import java.awt.TextArea;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JTable;
@@ -29,7 +28,7 @@ public class TuyenDao {
         return tam.substring(0, tam.length() - 1);
     }
     
-    public String chuyenArrayListStringFloatString(ArrayList<Float> DS, String dau) {
+    public String chuyenArrayListFloatSangString(ArrayList<Float> DS, String dau) {
         String tam = "";
         for (Float s : DS) {
             tam += Float.toString(s) + dau;
@@ -72,10 +71,10 @@ public class TuyenDao {
         try {
             while (rs.next()) {
                 String maTuyen = rs.getString(1);
-                String DSTramDiQua = chuyenArrayListStringSangString(getDSTramDiQua(maTuyen), "-");
-                String DSKhoangCach = chuyenArrayListStringFloatString(getDSKhoangCach(maTuyen),"-");
+                String TramDiQua = chuyenArrayListStringSangString(getDSTramDiQua(maTuyen), "-");
+                String KhoangCach = chuyenArrayListFloatSangString(getDSKhoangCach(maTuyen),"-");
                 String tenTuyen = rs.getString(2);
-                model.addRow(new Object[]{maTuyen, tenTuyen, DSTramDiQua, DSKhoangCach});
+                model.addRow(new Object[]{maTuyen, tenTuyen, TramDiQua, KhoangCach});
             }
         } catch (Exception e) {
         }
