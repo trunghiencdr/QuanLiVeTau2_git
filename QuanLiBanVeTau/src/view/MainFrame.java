@@ -37,8 +37,8 @@ public class MainFrame extends javax.swing.JFrame {
         setTitle("Quản lí bán vé tàu");
 
         ChuyenManHinhController controller = new ChuyenManHinhController(jpnView);
-        controller.setView(jpnDatVe, jlbDatVe);
         controller.setTaiKhoan(tk);
+        controller.setView(jpnDatVe, jlbDatVe);
 
         List<DanhMucBean> list = new ArrayList<>();
         list.add(new DanhMucBean("DatVe", jpnDatVe, jlbDatVe));

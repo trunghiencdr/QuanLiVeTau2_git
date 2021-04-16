@@ -50,7 +50,7 @@ public class ChuyenManHinhController {
 
         view.removeAll();
         view.setLayout(new BorderLayout());
-        view.add(new JPanelDatVe());
+        view.add(new JPanelDatVe(taiKhoan));
         view.validate();
         view.repaint();
     }
@@ -91,7 +91,7 @@ public class ChuyenManHinhController {
             try {
                 switch (kind) {
                     case "DatVe":
-                        node = new JPanelDatVe();
+                        node = new JPanelDatVe(taiKhoan);
                         break;
                     case "QuanLiLoTrinh":
                         node = new JPanelQuanLiLoTrinh();
