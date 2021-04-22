@@ -6,6 +6,8 @@
 
 package module;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -16,23 +18,44 @@ import java.util.Date;
  */
 public class Chuyen {
     private String ma;
+    private String maTau;
     private String maTuyen;
-    private String khoangThoiGian;
-    private LocalTime thoiGianKH;
-    private LocalTime thoiGianKT;
+    private LocalDateTime thoiGianKH;
+    private LocalDateTime thoiGianDen;
+    private LocalDate ngayBatDau;
+    private LocalDate ngayKetThuc;
     private String trangThai;
 
     public Chuyen() {
     }
 
-    public Chuyen(String ma, String maTuyen, String maThoiGian, LocalTime thoiGianKH, LocalTime thoiGianKT, String trangThai) {
-       
+    public Chuyen(String ma, String maTau, String maTuyen, LocalDateTime thoiGianKH, LocalDateTime thoiGianDen, LocalDate ngayBatDau, LocalDate ngayKetThuc, String trangThai) {
         this.ma = ma;
+        this.maTau = maTau;
         this.maTuyen = maTuyen;
-        this.khoangThoiGian = maThoiGian;
         this.thoiGianKH = thoiGianKH;
-        this.thoiGianKT = thoiGianKT;
+        this.thoiGianDen = thoiGianDen;
+        this.ngayBatDau = ngayBatDau;
+        this.ngayKetThuc = ngayKetThuc;
         this.trangThai = trangThai;
+    }
+
+    public LocalDateTime getThoiGianDen() {
+        return thoiGianDen;
+    }
+
+    public void setThoiGianDen(LocalDateTime thoiGianDen) {
+        this.thoiGianDen = thoiGianDen;
+    }
+
+
+
+    public LocalDate getNgayKetThuc() {
+        return ngayKetThuc;
+    }
+
+    public void setNgayKetThuc(LocalDate ngayKetThuc) {
+        this.ngayKetThuc = ngayKetThuc;
     }
 
     public String getMa() {
@@ -43,6 +66,14 @@ public class Chuyen {
         this.ma = ma;
     }
 
+    public String getMaTau() {
+        return maTau;
+    }
+
+    public void setMaTau(String maTau) {
+        this.maTau = maTau;
+    }
+
     public String getMaTuyen() {
         return maTuyen;
     }
@@ -51,28 +82,20 @@ public class Chuyen {
         this.maTuyen = maTuyen;
     }
 
-    public String getKhoangThoiGian() {
-        return khoangThoiGian;
-    }
-
-    public void setKhoangThoiGian(String maThoiGian) {
-        this.khoangThoiGian = maThoiGian;
-    }
-
-    public LocalTime getThoiGianKH() {
+    public LocalDateTime getThoiGianKH() {
         return thoiGianKH;
     }
 
-    public void setThoiGianKH(LocalTime thoiGianKH) {
+    public void setThoiGianKH(LocalDateTime thoiGianKH) {
         this.thoiGianKH = thoiGianKH;
     }
 
-    public LocalTime getThoiGianKT() {
-        return thoiGianKT;
+    public LocalDate getNgayBatDau() {
+        return ngayBatDau;
     }
 
-    public void setThoiGianKT(LocalTime thoiGianKT) {
-        this.thoiGianKT = thoiGianKT;
+    public void setNgayBatDau(LocalDate ngayBatDau) {
+        this.ngayBatDau = ngayBatDau;
     }
 
     public String getTrangThai() {
@@ -82,6 +105,5 @@ public class Chuyen {
     public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
-    
-    
+
 }

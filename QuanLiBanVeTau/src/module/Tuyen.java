@@ -16,16 +16,16 @@ import java.util.ArrayList;
 public class Tuyen {
     private String maTuyen, tenTuyen;
     private ArrayList<String> DSTramDiQua;
-    private ArrayList<Float>DSKhoangCach;
+    private ArrayList<Integer>DSThoiGian;
 
     public Tuyen() {
     }
 
-    public Tuyen(String maTuyen, String tenTuyen, ArrayList<String> DSTramDiQua, ArrayList<Float> DSKhoangCach) {
+    public Tuyen(String maTuyen, String tenTuyen, ArrayList<String> DSTramDiQua, ArrayList<Integer>DSThoiGian) {
         this.maTuyen = maTuyen;
         this.tenTuyen = tenTuyen;
         this.DSTramDiQua = DSTramDiQua;
-        this.DSKhoangCach = DSKhoangCach;
+        this.DSThoiGian = DSThoiGian;
     }
 
     public String getMaTuyen() {
@@ -63,18 +63,18 @@ public class Tuyen {
     
     public String DSKhoangCachSangChuoi(){
         StringBuilder stringBuilder=new StringBuilder();
-        DSKhoangCach.forEach(s -> {
+        DSThoiGian.forEach(s -> {
             stringBuilder.append(s).append("-");
         });
         return stringBuilder.replace(stringBuilder.length()-1, stringBuilder.length(),"").toString();
     }
 
-    public ArrayList<Float> getDSKhoangCach() {
-        return DSKhoangCach;
+    public ArrayList<Integer> getDSThoiGian() {
+        return DSThoiGian;
     }
 
-    public void setDSKhoangCach(ArrayList<Float> DSKhoangCach) {
-        this.DSKhoangCach = DSKhoangCach;
+    public void setDSKhoangCach(ArrayList<Integer> DSThoiGian) {
+        this.DSThoiGian = DSThoiGian;
     }
     
 }

@@ -22,6 +22,7 @@ import view.JPanelCaiDatTaiKhoan;
 import view.JPanelDatVe;
 import view.JPanelQuanLiLoTrinh;
 import view.JPanelQuanLiTau;
+import view.JPanelQuanLiToaTau;
 import view.JPanelQuanLiTuyen;
 import view.JPanelThongKe;
 
@@ -88,37 +89,32 @@ public class ChuyenManHinhController {
 
         @Override
         public void mousePressed(java.awt.event.MouseEvent e) {
-            try {
-                switch (kind) {
-                    case "DatVe":
-                        node = new JPanelDatVe(taiKhoan);
-                        break;
-                    case "QuanLiLoTrinh":
-                        node = new JPanelQuanLiLoTrinh();
-                        break;
-                    case "QuanLiTau":
-                        node = new JPanelQuanLiTau();
-                        break;
-                    case "QuanLiTuyen":
-                        node = new JPanelQuanLiTuyen();
-                        break;
-                    case "ThongKe":
-                        node = new JPanelThongKe();
-                        break;
-                    case "CaiDatTaiKhoan":
-                        node = new JPanelCaiDatTaiKhoan(taiKhoan);
-                        break;
-                }
-
-                view.removeAll();
-                view.setLayout(new BorderLayout());
-                view.add(node);
-                view.validate();
-                view.repaint();
-                setChangeBackground();
-            } catch (SQLException ex) {
-                Logger.getLogger(ChuyenManHinhController.class.getName()).log(Level.SEVERE, null, ex);
+            switch (kind) {
+                case "DatVe":
+                    node = new JPanelDatVe(taiKhoan);
+                    break;
+                case "QuanLiLoTrinh":
+                    node = new JPanelQuanLiLoTrinh();
+                    break;
+                case "QuanLiTau":
+                    node = new JPanelQuanLiToaTau();
+                    break;
+                case "QuanLiTuyen":
+                    node = new JPanelQuanLiTuyen();
+                    break;
+                case "ThongKe":
+                    node = new JPanelThongKe();
+                    break;
+                case "CaiDatTaiKhoan":
+                    node = new JPanelCaiDatTaiKhoan(taiKhoan);
+                    break;
             }
+            view.removeAll();
+            view.setLayout(new BorderLayout());
+            view.add(node);
+            view.validate();
+            view.repaint();
+            setChangeBackground();
         }
 
         @Override

@@ -70,27 +70,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         }
     }
 
-    private void loadDuLieuTuyenLenBang() {
-        try {
-            PreparedStatement ps = connection.prepareStatement("select * from tuyen");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                StringBuilder stringBuilder = new StringBuilder();
-                String maTuyen = rs.getString(1);
-                PreparedStatement ps1 = connection.prepareStatement("select tenTram from TuyenDiQuaTram where maTuyen = ? order by STT  ASC");
-                ps1.setString(1, maTuyen);
-                ResultSet rs1 = ps1.executeQuery();
-                while (rs1.next()) {
-                    stringBuilder.append(rs1.getString(1) + "-");
-                }
-                if (stringBuilder.length() != 0) {
-                    stringBuilder.delete(stringBuilder.length() - 1, stringBuilder.length());
-                }
-                tbmBangTuyen.addRow(new Object[]{maTuyen, rs.getString(2), stringBuilder.toString()});
-            }
-        } catch (Exception e) {
-        }
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -125,6 +105,8 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         jlTram = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -252,7 +234,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         jLabel12.setText("Định dạng: trạm-trạm-trạm");
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel13.setText("Định dạng: km-km");
+        jLabel13.setText("Định dạng: phút-phút");
 
         jlbTenTuyen.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         jlbTenTuyen.setForeground(new java.awt.Color(255, 51, 51));
@@ -275,7 +257,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                                 .addGap(259, 259, 259)
                                 .addComponent(jlbTenDialog))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
+                                .addGap(42, 42, 42)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel6)
@@ -307,7 +289,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(217, 217, 217)
                         .addComponent(btnXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,7 +333,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlbKhoangCach)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
                 .addComponent(btnXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
@@ -364,7 +346,9 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         );
         jdlThuocTinhTuyenLayout.setVerticalGroup(
             jdlThuocTinhTuyenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jdlThuocTinhTuyenLayout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jTextField3.setText("jTextField3");
@@ -373,6 +357,10 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                 jTextField3ActionPerformed(evt);
             }
         });
+
+        jLabel10.setText("jLabel10");
+
+        jLabel15.setText("jLabel15");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -620,31 +608,31 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         jlbKhoangCach.setText(" ");
     }
 
-    private void kiemTraJTAKhoangCach() {
-        String khoangCach = jtaKhoangCach.getText().trim();
-        if (khoangCach.equals("")) {
+    private void kiemTraJTAThoiGian() {
+        String thoiGian = jtaKhoangCach.getText().trim();
+        if (thoiGian.equals("")) {
             jlbKhoangCach.setText("Không được để trống");
         } else {
-            String[] tachKhoangCach = khoangCach.split("\\s*-\\s*");// khoang trang - khoang trang
-            if (khoangCach.substring(khoangCach.length() - 1, khoangCach.length()).equals("-")) {
+            String[] tachThoiGian = thoiGian.split("\\s*-\\s*");// khoang trang - khoang trang
+            if (thoiGian.substring(thoiGian.length() - 1, thoiGian.length()).equals("-")) {
                 jlbKhoangCach.setText("Không đúng định dạng");
             } else {
-                for (String s : tachKhoangCach) {
+                for (String s : tachThoiGian) {
                     String tachTram[] = jtaCacTramDiQua.getText().trim().split("\\s*-\\s*");
-                    for (String kc : tachKhoangCach) {
+                    for (String tg : tachThoiGian) {
                         try {
-                            float kcFloat = Float.parseFloat(kc);
-                            if (kcFloat == 0) {
-                                jlbKhoangCach.setText("Khoảng cách phải khác không");
+                            int tgInt = Integer.parseInt(tg);
+                            if (tgInt == 0) {
+                                jlbKhoangCach.setText("Thời gian phải khác không");
                             } else {// không đổi đc
-                                if (tachKhoangCach.length == tachTram.length - 1) {
+                                if (tachThoiGian.length == tachTram.length - 1) {
                                     jlbKhoangCach.setText(" ");
                                 } else {
-                                    jlbKhoangCach.setText("Số khoảng cách phải bằng số trạm - 1");
+                                    jlbKhoangCach.setText("Số lương thời gian phải bằng số trạm - 1");
                                 }
                             }
                         } catch (Exception e) {
-                            jlbKhoangCach.setText("Khoảng cách phải là một số");
+                            jlbKhoangCach.setText("Thời gian phải là một số");
                             break;
                         }
                     }
@@ -734,7 +722,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                                 // kiem tra xem co tồn tại trạm đi qua này chưa
                                 if (kiemTraTramDiQuaDB()) {// nếu chưa có trong csdl
                                     jlbCacTramDiQua.setText(" ");
-                                    kiemTraJTAKhoangCach();
+                                    kiemTraJTAThoiGian();
                                 } else {
                                     jlbCacTramDiQua.setText("Các trạm đi qua đã tồn tại rồi");
                                 }
@@ -765,7 +753,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
                 kiemTraJTACacTramDiQua();
                 break;
             case "khoảng cách":
-                kiemTraJTAKhoangCach();
+                kiemTraJTAThoiGian();
                 break;
         }
 
@@ -775,7 +763,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         kiemTraJTFMaTuyen();
         kiemTraJTFTenTuyen();
         kiemTraJTACacTramDiQua();
-        kiemTraJTAKhoangCach();
+        kiemTraJTAThoiGian();
         if (jlbMaTuyen.getText().equals(" ") && jlbMaTuyen.getText().equals(" ")
                 && jlbCacTramDiQua.getText().equals(" ") && jlbKhoangCach.getText().equals(" ")) {
             return true;
@@ -793,12 +781,12 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         return tam;
     }
 
-    private ArrayList<Float> getKhoangCach() {
+    private ArrayList<Integer> getDSThoiGian() {
         String[] khoangCach = jtaKhoangCach.getText().trim().split("\\s*-\\s*");
-        ArrayList<Float> tam = new ArrayList<>();
+        ArrayList<Integer> tam = new ArrayList<>();
         for (String s : khoangCach) {
             try {
-                tam.add(Float.parseFloat(s));
+                tam.add(Integer.parseInt(s));
             } catch (Exception e) {
                 return null;
             }
@@ -810,8 +798,8 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
         String maTuyen = jtfMaTuyen.getText().trim().toUpperCase();
         String tenTuyen = jtfTenTuyen.getText().trim().toUpperCase();
         ArrayList<String> cacTramDiQua = getCacTramDiQua();
-        ArrayList<Float> khoangCach = getKhoangCach();
-        return new Tuyen(maTuyen, tenTuyen, cacTramDiQua, khoangCach);
+        ArrayList<Integer> thoiGian = getDSThoiGian();
+        return new Tuyen(maTuyen, tenTuyen, cacTramDiQua, thoiGian);
     }
 
     private void setRong() {
@@ -1069,8 +1057,10 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbbTiemKiem;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

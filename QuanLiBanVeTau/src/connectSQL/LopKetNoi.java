@@ -26,7 +26,7 @@ public class LopKetNoi {
 
     public LopKetNoi() {
 
-        String url = "jdbc:sqlserver://;databaseName=QuanLiVeTau";
+        String url = "jdbc:sqlserver://;databaseName=QuanLiVeTau2";
         String user = "sa";
         String pass = "123";
         try {
@@ -186,7 +186,7 @@ public class LopKetNoi {
     }
 
     public static void ketNoi() {
-        String url = "jdbc:sqlserver://;databaseName=QuanLiVeTau";
+        String url = "jdbc:sqlserver://;databaseName=QuanLiVeTau2";
         String user = "sa";
         String pass = "123";
         try {
@@ -220,6 +220,7 @@ public class LopKetNoi {
             }
             ps.executeUpdate();
         } catch (Exception e) {
+            System.out.println("xoa khong thanh cong");
             return false; // khóa bị trùng khi thêm , còn sửa và xóa thì chắc là không lỗi đâu
         }
         return true;
