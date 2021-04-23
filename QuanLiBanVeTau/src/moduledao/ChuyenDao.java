@@ -106,11 +106,13 @@ public class ChuyenDao {
     public static ArrayList<String> getLichTrinhTau(String maTau) {
         ArrayList<String> lichTrinh = new ArrayList<>();
         try {
-            ResultSet rs = LopKetNoi.select("select thoiGianKhoiHanh, thoiGianDen, ngayKetThuc "
-                    + "from Chuyen where maTau =", maTau);
+            ResultSet rs = LopKetNoi.select("select thoiGianKhoiHanh, ngayKetThuc, trangThai"
+                    + " from Chuyen where maTau = ?", maTau);
             while (rs.next()) {
-                lichTrinh.add(rs.getTimestamp(1).toLocalDateTime() + " đến " + rs.getTimestamp(2).toLocalDateTime() + " từ ngày "
-                        + rs.getTimestamp(1).toLocalDateTime().toLocalDate() + " đến " + rs.getDate(3));
+                System.out.println("vao lich trinh tau");
+                LocalDateTime thoiGianKH = rs.getTimestamp("thoiGianKhoiHanh").toLocalDateTime();
+                lichTrinh.add(thoiGianKH + " đến " + getThoiGianKT(maTau, thoiGianKH) + ", từ ngày "
+                        + thoiGianKH.toLocalDate() + " đến " + rs.getDate("ngayKetThuc") + " " + rs.getString("trangThai"));
             }
         } catch (Exception e) {
             System.out.println("get lich trinh tau that bai");
@@ -366,13 +368,11 @@ public class ChuyenDao {
     }
 //
 
-    public static boolean suaChuyenTrongDB(Chuyen chuyen) {// lười kiểm tra thời gian bd và kt có trùng cái cũ không
-        xoaChuyenTrongDB(chuyen.getMa());
-        if (themChuyenVaoDB(chuyen)) {
-            return true;
-        } else {
-            return false;
-        }
+    public static void suaChuyenTrongDB(Chuyen chuyen) {// lười kiểm tra thời gian bd và kt có trùng cái cũ không
+        LopKetNoi.update("update Chuyen set maTau=?, maTuyen=?, thoiGianKhoiHanh=?, ngayKetThuc=?, trangThai=?", 
+                chuyen.getMa(), chuyen.getMaTuyen(), chuyen.getThoiGianKH(), chuyen.getThoiGianDen(), 
+                chuyen.getNgayKetThuc(), chuyen.getTrangThai());
+        
     }
 ////
 //

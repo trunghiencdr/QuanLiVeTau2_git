@@ -374,7 +374,7 @@ public class JPanelDanhSachTuyen extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã tuyến", "Tên tuyến", "Danh sách trạm", "Khoảng cách"
+                "Mã tuyến", "Tên tuyến", "Danh sách trạm", "Thời gian(phút)"
             }
         ) {
             boolean[] canEdit = new boolean [] {
